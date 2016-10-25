@@ -22,7 +22,7 @@ public class IOTServer implements IOTServerInterface {
 
     }
 
-    public void broadcastServiceOffering(String typeOfService){
+    public void receiveServiceOffering(){
 
     }
 

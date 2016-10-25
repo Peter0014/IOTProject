@@ -22,6 +22,14 @@ public class HTTPServerConnector extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        //decode a json object -> hashmap
+
+        //turn it into a message object
+
+        //pass this object to the application
+
         response.setStatus(200);
     }
 
