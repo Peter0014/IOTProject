@@ -7,8 +7,11 @@ import java.util.ArrayList;
  */
 public interface IOTClientInterface {
 
+    /**
+     * This method broadcasts UDP packages which describe the service
+     */
+    public void broadcastServiceOffering(String typeOfService);
     public void notifySubscribers(String messageType, ArrayList notification);
-    public void receiveServiceOffering();
     public void createSubscriptionRequest(String destinationIP, int destinationPort);
 
 }

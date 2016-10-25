@@ -8,11 +8,12 @@ import java.util.ArrayList;
  */
 public interface IOTServerInterface {
 
-    /**
-     * This method broadcasts UDP packages which describe the service
-     */
-    public void broadcastServiceOffering(String typeOfService);
 
+    /**
+     * This method receives a UDP Service Offering package and analyzes its content.
+     * If it is interested in the Service it tells the Client to sent a subscription request.
+     */
+    public void receiveServiceOffering();
     /**
      * This method handles incoming subscribe requests
      */
