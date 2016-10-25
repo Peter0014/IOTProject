@@ -1,0 +1,24 @@
+# GITIGNORE
+
+# we don't want anything compiled on git
+*.class
+
+# Intellij defaultly compiles into out, Eclipse into bin (or build sometimes)
+bin/
+out/
+build/
+
+# next up, no project files -- note that a IDE-native project import will be 
+# necessary to work with the project properly...
+
+# IntelliJ IDEA project files
+*.iml
+*.iws
+.idea/
+
+# Eclipse Project files
+.project
+.classpath
+
+# MAC Stuff
+.DS_Store
