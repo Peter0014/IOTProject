@@ -7,8 +7,5 @@ package IOTApplication.IOTApplication;
  */
 public interface IOTApplicationInterface {
 	/** Handles a received package and starts an event if triggered. */
-	public void handleIncomingNotification(IOTMessage pack);
-
-	/** Sends package to all Subscriber by forwarding it to the client. */
-	public void sendNotificationToSubs(IOTMessage pack);
+	public void handleIncomingNotification(IOTMessage message);
 }
