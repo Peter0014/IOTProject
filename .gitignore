@@ -19,6 +19,7 @@ build/
 # Eclipse Project files
 .project
 .classpath
+.settings
 
 # MAC Stuff
 .DS_Store
