@@ -59,7 +59,7 @@ public class AlarmTest {
 		 * assertTrue("Alarm wasn't deleted. ErrorCode: " + errorCode, errorCode
 		 * == 0);
 		 */
-		Thread.sleep(alarmDelay + 2000);
+		Thread.sleep(alarmDelay + 5000);
 
 	}
 

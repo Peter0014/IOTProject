@@ -8,6 +8,12 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiPin;
+
 import IOTApplication.IOTApplication.IOTApplicationInterface;
 import IOTApplication.IOTApplication.IOTMessage;
 
@@ -102,6 +108,19 @@ public class AlarmClockService implements IOTApplicationInterface {
 			public void run() {
 				/* Make the Piezo sound */
 				System.out.println("ALARM served at: " + Calendar.getInstance().getTime());
+
+				try {
+					final GpioController gpio = GpioFactory.getInstance();
+					final GpioPinDigitalOutput piezo = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_22);
+					piezo.high();
+					Thread.sleep(2000);
+					piezo.setState(PinState.LOW);
+					gpio.low();
+
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				/* Remove Task from alarms */
 				alarms.replace(dateInMs, null);
