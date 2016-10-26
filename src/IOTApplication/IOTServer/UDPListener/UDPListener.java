@@ -13,8 +13,9 @@ public class UDPListener implements UDPListenerInterface {
     private Integer port = null;
     private DatagramSocket socket = null;
     private Boolean running = null;
+    // private reference_to_message_receiver's_interface receiver;
 
-    public UDPListener (Integer port) {
+    public UDPListener (Integer port /*, receiver */) {
         this.port = port;
         this.running = false;
     }
@@ -32,7 +33,13 @@ public class UDPListener implements UDPListenerInterface {
             while(running) {
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
                 socket.receive(datagram);
+                //parse the service offering -- UDP, so it's a string
+                String data = new String(datagram.getData());
+                System.out.println("Received offering from " + datagram.getAddress());
+                System.out.println(data);
 
+                // TODO pass the offering to... somebody who cares? WHO GETS IT?
+                // send to reference_to_message_receiver's_interface
             }
 
         } catch (IOException e) {
