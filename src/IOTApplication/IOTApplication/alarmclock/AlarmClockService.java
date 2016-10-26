@@ -14,7 +14,7 @@ import IOTApplication.IOTApplication.IOTMessage;
 /**
  * The AlarmClockService creates and saves alarms set by the user. A timer
  * starts to run when the alarm is activated and a loud tune will be played at
- * the corresponding time (through a Piezo element hooked to the Raspberry Pie).
+ * the corresponding time (through a Piezo element hooked to the Raspberry Pi).
  * An alarm can only be added and started once and is not allowed to be set in
  * the past. An error code will be returned if that happens.
  * 
@@ -101,7 +101,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 			@Override
 			public void run() {
 				/* Make the Piezo sound */
-				System.out.println("ALARM");
+				System.out.println("ALARM served at: " + Calendar.getInstance().getTime());
 
 				/* Remove Task from alarms */
 				alarms.replace(dateInMs, null);
