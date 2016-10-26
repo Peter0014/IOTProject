@@ -1,5 +1,8 @@
 package IOTApplication.IOTServer.UDPListener;
 
+import IOTApplication.IOTServer.IOTServerInterface;
+
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -13,10 +16,12 @@ public class UDPListener implements UDPListenerInterface {
     private Integer port = null;
     private DatagramSocket socket = null;
     private Boolean running = null;
-    // private reference_to_message_receiver's_interface receiver;
+    private IOTServerInterface receiverServer;
 
-    public UDPListener (Integer port /*, receiver */) {
+    public UDPListener (@NotNull Integer port, @NotNull IOTServerInterface receiverServer) {
         this.port = port;
+        this.receiverServer = receiverServer;
+
         this.running = false;
     }
 
@@ -38,8 +43,7 @@ public class UDPListener implements UDPListenerInterface {
                 System.out.println("Received offering from " + datagram.getAddress());
                 System.out.println(data);
 
-                // TODO pass the offering to... somebody who cares? WHO GETS IT?
-                // send to reference_to_message_receiver's_interface
+                receiverServer.receiveServiceOffering(datagram.getAddress(), data);
             }
 
         } catch (IOException e) {
