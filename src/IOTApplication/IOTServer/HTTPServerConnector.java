@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import IOTApplication.IOTServer.UDPListener.UDPListener;
 import IOTApplication.IOTServer.UDPListener.UDPListenerInterface;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 
@@ -66,7 +67,12 @@ public class HTTPServerConnector extends HttpServlet {
                 buffer.append(line);
             }
 
+            Gson gson = new GsonBuilder().create();
             IOTMessage message = gson.fromJson(buffer.toString(), IOTMessage.class);
+            server.incomingNotificationHandler(message);
+
+            response.setStatus(HttpServletResponse.SC_OK); 
+
         } catch (Exception e) {
             //
         }
@@ -76,8 +82,6 @@ public class HTTPServerConnector extends HttpServlet {
         //turn it into a message object
 
         //pass this object to the application
-
-        response.setStatus(200);
     }
 
     /**

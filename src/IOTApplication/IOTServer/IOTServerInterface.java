@@ -1,6 +1,8 @@
 package IOTApplication.IOTServer;
 
 
+import IOTApplication.IOTApplication.IOTMessage;
+
 import java.util.ArrayList;
 
 /**
@@ -23,6 +25,6 @@ public interface IOTServerInterface {
     /**
      * This method passes incoming Notifications on to the application
      */
-    public void incomingNotificationHandler(String messageType, ArrayList notification);
+    public void incomingNotificationHandler(IOTMessage message);
 
 }

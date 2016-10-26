@@ -38,7 +38,8 @@ public class IOTServer implements IOTServerInterface {
         subscribers.addSubscriber(newSubscriber);
     }
 
-    public void incomingNotificationHandler(String messageType, ArrayList notification){
+    public void incomingNotificationHandler(IOTMessage message){
+        application.handleIncomingNotification(message);
 
     }
 }
