@@ -1,6 +1,7 @@
 package IOTApplication.IOTServer;
 
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,23 @@ public class HTTPServerConnector extends HttpServlet {
 
     private IOTServerInterface server;
 
-    public HTTPServerConnector(IOTServerInterface pServer){
+    public HTTPServerConnector(IOTServerInterface pServer) {
         server = pServer;
     }
 
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+
+        //TODO
+        // start UDP listener
+        // if we had a database, initialize that here too
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//TODO
+        //TODO
         //decode a json object -> hashmap
         //turn it into a message object
 
@@ -40,6 +51,7 @@ public class HTTPServerConnector extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String ipAddress;

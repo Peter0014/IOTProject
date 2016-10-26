@@ -22,8 +22,8 @@ public class IOTServer implements IOTServerInterface {
 
     }
 
-    public void receiveServiceOffering(){
-
+    public void receiveServiceOffering() {
+        // invoke UDP-Handler
     }
 
     /**
