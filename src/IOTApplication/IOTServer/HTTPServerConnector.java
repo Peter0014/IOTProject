@@ -39,7 +39,8 @@ public class HTTPServerConnector extends HttpServlet {
         // if we had a database, initialize that here too
 
         udpListener = new UDPListener(1000); // or whatever port?
-        udpListener.run();
+        Thread listenerThread = new Thread(udpListener);
+        listenerThread.start();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class HTTPServerConnector extends HttpServlet {
         super.destroy();
 
         //TODO
-        // kill UDP listener
+        // kill UDP listener - I don't know if this is the proper way to do it
         udpListener.terminate();
     }
 
