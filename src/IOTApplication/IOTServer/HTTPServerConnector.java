@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.io.BufferedReader;
+
+import IOTApplication.IOTServer.UDPListener.UDPListener;
+import IOTApplication.IOTServer.UDPListener.UDPListenerInterface;
 import com.google.gson.Gson;
 
 
@@ -21,6 +24,7 @@ import com.google.gson.Gson;
 public class HTTPServerConnector extends HttpServlet {
 
     private IOTServerInterface server;
+    private UDPListenerInterface udpListener = null;
 
     public HTTPServerConnector(IOTServerInterface pServer) {
         server = pServer;
@@ -33,6 +37,18 @@ public class HTTPServerConnector extends HttpServlet {
         //TODO
         // start UDP listener
         // if we had a database, initialize that here too
+
+        udpListener = new UDPListener(1000); // or whatever port?
+        udpListener.run();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+
+        //TODO
+        // kill UDP listener
+        udpListener.terminate();
     }
 
     @Override
