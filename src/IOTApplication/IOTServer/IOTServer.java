@@ -3,6 +3,8 @@ package IOTApplication.IOTServer;
 import IOTApplication.*;
 import IOTApplication.IOTClient.*;
 import IOTApplication.IOTApplication.*;
+
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +24,11 @@ public class IOTServer implements IOTServerInterface {
 
     }
 
-    public void receiveServiceOffering() {
-        // invoke UDP-Handler
+    public void receiveServiceOffering(InetAddress sourceAddress, String data) {
+        System.out.println("Received data from " + sourceAddress);
+        //TODO: compare data to internal list of serviceOfferings
+        //TODO: if interested, tell Client to send subscriptionRequest to sourceAddress
+        // else ignore message and move on :)
     }
 
     /**
