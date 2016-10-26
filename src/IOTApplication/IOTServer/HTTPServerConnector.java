@@ -1,6 +1,6 @@
 package IOTApplication.IOTServer;
 
-
+import IOTApplication.IOTApplication.*;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletRequest;
 import java.io.IOException;
+import java.io.BufferedReader;
+import com.google.gson.Gson;
+
+
 
 /**
  * This class translates HTTP queries into logical IOT requests.
@@ -35,6 +39,22 @@ public class HTTPServerConnector extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //TODO
+
+        try {
+            // Read from request
+            StringBuilder buffer = new StringBuilder();
+            BufferedReader reader = request.getReader();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+            }
+
+            IOTMessage message = gson.fromJson(buffer.toString(), IOTMessage.class);
+        } catch (Exception e) {
+            //
+        }
+
+        //get post request body
         //decode a json object -> hashmap
         //turn it into a message object
 
