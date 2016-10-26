@@ -10,11 +10,11 @@ import java.util.ArrayList;
  */
 public class IOTServer implements IOTServerInterface {
 
-    SubscriberList subscribers;
-    IOTClientInterface client;
-    IOTApplicationInterface application;
+    private SubscriberList subscribers;
+    private IOTClientInterface client;
+    private IOTApplicationInterface application;
 
-    IOTServer(SubscriberList pSubscribers, IOTClientInterface pClient, IOTApplicationInterface pApplication){
+    public IOTServer(SubscriberList pSubscribers, IOTClientInterface pClient, IOTApplicationInterface pApplication){
 
         subscribers = pSubscribers;
         client = pClient;

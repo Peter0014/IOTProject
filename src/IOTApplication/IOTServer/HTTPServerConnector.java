@@ -15,17 +15,16 @@ import java.io.IOException;
  */
 public class HTTPServerConnector extends HttpServlet {
 
-    IOTServer server;
+    private IOTServerInterface server;
 
-    HTTPServerConnector(IOTServer pServer){
+    public HTTPServerConnector(IOTServerInterface pServer){
         server = pServer;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+//TODO
         //decode a json object -> hashmap
-
         //turn it into a message object
 
         //pass this object to the application
@@ -50,7 +49,7 @@ public class HTTPServerConnector extends HttpServlet {
 
         server.subscribeRequestHandler(ipAddress,port);
 
-        response.setStatus(200);
+        response.setStatus(HttpServletResponse.SC_OK);
 
     }
 }
