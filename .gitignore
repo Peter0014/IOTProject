@@ -23,3 +23,8 @@ build/
 
 # MAC Stuff
 .DS_Store
+
+# Maven
+
+/target/
+
