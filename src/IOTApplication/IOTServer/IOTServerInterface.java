@@ -1,6 +1,7 @@
 package IOTApplication.IOTServer;
 
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ public interface IOTServerInterface {
      * This method receives a UDP Service Offering package and analyzes its content.
      * If it is interested in the Service it tells the Client to sent a subscription request.
      */
-    public void receiveServiceOffering();
+    public void receiveServiceOffering(InetAddress sourceAddress, String data);
 
     /**
      * This method handles incoming subscribe requests
