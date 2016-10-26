@@ -5,8 +5,8 @@ package IOTApplication;
  */
 public class Subscriber {
 
-    String ipAddress;
-    int port;
+    final private String ipAddress;
+    final private int port;
 
     public Subscriber(String pIpAddress, int pPort){
         ipAddress = pIpAddress;
@@ -17,16 +17,8 @@ public class Subscriber {
         return ipAddress;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
     public int getPort() {
         return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
     }
 
 

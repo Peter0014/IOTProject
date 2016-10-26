@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class SubscriberList {
 
 
-    ArrayList<Subscriber> List;
+    private ArrayList<Subscriber> list;
 
 
     /**
@@ -19,19 +19,19 @@ public class SubscriberList {
     public void addSubscriber(Subscriber newSubscriber){
 
         //Check if this Subscriber is already in the storage, if yes, delete the original entry
-        for (Subscriber subscriber : List){
+        for (Subscriber subscriber : list){
             if (subscriber.getIpAddress().equals(newSubscriber.getIpAddress())){
-                List.remove(subscriber);
+                list.remove(subscriber);
             }
         }
 
         //Add the new subscriber to the list
-        List.add(newSubscriber);
+        list.add(newSubscriber);
 
 
     }
     public ArrayList<Subscriber> getSubscribers(){
-        return List;
+        return list;
     }
 
 
