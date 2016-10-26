@@ -6,7 +6,7 @@ package IOTApplication.IOTServer.UDPListener;
 public interface UDPListenerInterface extends Runnable {
 
     /**
-     * Starts a new socket on the specified port.
+     * Sets up a new DatagramSocket on a port specified in the Constructor.
      */
     @Override
     public void run();
