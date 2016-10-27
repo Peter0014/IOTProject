@@ -11,7 +11,7 @@ public interface IOTClientInterface {
      * This method broadcasts UDP packages which describe the service
      */
     public void broadcastServiceOffering();
-    public void notifySubscribers(String messageType, ArrayList<Subscriber> notification);
+    public void notifySubscribers(String messageType, ArrayList notification);
     public void createSubscriptionRequest(String destinationIP, int destinationPort);
 
 }
