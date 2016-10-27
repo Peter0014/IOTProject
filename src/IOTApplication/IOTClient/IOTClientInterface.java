@@ -57,7 +57,13 @@ public interface IOTClientInterface {
         }
 
     }
-    public void notifySubscribers(String messageType, ArrayList notification);
+    public void notifySubscribers(String messageType, ArrayList<Subscriber> notification)
+        {
+            for(Subscriber s: notification){
+                s.update(messageType);
+            }
+        }
+
     public void createSubscriptionRequest(String destinationIP, int destinationPort);
 
 }
