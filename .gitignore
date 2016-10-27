@@ -25,6 +25,13 @@ build/
 .DS_Store
 
 # Maven
-
 /target/
 
+# Android Studio Files
+.gradle
+/local.properties
+/captures
+
+
+# compiled APK-Files
+*.apk
