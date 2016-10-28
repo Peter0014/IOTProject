@@ -1,17 +1,18 @@
 package IOTApplication.IOTClient;
 
+import IOTApplication.IOTApplication.*;
 import java.util.ArrayList;
 
 /**
- * Created by melaniebalaz on 24/10/2016.
+ * This interface defines the functionality for the client
  */
 public interface IOTClientInterface {
 
     /**
      * This method broadcasts UDP packages which describe the service
      */
-    public void broadcastServiceOffering(String typeOfService);
-    public void notifySubscribers(String messageType, ArrayList notification);
+    public void broadcastServiceOffering();
+    public void notifySubscribers(IOTMessage message);
     public void createSubscriptionRequest(String destinationIP, int destinationPort);
 
 }
