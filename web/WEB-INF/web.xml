@@ -4,20 +4,30 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>Alarm Clock Server | AlarmClock@IoT-home</display-name>
-    
+    <display-name>IOT@home</display-name>
+
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>
         <servlet-name>AlarmClock</servlet-name>
-        <servlet-class>IOTApplication.ServletController.AlarmClock</servlet-class>
+        <servlet-class>IOTApplication.ServletController.AlarmClockHTTPAdapter</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>AlarmClock</servlet-name>
-        <url-pattern>/alarmClock</url-pattern>
+        <url-pattern>/alarm/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>IOT</servlet-name>
+        <servlet-class>IOTApplication.ServletController.IOTHTTPAdapter</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>IOT</servlet-name>
+        <url-pattern>/iot/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
