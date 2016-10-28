@@ -8,4 +8,5 @@ package IOTApplication.IOTApplication;
 public interface IOTApplicationInterface {
 	/** Handles a received package and starts an event if triggered. */
 	public void handleIncomingNotification(IOTMessage message);
+
 }
