@@ -36,7 +36,6 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
 
         try {
             byte[] mbuf = message.getBytes();
-            InetAddress host = InetAddress.getLocalHost();
             DatagramPacket broadcastDatagram = new DatagramPacket(mbuf,mbuf.length, InetAddress.getByName("255.255.255.255"),port);
             socket = new DatagramSocket();
             running = true;
