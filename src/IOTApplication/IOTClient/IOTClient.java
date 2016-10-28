@@ -3,7 +3,10 @@ package IOTApplication.IOTClient;
 import IOTApplication.IOTApplication.IOTMessage;
 import IOTApplication.Subscriber;
 import IOTApplication.SubscriberList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -24,31 +27,45 @@ public class IOTClient implements IOTClientInterface {
     public void broadcastServiceOffering(){
         //make a UDP broadcast
     }
+    
     public void notifySubscribers(IOTMessage message){
-        //Create a gson object and wrap it into json
+        //Create a a new json string to send in the Post body
+        Gson gson = new GsonBuilder().create();
+        String jsonMessage = gson.toJson(message);
 
 
-        //Send HTTP Post Request to each subscriber in the list
         ArrayList<Subscriber> list;
         list = subscribers.getSubscribers();
 
+        //Send HTTP Post Request with message body to each subscriber in the list
         for (Subscriber subcriber: list) {
             String url = createUrl(subcriber.getIpAddress(),subcriber.getPort());
-            createNewPostRequest(url);
+            createNewPostRequest(url, jsonMessage);
         }
 
     }
 
+    /**
+     * This method  creates a finished url out of the two cpomponents
+     * @param ipAddress
+     * @param port
+     * @return
+     */
     private String createUrl(String ipAddress,  int port){
         return("http://" + ipAddress + ":" + port + "/");
     }
 
-    public void createNewPostRequest(String urlString){
+    public void createNewPostRequest(String urlString, String jsonMessage){
         HttpURLConnection newConnection;
         try {
             URL url = new URL(urlString); //Set the custom URL
             newConnection = (HttpURLConnection) url.openConnection(); //Open the connection
             newConnection.setRequestMethod("POST"); //Set the request type
+            newConnection.setDoOutput(true); //informs the other side that they are gonna get some output from the package
+            DataOutputStream writer = new DataOutputStream(newConnection.getOutputStream()); //create a writer for the connection
+            writer.writeBytes(jsonMessage); //write the json string
+            writer.flush();
+            writer.close();
 
         } catch (MalformedURLException exception) {
 
