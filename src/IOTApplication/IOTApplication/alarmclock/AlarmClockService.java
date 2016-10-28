@@ -13,9 +13,11 @@ import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.wiringpi.SoftTone;
 
 import IOTApplication.IOTApplication.IOTApplicationInterface;
 import IOTApplication.IOTApplication.IOTMessage;
+import IOTApplication.IOTClient.IOTClientInterface;
 
 /**
  * The AlarmClockService creates and saves alarms set by the user. A timer
@@ -33,6 +35,10 @@ public class AlarmClockService implements IOTApplicationInterface {
 	private Timer timer = new Timer();
 	/** Dates in milliseconds and set TimerTasks that count down to alarm. */
 	private Map<Long, TimerTask> alarms;
+	
+	private IOTClientInterface client;
+	
+	final private String ID = "ACS101";
 
 	/** Alarm was already created, i. e. if you want to add the same date. */
 	public static final int EC_ALARM_ALREADY_EXISTS = -1;
@@ -48,9 +54,9 @@ public class AlarmClockService implements IOTApplicationInterface {
 	/**
 	 * Constructor initializes the alarms Map
 	 */
-	public AlarmClockService() {
-		/* Synchronized because it can be changed by different Threads. */
-		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
+	public AlarmClockService(IOTClientInterface newClient) {
+		client = newClient;
+		init();
 	}
 
 	/**
@@ -106,21 +112,14 @@ public class AlarmClockService implements IOTApplicationInterface {
 		TimerTask alarmTask = new TimerTask() {
 			@Override
 			public void run() {
+				//System.out.println("ALARM serving at: " + Calendar.getInstance().getTime());
+				
+				/* Send info to subscribers */
+				client.notifySubscribers(new IOTMessage("AlarmPlaying", ID + " - Alarm is playing."));
+
 				/* Make the Piezo sound */
-				System.out.println("ALARM served at: " + Calendar.getInstance().getTime());
-
-				try {
-					final GpioController gpio = GpioFactory.getInstance();
-					final GpioPinDigitalOutput piezo = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_22);
-					piezo.high();
-					Thread.sleep(2000);
-					piezo.setState(PinState.LOW);
-					gpio.low();
-
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				PiezoPlayer player = new PiezoPlayer();
+				player.playTune(0);
 
 				/* Remove Task from alarms */
 				alarms.replace(dateInMs, null);
@@ -192,6 +191,12 @@ public class AlarmClockService implements IOTApplicationInterface {
 	@Override
 	public String toString() {
 		return "Set alarms: " + alarms.keySet().toString();
+		
+	}
+	
+	public void init() {
+		/* Synchronized because it can be changed by different Threads. */
+		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
 	}
 
 	@Override
@@ -200,5 +205,5 @@ public class AlarmClockService implements IOTApplicationInterface {
 		System.out.println("Received Message of type " + message.getMessageType() + ".");
 		System.out.println("  Content: " + message.getMessage());
 	}
-
 }
+
