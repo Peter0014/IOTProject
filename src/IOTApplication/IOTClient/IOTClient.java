@@ -27,7 +27,7 @@ public class IOTClient implements IOTClientInterface {
     public void broadcastServiceOffering(){
         //make a UDP broadcast
     }
-    
+
     public void notifySubscribers(IOTMessage message){
         //Create a a new json string to send in the Post body
         Gson gson = new GsonBuilder().create();
@@ -55,7 +55,7 @@ public class IOTClient implements IOTClientInterface {
         return("http://" + ipAddress + ":" + port + "/");
     }
 
-    public void createNewPostRequest(String urlString, String jsonMessage){
+    private void createNewPostRequest(String urlString, String jsonMessage){
         HttpURLConnection newConnection;
         try {
             URL url = new URL(urlString); //Set the custom URL
