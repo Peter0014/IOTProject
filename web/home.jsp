@@ -17,7 +17,7 @@
     </p>
     <ul>
         <li>
-            <a href="/alarmClock">Alarm Clock</a>
+            <a href="./AlarmClock">Alarm Clock</a>
         </li>
         <li>
             Coffee Machine (not implemented)
