@@ -6,10 +6,12 @@ import IOT.IOTServer.IOTServer;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /**
  * Created by Emily on 10/29/2016.
  */
+@WebListener
 public class IOTRunner implements ServletContextListener {
 
     private IOTClient client = null;
