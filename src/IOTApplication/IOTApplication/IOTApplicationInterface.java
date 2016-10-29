@@ -10,8 +10,19 @@ public interface IOTApplicationInterface {
 	public void handleIncomingNotification(IOTMessage message);
 
 	/**
-	 * Returns the application's service description which will be broadcast over the network via UDP.
+	 * Returns the application's service description which will be broadcast
+	 * over the network via UDP.
+	 * 
 	 * @return String containing a service description.
-     */
+	 */
 	public String getServiceDescription();
+
+	/**
+	 * Returns if application is interested to subscribe.
+	 * 
+	 * @param broadcast
+	 *            ID of broadcast from client
+	 * @return true if subscription is desirable
+	 */
+	public boolean isInterested(String broadcast);
 }

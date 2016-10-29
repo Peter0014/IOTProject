@@ -31,8 +31,11 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	private IOTClientInterface client;
 
-	final private String ID = "ACS101";
-
+	/** Service type of this application */
+	final private String servDesc = "ACS101";
+	
+	final String[] compatDevice = {"ACS", "CM", "LBC"};
+	
 	/** Alarm was already created, i. e. if you want to add the same date. */
 	public static final int EC_ALARM_ALREADY_EXISTS = -1;
 	/** Alarm wasn't created, i. e. if you want to start it. */
@@ -113,7 +116,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 				if (client != null) {
 					/* Send info to subscribers */
-					client.notifySubscribers(new IOTMessage("AlarmPlaying", ID + " - Alarm is playing."));
+					client.notifySubscribers(new IOTMessage("AlarmPlaying", servDesc + " - Alarm is playing."));
 
 				}
 				/* Make the Piezo sound */
@@ -203,5 +206,21 @@ public class AlarmClockService implements IOTApplicationInterface {
 		// TODO Auto-generated method stub
 		System.out.println("Received Message of type " + message.getMessageType() + ".");
 		System.out.println("  Content: " + message.getMessage());
+		
+		
+	}
+
+	@Override
+	public String getServiceDescription() {
+		return servDesc;
+	}
+	
+	public boolean doSubscribe(String broadcast) {
+		for (String entry : compatDevice) {
+			if (broadcast.startsWith(entry)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
