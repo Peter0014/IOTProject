@@ -19,7 +19,7 @@ public class AlarmClockRunner implements ServletContextListener {
      * Default constructor. 
      */
     public AlarmClockRunner() {
-        alarmClock = new AlarmClockService();
+        alarmClock = new AlarmClockService(null);
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.HOUR, 1);
         alarmClock.setAlarm(cal);

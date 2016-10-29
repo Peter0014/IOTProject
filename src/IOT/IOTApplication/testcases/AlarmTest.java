@@ -11,7 +11,7 @@ import IOT.IOTApplication.alarmclock.AlarmClockService;
 public class AlarmTest {
 
 	/** Alarm clock service to create and play alarms. */
-	static private AlarmClockService service = new AlarmClockService();
+	static private AlarmClockService service = new AlarmClockService(null);
 	/** Delay after which time the alarm should sound (from current time). */
 	static private long alarmDelay = 5000;
 	/** Time at which the alarm should sound. */

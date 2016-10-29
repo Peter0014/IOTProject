@@ -66,7 +66,8 @@ public class AlarmClockGUI extends HttpServlet {
 			try {
 				Calendar cal = Calendar.getInstance();				
 				cal.setTime(ffmt.parse(date + " " + time));
-				acs.setAlarm(cal);				
+				acs.setAlarm(cal);
+				acs.startAlarm(cal);
 			} catch (ParseException e) {
 				o.write("<p>Error: " + e.getLocalizedMessage() + " </p>");				
 			}
