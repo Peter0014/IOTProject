@@ -26,7 +26,7 @@ public class IOTRunner implements ServletContextListener {
 
     SubscriberList subscriberList = null;
 
-    public static final int UDP_SERVICE_PORT = 1000;
+    public static final int UDP_SERVICE_PORT = 29902;
 
     public IOTRunner () {
     	System.out.println("IOTRunner: constructor");
