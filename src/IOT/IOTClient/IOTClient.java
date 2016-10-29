@@ -22,6 +22,7 @@ public class IOTClient implements IOTClientInterface {
      * A list containing all Subscriber-objects the Client has subscribed to.
      */
     SubscriberList subscribers;
+
     /**
      * Describes the service offered by the node the client sits on.
      */
@@ -98,5 +99,13 @@ public class IOTClient implements IOTClientInterface {
         catch (IOException exception){
 
         }
+    }
+
+    public String getServiceDescription() {
+        return serviceDescription;
+    }
+
+    public void setServiceDescription(String serviceDescription) {
+        this.serviceDescription = serviceDescription;
     }
 }
