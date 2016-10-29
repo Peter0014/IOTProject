@@ -1,4 +1,4 @@
-package IOTApplication.IOTApplication.testcases;
+package IOT.IOTApplication.testcases;
 
 import java.util.Calendar;
 
@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import IOTApplication.IOTApplication.alarmclock.AlarmClockService;
+import IOT.IOTApplication.alarmclock.AlarmClockService;
 
 public class AlarmTest {
 

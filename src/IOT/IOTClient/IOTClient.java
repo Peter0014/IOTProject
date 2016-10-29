@@ -1,8 +1,8 @@
-package IOTApplication.IOTClient;
+package IOT.IOTClient;
 
-import IOTApplication.IOTApplication.IOTMessage;
-import IOTApplication.Subscriber;
-import IOTApplication.SubscriberList;
+import IOT.IOTApplication.IOTMessage;
+import IOT.Subscriber;
+import IOT.SubscriberList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

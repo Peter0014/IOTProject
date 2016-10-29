@@ -1,4 +1,4 @@
-package IOTApplication.IOTApplication.alarmclock;
+package IOT.IOTApplication.alarmclock;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,16 +8,9 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
-import com.pi4j.wiringpi.SoftTone;
-
-import IOTApplication.IOTApplication.IOTApplicationInterface;
-import IOTApplication.IOTApplication.IOTMessage;
-import IOTApplication.IOTClient.IOTClientInterface;
+import IOT.IOTApplication.IOTApplicationInterface;
+import IOT.IOTApplication.IOTMessage;
+import IOT.IOTClient.IOTClientInterface;
 
 /**
  * The AlarmClockService creates and saves alarms set by the user. A timer

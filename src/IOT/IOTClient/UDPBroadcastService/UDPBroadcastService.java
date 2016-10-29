@@ -1,12 +1,10 @@
-package IOTApplication.IOTClient.UDPBroadcastService;
+package IOT.IOTClient.UDPBroadcastService;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Locale;
-import java.util.concurrent.ThreadFactory;
 
 /**
  * Created by Emily on 10/28/2016.

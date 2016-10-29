@@ -1,4 +1,4 @@
-package IOTApplication;
+package IOT;
 
 /**
  * Created by melaniebalaz on 24/10/2016.
