@@ -57,7 +57,7 @@ public class AlarmClockGUI extends HttpServlet {
 		o.newLine();
 		
 		
-		AlarmClockService acs = (AlarmClockService)getServletContext().getAttribute("alarmclock");
+		AlarmClockService acs = (AlarmClockService)getServletContext().getAttribute("application");
 		if (request.getParameter("action") != null) {
 			// get request came from form submit:
 			String date = request.getParameter("date");
