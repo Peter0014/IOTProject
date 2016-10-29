@@ -18,10 +18,18 @@ import java.util.ArrayList;
  */
 public class IOTClient implements IOTClientInterface {
 
+    /**
+     * A list containing all Subscriber-objects the Client has subscribed to.
+     */
     SubscriberList subscribers;
+    /**
+     * Describes the service offered by the node the client sits on.
+     */
+    private String serviceDescription;
 
-    public IOTClient (SubscriberList pSubscribers){
-        subscribers = pSubscribers;
+    public IOTClient (SubscriberList pSubscribers, String serviceDescription) {
+        this.subscribers = pSubscribers;
+        this.serviceDescription = serviceDescription;
     }
 
     public void broadcastServiceOffering(){
