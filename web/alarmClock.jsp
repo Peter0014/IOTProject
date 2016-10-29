@@ -1,5 +1,5 @@
-<%@ page import="IOTApplication.ServletController.AlarmClock" %>
-<%@ page import="IOTApplication.AlarmClockServerInterface" %><%--
+<%@ page import="IOT.ServletController.AlarmClock" %>
+<%@ page import="IOT.AlarmClockServerInterface" %><%--
   Created by IntelliJ IDEA.
   User: Emily
   Date: 10/24/2016
