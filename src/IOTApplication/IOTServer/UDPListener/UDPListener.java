@@ -41,7 +41,9 @@ public class UDPListener implements UDPListenerInterface {
                 System.out.println("Received offering from " + datagram.getAddress());
                 System.out.println(data);
 
-                //receiverServer.receiveServiceOffering(datagram.getAddress(), data);
+                if (datagram.getAddress().equals(InetAddress.getLocalHost())) continue;
+
+                receiverServer.receiveServiceOffering(datagram.getAddress(), data);
             }
 
         } catch (IOException e) {
