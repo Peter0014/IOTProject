@@ -215,7 +215,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		return servDesc;
 	}
 	
-	public boolean doSubscribe(String broadcast) {
+	public boolean isInterested(String broadcast) {
 		for (String entry : compatDevice) {
 			if (broadcast.startsWith(entry)) {
 				return true;
