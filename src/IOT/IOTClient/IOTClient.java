@@ -47,8 +47,8 @@ public class IOTClient implements IOTClientInterface {
         list = subscribers.getSubscribers();
 
         //Send HTTP Post Request with message body to each subscriber in the list
-        for (Subscriber subcriber: list) {
-            String url = createUrl(subcriber.getIpAddress(),subcriber.getPort());
+        for (Subscriber subscriber: list) {
+            String url = createUrl(subscriber.getIpAddress(),subscriber.getPort());
             createNewPostRequest(url, jsonMessage);
         }
 
