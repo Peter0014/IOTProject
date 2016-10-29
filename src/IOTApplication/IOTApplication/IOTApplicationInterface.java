@@ -9,4 +9,9 @@ public interface IOTApplicationInterface {
 	/** Handles a received package and starts an event if triggered. */
 	public void handleIncomingNotification(IOTMessage message);
 
+	/**
+	 * Returns the application's service description which will be broadcast over the network via UDP.
+	 * @return String containing a service description.
+     */
+	public String getServiceDescription();
 }
