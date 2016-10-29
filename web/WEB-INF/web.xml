@@ -10,6 +10,10 @@
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>IOT.IOTRunner</listener-class>
+    </listener>
+    
     <servlet>
         <servlet-name>AlarmClock</servlet-name>
         <servlet-class>IOT.IOTApplication.alarmclock.AlarmClockGUI</servlet-class>
