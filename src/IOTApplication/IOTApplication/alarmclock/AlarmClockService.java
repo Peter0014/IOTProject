@@ -8,13 +8,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
-import com.pi4j.wiringpi.SoftTone;
-
 import IOTApplication.IOTApplication.IOTApplicationInterface;
 import IOTApplication.IOTApplication.IOTMessage;
 import IOTApplication.IOTClient.IOTClientInterface;
@@ -35,9 +28,9 @@ public class AlarmClockService implements IOTApplicationInterface {
 	private Timer timer = new Timer();
 	/** Dates in milliseconds and set TimerTasks that count down to alarm. */
 	private Map<Long, TimerTask> alarms;
-	
+
 	private IOTClientInterface client;
-	
+
 	final private String ID = "ACS101";
 
 	/** Alarm was already created, i. e. if you want to add the same date. */
@@ -70,6 +63,13 @@ public class AlarmClockService implements IOTApplicationInterface {
 		if (alarms.containsKey(date)) {
 			return EC_ALARM_ALREADY_EXISTS;
 		}
+		/* Check if alarm is in the past */
+		long dateInMs = date.getTimeInMillis();
+		long ms = dateInMs - System.currentTimeMillis();
+		if (ms < 0) {
+			return EC_ALARM_IN_PAST;
+		}
+		
 		alarms.put(date.getTimeInMillis(), null);
 		return 0;
 	}
@@ -94,6 +94,8 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 */
 	public int startAlarm(Calendar date) {
 		long dateInMs = date.getTimeInMillis();
+		/* Calc when the alarm should play (in milliseconds) */
+		long ms = dateInMs - System.currentTimeMillis();
 		if (!alarms.containsKey(dateInMs)) {
 			/* setAlarm(date); */
 			return EC_ALARM_DOESNT_EXIST;
@@ -102,21 +104,18 @@ public class AlarmClockService implements IOTApplicationInterface {
 			return EC_ALARM_RUNNING;
 		}
 
-		/* Calc when the alarm should play (in milliseconds) */
-		long ms = dateInMs - System.currentTimeMillis();
-		if (ms < 0) {
-			return EC_ALARM_IN_PAST;
-		}
-
 		/* Create new TimerTask that runs in a new Thread */
 		TimerTask alarmTask = new TimerTask() {
 			@Override
 			public void run() {
-				//System.out.println("ALARM serving at: " + Calendar.getInstance().getTime());
-				
-				/* Send info to subscribers */
-				client.notifySubscribers(new IOTMessage("AlarmPlaying", ID + " - Alarm is playing."));
+				// System.out.println("ALARM serving at: " +
+				// Calendar.getInstance().getTime());
 
+				if (client != null) {
+					/* Send info to subscribers */
+					client.notifySubscribers(new IOTMessage("AlarmPlaying", ID + " - Alarm is playing."));
+
+				}
 				/* Make the Piezo sound */
 				PiezoPlayer player = new PiezoPlayer();
 				player.playTune(0);
@@ -191,9 +190,9 @@ public class AlarmClockService implements IOTApplicationInterface {
 	@Override
 	public String toString() {
 		return "Set alarms: " + alarms.keySet().toString();
-		
+
 	}
-	
+
 	public void init() {
 		/* Synchronized because it can be changed by different Threads. */
 		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
@@ -206,4 +205,3 @@ public class AlarmClockService implements IOTApplicationInterface {
 		System.out.println("  Content: " + message.getMessage());
 	}
 }
-
