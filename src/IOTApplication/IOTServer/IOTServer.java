@@ -1,10 +1,11 @@
-package IOT.IOTServer;
+package IOTApplication.IOTServer;
 
-import IOT.*;
-import IOT.IOTClient.*;
-import IOT.IOTApplication.*;
+import IOTApplication.*;
+import IOTApplication.IOTClient.*;
+import IOTApplication.IOTApplication.*;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 /**
  * This class handles logical IOT requests.

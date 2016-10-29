@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>AlarmClock</servlet-name>
-        <servlet-class>IOT.IOTApplication.alarmclock.AlarmClockGUI</servlet-class>
+        <servlet-class>IOTApplication.ServletController.AlarmClockHTTPAdapter</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -22,7 +22,7 @@
 
     <servlet>
         <servlet-name>IOT</servlet-name>
-        <servlet-class>IOT.IOTServer.HTTPServerConnector</servlet-class>
+        <servlet-class>IOTApplication.ServletController.IOTHTTPAdapter</servlet-class>
     </servlet>
 
     <servlet-mapping>

@@ -1,4 +1,4 @@
-package IOT.IOTApplication;
+package IOTApplication.IOTApplication;
 
 /**
  * Interface for all application implementations to include handling of incoming

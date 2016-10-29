@@ -1,6 +1,6 @@
-package IOT.IOTServer.UDPListener;
+package IOTApplication.IOTServer.UDPListener;
 
-import IOT.IOTServer.IOTServerInterface;
+import IOTApplication.IOTServer.IOTServerInterface;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;

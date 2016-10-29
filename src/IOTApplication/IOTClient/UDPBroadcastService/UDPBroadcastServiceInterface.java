@@ -1,4 +1,4 @@
-package IOT.IOTClient.UDPBroadcastService;
+package IOTApplication.IOTClient.UDPBroadcastService;
 
 /**
  * Created by Emily on 10/28/2016.

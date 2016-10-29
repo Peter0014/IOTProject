@@ -1,4 +1,4 @@
-package IOT;
+package IOTApplication;
 
 
 import java.util.ArrayList;

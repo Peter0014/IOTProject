@@ -1,4 +1,4 @@
-package IOT.IOTApplication.alarmclock;
+package IOTApplication.IOTApplication.alarmclock;
 
 import java.util.Calendar;
 
