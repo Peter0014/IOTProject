@@ -21,6 +21,7 @@ public class IOTRunner implements ServletContextListener {
     SubscriberList subscriberList = null;
 
     public IOTRunner () {
+    	System.out.println("IOTRunner: constructor");
         subscriberList = new SubscriberList();
         client = new IOTClient(subscriberList, null);
         alarmClock = new AlarmClockService(client);
