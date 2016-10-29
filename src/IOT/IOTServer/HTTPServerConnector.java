@@ -24,31 +24,9 @@ import com.google.gson.GsonBuilder;
 public class HTTPServerConnector extends HttpServlet {
 
     private IOTServerInterface server;
-    private UDPListenerInterface udpListener = null;
 
     public HTTPServerConnector(IOTServerInterface pServer) {
         server = pServer;
-    }
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-
-        //TODO
-        // start UDP listener
-        // if we had a database, initialize that here too
-
-        udpListener = new UDPListener(1000, server); // or whatever port?
-        Thread listenerThread = new Thread(udpListener);
-        listenerThread.start();
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        //TODO
-        // kill UDP listener - I don't know if this is the proper way to do it
-        udpListener.terminate();
     }
 
     @Override
