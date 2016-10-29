@@ -1,4 +1,4 @@
-package IOTApplication.IOTServer.UDPListener;
+package IOT.IOTServer.UDPListener;
 
 /**
  * Created by Mai on 10/26/2016.

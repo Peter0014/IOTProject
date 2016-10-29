@@ -1,7 +1,6 @@
-package IOTApplication.IOTClient;
+package IOT.IOTClient;
 
-import IOTApplication.IOTApplication.*;
-import java.util.ArrayList;
+import IOT.IOTApplication.*;
 
 /**
  * This interface defines the functionality for the client

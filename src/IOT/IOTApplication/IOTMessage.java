@@ -1,4 +1,4 @@
-package IOTApplication.IOTApplication;
+package IOT.IOTApplication;
 
 /**
  * Class used to package messages between applications ready to be sent.

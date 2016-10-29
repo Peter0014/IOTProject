@@ -1,10 +1,9 @@
-package IOTApplication.IOTServer;
+package IOT.IOTServer;
 
 
-import IOTApplication.IOTApplication.IOTMessage;
+import IOT.IOTApplication.IOTMessage;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 
 /**
  * Created by melaniebalaz on 24/10/2016.

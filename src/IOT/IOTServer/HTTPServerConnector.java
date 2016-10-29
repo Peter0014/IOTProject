@@ -1,17 +1,16 @@
-package IOTApplication.IOTServer;
+package IOT.IOTServer;
 
-import IOTApplication.IOTApplication.*;
+import IOT.IOTApplication.*;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.io.BufferedReader;
 
-import IOTApplication.IOTServer.UDPListener.UDPListener;
-import IOTApplication.IOTServer.UDPListener.UDPListenerInterface;
+import IOT.IOTServer.UDPListener.UDPListener;
+import IOT.IOTServer.UDPListener.UDPListenerInterface;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
