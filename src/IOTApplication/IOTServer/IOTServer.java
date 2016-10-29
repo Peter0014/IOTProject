@@ -26,9 +26,7 @@ public class IOTServer implements IOTServerInterface {
 
     public void receiveServiceOffering(InetAddress sourceAddress, String data) {
         System.out.println("Received data from " + sourceAddress);
-        //TODO: compare data to internal list of serviceOfferings
-        //TODO: if interested, tell Client to send subscriptionRequest to sourceAddress
-        // else ignore message and move on :)
+
     }
 
     /**
