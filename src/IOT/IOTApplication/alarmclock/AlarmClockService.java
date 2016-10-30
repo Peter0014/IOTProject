@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.IOTMessage;
 import IOT.IOTClient.IOTClientInterface;
@@ -34,9 +34,9 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	/** Service type of this application */
 	final private String servDesc = "ACS101";
-	
-	final String[] compatDevice = {"ACS", "CM", "LBC"};
-	
+
+	final String[] compatDevice = { "ACS", "CM", "LBC" };
+
 	/** Alarm was already created, i. e. if you want to add the same date. */
 	public static final int EC_ALARM_ALREADY_EXISTS = -1;
 	/** Alarm wasn't created, i. e. if you want to start it. */
@@ -53,7 +53,8 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 */
 	public AlarmClockService(IOTClientInterface newClient) {
 		client = newClient;
-		init();
+		/* Synchronized because it can be changed by different Threads. */
+		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		if (ms < 0) {
 			return EC_ALARM_IN_PAST;
 		}
-		
+
 		alarms.put(date.getTimeInMillis(), null);
 		return 0;
 	}
@@ -112,17 +113,20 @@ public class AlarmClockService implements IOTApplicationInterface {
 		TimerTask alarmTask = new TimerTask() {
 			@Override
 			public void run() {
-				// System.out.println("ALARM serving at: " +
-				// Calendar.getInstance().getTime());
 
 				if (client != null) {
 					/* Send info to subscribers */
 					client.notifySubscribers(new IOTMessage("AlarmPlaying", servDesc + " - Alarm is playing."));
 
 				}
-				/* Make the Piezo sound */
-				PiezoPlayer player = new PiezoPlayer();
-				player.playTune(0);
+				
+				if (new DeviceDetection().isRasp()) {
+					/* Make the Piezo sound */
+					PiezoPlayer player = new PiezoPlayer();
+					player.playTune(0);
+				} else {
+					System.out.println("ALARM serving at: " + Calendar.getInstance().getTime());
+				}
 
 				/* Remove Task from alarms */
 				alarms.replace(dateInMs, null);
@@ -190,6 +194,10 @@ public class AlarmClockService implements IOTApplicationInterface {
 		}
 		return 0;
 	}
+	
+	public boolean isActive(Calendar date) {
+		return alarms.get(date.getTimeInMillis()) != null;
+	}
 
 	@Override
 	public String toString() {
@@ -197,25 +205,19 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	}
 
-	public void init() {
-		/* Synchronized because it can be changed by different Threads. */
-		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
-	}
-
 	@Override
 	public void handleIncomingNotification(IOTMessage message) {
 		// TODO Auto-generated method stub
 		System.out.println("Received Message of type " + message.getMessageType() + ".");
 		System.out.println("  Content: " + message.getMessage());
-		
-		
+
 	}
 
 	@Override
 	public String getServiceDescription() {
 		return servDesc;
 	}
-	
+
 	public boolean isInterested(String broadcast) {
 		for (String entry : compatDevice) {
 			if (broadcast.startsWith(entry)) {
