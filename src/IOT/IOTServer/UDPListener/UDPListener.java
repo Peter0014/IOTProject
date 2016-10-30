@@ -26,7 +26,7 @@ public class UDPListener implements UDPListenerInterface {
     @Override
     public void run() {
         if (running) throw new IllegalStateException("This instance is already running!");
-        System.out.println("Starting new thread @port_" + port);
+        System.out.println("Starting UDP listener @port_" + port);
 
         try {
             socket = new DatagramSocket(port);
@@ -38,8 +38,9 @@ public class UDPListener implements UDPListenerInterface {
                 socket.receive(datagram);
                 //parse the service offering -- UDP, so it's a string
                 String data = new String(datagram.getData());
-                System.out.println("Received offering from " + datagram.getAddress());
-                System.out.println(data);
+
+                //System.out.println("Received offering from " + datagram.getAddress());
+                //System.out.println(data);
 
                 if (datagram.getAddress().equals(InetAddress.getLocalHost())) continue;
 

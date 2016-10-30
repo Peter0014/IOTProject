@@ -30,7 +30,7 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
     @Override
     public void run() {
         if (running) throw new IllegalStateException("This instance is already running!");
-        System.out.println("Starting new thread @port_" + port);
+        System.out.println("Starting UDP broadcast @port_" + port);
 
         try {
             byte[] mbuf = message.getBytes();
