@@ -100,7 +100,7 @@ class AlarmClockService {
 	- private Map<Long, TimerTask> alarms
 	- private IOTClientInterface client
 	- final private String servDesc = "ACS101"
-	# final String[] compatDevice = { "ACS", "CMS", "LBCS" }
+	- private final String[] compatDevice = { "ACS", "CMS", "LBCS" }
 	+ {static} public static final int EC_ALARM_ALREADY_EXISTS = -1
 	+ {static} public static final int EC_ALARM_DOESNT_EXIST = -2
 	+ {static} public static final int EC_ALARM_RUNNING = -3
