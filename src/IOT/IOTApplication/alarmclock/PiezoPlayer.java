@@ -9,7 +9,8 @@ import com.pi4j.wiringpi.SoftTone;
  * Sources: Mario Theme: http://www.princetronics.com/supermariothemesong/ on
  * the 28th Oct 2016
  * 
- * @author peter
+ * @author Peter Klosowski (a1403029)
+ * @version Milestone1
  *
  */
 public class PiezoPlayer {

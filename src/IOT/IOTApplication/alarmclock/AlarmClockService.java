@@ -21,6 +21,7 @@ import IOT.IOTClient.IOTClientInterface;
  * the past. An error code will be returned if that happens.
  * 
  * @author Peter Klosowski (a1403029)
+ * @version Milestone1
  *
  */
 public class AlarmClockService implements IOTApplicationInterface {

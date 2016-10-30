@@ -4,6 +4,8 @@ package IOT.IOTApplication;
  * Interface for all application implementations to include handling of incoming
  * Notifications as well as sending them to the Subscribers.
  *
+ * @author Peter Klosowski (a1403029)
+ * @version Milestone1
  */
 public interface IOTApplicationInterface {
 	/**
