@@ -6,12 +6,15 @@ package IOT.IOTApplication;
  *
  */
 public class IOTMessage {
+	/** Service Description of the application, typically the ID */
+	final String servDesc;
 	/** Message type set by application. */
 	final String messageType;
 	/** Message for the receivers. */
 	final String message;
 
-	public IOTMessage(String newMessageType, String newMessage) {
+	public IOTMessage(String newServDesc, String newMessageType, String newMessage) {
+		servDesc = newServDesc;
 		messageType = newMessageType;
 		message = newMessage;
 	}
@@ -22,5 +25,9 @@ public class IOTMessage {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public String getServDesc() {
+		return servDesc;
 	}
 }
