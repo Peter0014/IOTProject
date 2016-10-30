@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 /**
  * This class manages the subscribers, checks for duplicate subscribing requests and keeps the subscribers list up to date.
+ * @author Melanie
+ * @version Milestone1
  */
 public class SubscriberList {
 

@@ -10,6 +10,7 @@ import java.net.InetAddress;
 
 /**
  * This class handles logical IOT requests.
+ * @version Milestone1
  */
 public class IOTServer implements IOTServerInterface {
 
