@@ -42,24 +42,25 @@ public class IOTClient implements IOTClientInterface {
         Gson gson = new GsonBuilder().create();
         String jsonMessage = gson.toJson(message);
 
-
         ArrayList<Subscriber> list;
         list = subscribers.getSubscribers();
 
-        //Send HTTP Post Request with message body to each subscriber in the list
-        for (Subscriber subscriber: list) {
-            String url = createUrl(subscriber.getIpAddress(),subscriber.getPort());
-            createNewPostRequest(url, jsonMessage);
-        }
-
+        if (list != null) {
+        	//Send HTTP Post Request with message body to each subscriber in the list
+			for (Subscriber subscriber : list) {
+				String url = createUrl(subscriber.getIpAddress(), subscriber.getPort());
+				createNewPostRequest(url, jsonMessage);
+			}
+		}
     }
 
-    /**
-     * This method  creates a finished url out of the two cpomponents
-     * @param ipAddress
-     * @param port
-     * @return
-     */
+	/**
+	 * This method creates a finished url out of the two cpomponents
+	 * 
+	 * @param ipAddress
+	 * @param port
+	 * @return
+	 */
     private String createUrl(String ipAddress,  int port){
         return("http://" + ipAddress + ":" + port + "/");
     }
