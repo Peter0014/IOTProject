@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.net.*;
 
 /**
- * Created by Mai on 10/26/2016.
+ * The UDP Listener is responsible for receiving service offerings which are regularly sent out by the
+ * {@link IOT.IOTClient.UDPBroadcastService.UDPBroadcastServiceInterface UDP Broadcast Service}.
+ * @version Milestone1
+ * @author Mai
  */
 public class UDPListener implements UDPListenerInterface {
 

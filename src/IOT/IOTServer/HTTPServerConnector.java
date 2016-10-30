@@ -1,7 +1,5 @@
 package IOT.IOTServer;
 
-import IOT.IOTApplication.*;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.BufferedReader;
 
-import IOT.IOTServer.UDPListener.UDPListener;
-import IOT.IOTServer.UDPListener.UDPListenerInterface;
+import IOT.IOTApplication.IOTMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,17 +15,27 @@ import com.google.gson.GsonBuilder;
 
 /**
  * This class translates HTTP queries into logical IOT requests.
- *
+ * @version Milestone1
  * @see IOTServer
  */
 public class HTTPServerConnector extends HttpServlet {
 
+    /**
+     * A reference to the server-instance on this device.
+     */
     private IOTServerInterface server;
 
     public HTTPServerConnector(IOTServerInterface pServer) {
         server = pServer;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param request Servlet-intern request object.
+     * @param response Servlet-intern response object.
+     * @throws ServletException In case of internal servlet failure.
+     * @throws IOException In case of internal I/O failure.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -63,10 +70,10 @@ public class HTTPServerConnector extends HttpServlet {
     /**
      * This method handles all the Get Requests sent to the server. Get requests are sent in case of a new subscription.
      * The Ip Address and Port of the request is passed over to the server.
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request Servlet-intern request object.
+     * @param response Servlet-intern response object.
+     * @throws ServletException In case of internal servlet failure.
+     * @throws IOException In case of internal I/O failure.
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -12,22 +12,48 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Created by Emily on 10/29/2016.
+ * This class serves as dependency manager. It instantiates all local instances of client, server, application
+ * and UDP listener/broadcaster.
+ * @author Mai
+ * @version Milestone1
  */
 @WebListener
 public class IOTRunner implements ServletContextListener {
 
+    /**
+     * A reference to the local instance of client.
+     */
     private IOTClient client = null;
+    /**
+     * A reference to the local instance of the specific application (alarmclock).
+     */
     private AlarmClockService alarmClock = null;
+    /**
+     * A reference to the local instance of server.
+     */
     private IOTServer server = null;
-
+    /**
+     * A reference to the local instance of UDPListener.
+     */
     private UDPListenerInterface udpListener = null;
+    /**
+     * A reference to the local instance of UDPBroadcastService.
+     */
     private UDPBroadcastService udpBroadcastService = null;
-
+    /**
+     * A reference to all subscribers interested in the services of this node.
+     */
     private SubscriberList subscriberList = null;
 
+    /**
+     * The port on which UDP broadcasts are sent and received.
+     * Trivia: This port was chosen due to its closeness to the Nintendo WiFi port. (The alarmclock theme is Super Mario. ^^ )
+     */
     public static final int UDP_SERVICE_PORT = 29902;
 
+    /**
+     * Instantiates all references.
+     */
     public IOTRunner () {
     	System.out.println("IOTRunner: constructor");
         subscriberList = new SubscriberList();
@@ -47,6 +73,10 @@ public class IOTRunner implements ServletContextListener {
         broadcasterThread.start();
     }
 
+    /**
+     * Sets the context attributes for client, server and application.
+     * @param servletContextEvent Servlet-intern context.
+     */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         System.out.println("IOTRunner: context initialized");
@@ -55,6 +85,10 @@ public class IOTRunner implements ServletContextListener {
         servletContextEvent.getServletContext().setAttribute("application", alarmClock);
     }
 
+    /**
+     * Terminates all UDP services.
+     * @param servletContextEvent Servlet-intern context.
+     */
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         System.out.println("IOTRunner: context destroyed");

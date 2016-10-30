@@ -7,7 +7,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * Created by Emily on 10/28/2016.
+ * The UDP broadcaster is responsible for flooding the network with service offerings, which are to be
+ * received by the {@link IOT.IOTServer.UDPListener.UDPListenerInterface UDP Listener}.
+ * @author Mai
+ * @version Milestone1
  */
 public class UDPBroadcastService implements UDPBroadcastServiceInterface {
 

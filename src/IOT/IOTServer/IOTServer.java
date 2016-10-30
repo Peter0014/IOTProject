@@ -1,8 +1,10 @@
 package IOT.IOTServer;
 
-import IOT.*;
-import IOT.IOTClient.*;
-import IOT.IOTApplication.*;
+import IOT.IOTApplication.IOTApplicationInterface;
+import IOT.IOTApplication.IOTMessage;
+import IOT.IOTClient.IOTClientInterface;
+import IOT.Subscriber;
+import IOT.SubscriberList;
 
 import java.net.InetAddress;
 
@@ -11,18 +13,36 @@ import java.net.InetAddress;
  */
 public class IOTServer implements IOTServerInterface {
 
+    /**
+     * A list of all currently known subscribers to whom messages can be forwarded.
+     */
     private SubscriberList subscribers;
+    /**
+     * A reference to the instance of Client running on this node.
+     */
     private IOTClientInterface client;
+    /**
+     * A reference to the instance of Application running on this node.
+     */
     private IOTApplicationInterface application;
 
+    /**
+     * Creates a new instance of server. This constructor is only called once in a servlet's lifetime.
+     * @param pSubscribers An (at first empty) list of subscribers for this node.
+     * @param pClient A reference to the instance of Client running on this node.
+     * @param pApplication A reference to the instance of Application running on this node.
+     */
     public IOTServer(SubscriberList pSubscribers, IOTClientInterface pClient, IOTApplicationInterface pApplication){
-
         subscribers = pSubscribers;
         client = pClient;
         application = pApplication;
-
     }
 
+    /**
+     * {@inheritDoc}
+     * @param sourceAddress The IP-address of where the offering came from.
+     * @param data The data contained within the service offering.
+     */
     public void receiveServiceOffering(InetAddress sourceAddress, String data) {
         System.out.println("Received data from " + sourceAddress);
         // check if application is interested
@@ -31,8 +51,8 @@ public class IOTServer implements IOTServerInterface {
 
     /**
      * This method creates a new subscriber and sets its ip and port attributes, and hands it over to the Subscriber list for storing.
-     * @param destinationIP
-     * @param destinationPort
+     * @param destinationIP The IP of the node instered in the service.
+     * @param destinationPort The port of the node interested in the service.
      */
     public void subscribeRequestHandler(String destinationIP, int destinationPort){
 
@@ -41,6 +61,10 @@ public class IOTServer implements IOTServerInterface {
         subscribers.addSubscriber(newSubscriber);
     }
 
+    /**
+     * {@inheritDoc}
+     * @param message The message received from an outside source.
+     */
     public void incomingNotificationHandler(IOTMessage message){
         application.handleIncomingNotification(message);
 

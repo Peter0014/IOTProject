@@ -8,13 +8,15 @@ import java.util.ArrayList;
  */
 public class SubscriberList {
 
-
+    /**
+     * A list of all subscriber-objects interested in the service this node offers.
+     */
     private ArrayList<Subscriber> list;
 
 
     /**
      * Adds a new subscriber to the stored list of subscribers and checks for duplicates, which are overwritten in case the port number changed.
-     * @param newSubscriber
+     * @param newSubscriber A subscriber object representing a node interested in the local service.
      */
     public void addSubscriber(Subscriber newSubscriber){
 
@@ -30,9 +32,9 @@ public class SubscriberList {
 
 
     }
+
     public ArrayList<Subscriber> getSubscribers(){
         return list;
     }
-
 
 }

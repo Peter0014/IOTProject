@@ -14,7 +14,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by melaniebalaz on 28/10/2016.
+ * The IOTClient is mainly responisble for creating and sending messages over the network.
+ * Its implementation is independent from the underlying application.
+ * @author Melanie, Mai
+ * @version Milestone1
  */
 public class IOTClient implements IOTClientInterface {
 
@@ -28,11 +31,20 @@ public class IOTClient implements IOTClientInterface {
      */
     private String serviceDescription;
 
+    /**
+     * Creates a new instance of client. This should only happen once per node.
+     * @param pSubscribers An (at first empty) list for all subscribers.
+     * @param serviceDescription A string describing the service offered by the underlying application.
+     */
     public IOTClient (SubscriberList pSubscribers, String serviceDescription) {
         this.subscribers = pSubscribers;
         this.serviceDescription = serviceDescription;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param message The message to be sent to all subscribers.
+     */
     public void notifySubscribers(IOTMessage message){
         //Create a a new json string to send in the Post body
         Gson gson = new GsonBuilder().create();
@@ -51,16 +63,20 @@ public class IOTClient implements IOTClientInterface {
     }
 
 	/**
-	 * This method creates a finished url out of the two cpomponents
-	 * 
-	 * @param ipAddress
-	 * @param port
-	 * @return
+	 * This method creates a finished URL to which messages can be sent.
+	 * @param ipAddress The IP address to be used in the URL.
+	 * @param port The port to be used in the URL.
+	 * @return A String representation of an URL to which messages can be sent.
 	 */
     private String createUrl(String ipAddress,  int port){
         return("http://" + ipAddress + ":" + port + "/");
     }
 
+    /**
+     *
+     * @param urlString
+     * @param jsonMessage
+     */
     private void createNewPostRequest(String urlString, String jsonMessage){
         HttpURLConnection newConnection;
         try {
@@ -76,10 +92,15 @@ public class IOTClient implements IOTClientInterface {
         } catch (MalformedURLException exception) {
 
         } catch (IOException exception) {
-
+            // TODO: this is a stub
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param destinationIP The IP-Address the service offering originally came from.
+     * @param destinationPort The port to which to send the request.
+     */
     public void createSubscriptionRequest(String destinationIP, int destinationPort){
         //Send HTTP GET Request to the passed IP and Port
 
@@ -90,11 +111,8 @@ public class IOTClient implements IOTClientInterface {
             newConnection.setRequestMethod("GET"); //Set the request type
 
         }
-        catch (MalformedURLException exception){
-
-        }
-        catch (IOException exception){
-
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

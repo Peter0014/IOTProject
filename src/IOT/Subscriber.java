@@ -1,11 +1,19 @@
 package IOT;
 
 /**
- * Created by melaniebalaz on 24/10/2016.
+ * A generic class mainly serving as container for subscriber-information.
+ * @author Melanie
+ * @version Milestone1
  */
 public class Subscriber {
 
+    /**
+     * The IP-Address of the node the interested application lies at.
+     */
     final private String ipAddress;
+    /**
+     * The port of the node the the interested application lies at.
+     */
     final private int port;
 
     public Subscriber(String pIpAddress, int pPort){
