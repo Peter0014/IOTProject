@@ -1,12 +1,13 @@
 package IOT.IOTServer.UDPListener;
 
 /**
- * Created by Mai on 10/26/2016.
+ * This interface provides generic methods to start and terminate an UDP Listener Service.
+ * @author Mai
  */
 public interface UDPListenerInterface extends Runnable {
 
     /**
-     * Sets up a new DatagramSocket on a port specified in the Constructor.
+     * Starts the UDP listener on a port specified beforehand.
      */
     @Override
     public void run();

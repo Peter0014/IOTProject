@@ -11,11 +11,31 @@ import java.net.*;
  */
 public class UDPListener implements UDPListenerInterface {
 
+    /**
+     * The port on which to listen.
+     */
     private Integer port = null;
+    /**
+     * The socket to which the listening is bound.
+     * Defaults to null until the run-method is called.
+     */
     private DatagramSocket socket = null;
+    /**
+     * True indicates the listener is actively listening for Datagrams on the specified port.
+     * False indicates the listener has stopped, either by the method {@link #terminate()} terminate) or by an error.
+     * Default is false (null if constructor has not been called yet).
+     */
     private Boolean running = null;
+    /**
+     * The server to whom the received datagram data are forwarded.
+     */
     private IOTServerInterface receiverServer;
 
+    /**
+     * Create a new instance of UDPListener. It automatically sets "listening" to false; "socket" will be initialized by the "run" method.
+     * @param port The port on which to Listen.
+     * @param receiverServer The server to whom the recieved datagram data are forwarded.
+     */
     public UDPListener (@NotNull Integer port, @NotNull IOTServerInterface receiverServer) {
         this.port = port;
         this.receiverServer = receiverServer;
@@ -23,6 +43,12 @@ public class UDPListener implements UDPListenerInterface {
         this.running = false;
     }
 
+    /**
+     * This methods starts the listener on the port specified in the constructor.
+     * The listener will continue running until it is terminated by external methods or errors.
+     * This method can only be called ONCE.
+     * @throws IllegalStateException If the run-method has already been called before.
+     */
     @Override
     public void run() {
         if (running) throw new IllegalStateException("This instance is already running!");
@@ -56,6 +82,9 @@ public class UDPListener implements UDPListenerInterface {
         }
     }
 
+    /**
+     * Terminates the listener by setting "running" to false. Also does resource cleanup.
+     */
     @Override
     public void terminate() {
         this.running = false;
@@ -70,6 +99,10 @@ public class UDPListener implements UDPListenerInterface {
         return this.running;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return a string representation of the listener's state (if running, and if known, on which address)
+     */
     @Override
     public String toString() {
         try {
@@ -79,7 +112,7 @@ public class UDPListener implements UDPListenerInterface {
             e.printStackTrace();
         }
 
-        return "Broadcast status: " + running + " at port " + port;
+        return "Listener status: " + running + " at port " + port;
     }
 
     /**

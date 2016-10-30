@@ -16,17 +16,43 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
      */
     public static final int BROADCAST_MESSAGE_INTERVAL = 1000;
 
+    /**
+     * The port on which to broadcast.
+     */
     private Integer port = null;
+    /**
+     * True indicates the broadcaster is actively sending datagrams on the specified port.
+     * False indicates the broadcaster has stopped, either by the method {@link #terminate()} terminate) or by an error.
+     * Default is false (null if constructor has not been called yet).
+     */
     private Boolean running = null;
+    /**
+     * The socket to which the sending is bound.
+     * Defaults to null until the run-method is called.
+     */
     private DatagramSocket socket = null;
+    /**
+     * The message that will be broadcast.
+     */
     private String message = null;
 
+    /**
+     * Creates a new instance of UDPBroadcastService. It automatically sets "listening" to false; "socket" will be initialized by the "run" method.
+     * @param port The port on which to broadcast.
+     * @param message The message that will be broadcast.
+     */
     public UDPBroadcastService (Integer port, String message) {
         this.port = port;
         this.message = message;
         this.running = false;
     }
 
+    /**
+     * This methods starts the UDP Broadcast Service. As destination-IP serves the multicast-IP 255.255.255.255.
+     * The service will continually flood the network with messages until it is terminated by external methods or errors.
+     * This method can only be called ONCE.
+     * @throws IllegalStateException If the run-method has already been called before.
+     */
     @Override
     public void run() {
         if (running) throw new IllegalStateException("This instance is already running!");
@@ -52,13 +78,19 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
         }
     }
 
-
+    /**
+     * Terminates the broadcaster by setting "running" to false. Also does resource cleanup.
+     */
     @Override
     public void terminate() {
         if (socket != null && !(socket.isClosed())) socket.close();
         this.running = false;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return a string representation of the broadcaster's state (if running, and if known, on which address)
+     */
     @Override
     public String toString() {
         try {

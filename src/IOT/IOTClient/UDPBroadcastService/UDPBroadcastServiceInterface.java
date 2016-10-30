@@ -1,12 +1,13 @@
 package IOT.IOTClient.UDPBroadcastService;
 
 /**
- * Created by Emily on 10/28/2016.
+ * This interface provides generic methods to start and terminate an UDP Broadcast Service.
+ * @author Mai
  */
 public interface UDPBroadcastServiceInterface extends Runnable {
 
     /**
-     * Starts the UDP listener.
+     * Starts the UDP broadcast on a port specified beforehand.
      */
     @Override
     public void run();
