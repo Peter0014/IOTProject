@@ -4,7 +4,7 @@
 Source: http://blog.beautheme.com/top-10-internet-of-things-iot-programming-languages/ on the 30.10.2016
 
 ###### Important Files and Ressources 
-- [IoT M1 ClassDiagram.svg][ClassDiagram] - UML class diagram
+- [IoT M1 ClassDiagram.svg][ClassDiagramSVG] | [IoT M1 ClassDiagram.png][ClassDiagramPNG] - UML class diagram
 - [DSE_0401_M1_doc.pdf][Documentation] - extra documentation for our software
 - [DSE_deploy_M1.png][DeploymentDiag] - our deployment diagram
 
@@ -30,7 +30,8 @@ Install the dependencies and start the server.
 
 Otherwise just download and deploy the [latest pre-built release](https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/tags/MS1).
 
-[ClassDiagram]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/IoT%20M1%20ClassDiagram.svg
+[ClassDiagramSVG]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/IoT%20M1%20ClassDiagram.svg
+[ClassDiagramPNG]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/ad17e12e50d1023ff6f086c4af3a56b28cb28665/IoT%20M1%20ClassDiagram.png
 [Documentation]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/DSE_0401_M1_doc.pdf
 [DeploymentDiag]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/DSE_deploy_M1.png
 [IOTPic]: http://blog.beautheme.com/wp-content/uploads/2015/12/IoT-Graphic.png
