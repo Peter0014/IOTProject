@@ -24,7 +24,7 @@ public class IOTClient implements IOTClientInterface {
     /**
      * A list containing all Subscriber-objects the Client has subscribed to.
      */
-    SubscriberList subscribers;
+    private SubscriberList subscribers;
 
     /**
      * Describes the service offered by the node the client sits on.
@@ -73,9 +73,9 @@ public class IOTClient implements IOTClientInterface {
     }
 
     /**
-     *
-     * @param urlString
-     * @param jsonMessage
+     * Unused.
+     * @param urlString unused
+     * @param jsonMessage unused
      */
     private void createNewPostRequest(String urlString, String jsonMessage){
         HttpURLConnection newConnection;
@@ -101,7 +101,7 @@ public class IOTClient implements IOTClientInterface {
      * @param destinationIP The IP-Address the service offering originally came from.
      * @param destinationPort The port to which to send the request.
      */
-    public void createSubscriptionRequest(String destinationIP, int destinationPort){
+    public void createSubscriptionRequest(String destinationIP, int destinationPort) {
         //Send HTTP GET Request to the passed IP and Port
 
         HttpURLConnection newConnection;
