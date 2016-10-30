@@ -47,7 +47,7 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
             e.printStackTrace();
             System.exit(-1);
         } finally {
-            if (socket != null) socket.close();
+            if (socket != null && !(socket.isClosed())) socket.close();
             this.running = false;
         }
     }
@@ -55,7 +55,7 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
 
     @Override
     public void terminate() {
-        if (socket != null) socket.close();
+        if (socket != null && !(socket.isClosed())) socket.close();
         this.running = false;
     }
 

@@ -50,7 +50,7 @@ public class UDPListener implements UDPListenerInterface {
             e.printStackTrace();
             System.exit(-1);
         } finally {
-            if (socket != null) socket.close();
+            if (socket != null && !(socket.isClosed())) socket.close();
             this.running = false;
         }
     }
@@ -58,7 +58,7 @@ public class UDPListener implements UDPListenerInterface {
     @Override
     public void terminate() {
         this.running = false;
-        if (socket != null) socket.close();
+        if (socket != null && !(socket.isClosed())) socket.close();
     }
 
     public Integer getPort() {
