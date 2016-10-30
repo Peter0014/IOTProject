@@ -6,20 +6,28 @@ import com.pi4j.system.NetworkInfo;
 import com.pi4j.system.SystemInfo;
 
 /**
+ * Checks on what device this application is running on.
  * 
  * Source: http://stackoverflow.com/a/39542949 on the 30th Oct. 2016
- * 
- * @author peter
  *
  */
 public class DeviceDetection {
+	/** True, if application is running on Windows */
 	private boolean isWin;
+	/** True, if application is running on Mac */
 	private boolean isMac;
+	/** True, if application is running on Linux */
 	private boolean isLin;
+	/** True, if application is running on Raspberry Pi */
 	private boolean isRasp;
 
+	/**
+	 * Checks OS name, architecture and hostname to find out which device the
+	 * application is running on.
+	 */
 	public DeviceDetection() {
 
+		/* Check for OS name */
 		final String osName = SystemInfo.getOsName().toLowerCase();
 		if (osName.indexOf("windows") >= 0) {
 			isWin = true;
@@ -38,6 +46,7 @@ public class DeviceDetection {
 		}
 
 		isRasp = false;
+		/* If it's a Linux distribution check if it's on a Raspberry Pi */
 		if (isLin) {
 			try {
 				final String osArch = SystemInfo.getOsArch().toLowerCase();
@@ -50,10 +59,6 @@ public class DeviceDetection {
 			}
 
 		}
-		System.out.println("Windows: " + isWin);
-		System.out.println("Mac: " + isMac);
-		System.out.println("Linux: " + isLin);
-		System.out.println("Raspberry Pi: " + isRasp);
 	}
 
 	public boolean isWin() {

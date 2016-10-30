@@ -3,6 +3,8 @@ package IOT.IOTApplication.alarmclock;
 import com.pi4j.wiringpi.SoftTone;
 
 /**
+ * Plays tunes on a Piezo that is connected to the Raspberry Pi that this
+ * application is running on.
  * 
  * Sources: Mario Theme: http://www.princetronics.com/supermariothemesong/ on
  * the 28th Oct 2016
@@ -12,12 +14,15 @@ import com.pi4j.wiringpi.SoftTone;
  */
 public class PiezoPlayer {
 
+	/** Pin that the Piezo is connected to. */
 	private final int PIEZO_PIN = 0;
 
+	/** Setup the wiring just on the first run to allow writing to pins. */
 	static {
 		com.pi4j.wiringpi.Gpio.wiringPiSetup();
 	}
 
+	/** Frequences[0][x] that are written onto the Piezo and duration[1][x]. */
 	private final int[][] MARIO_THEME = { { 2637, 2637, 0, 2637, 0, 2093, 2637, 0, 3136, 0, 0, 0, 1568, 0, 0, 0,
 
 			2093, 0, 0, 1568, 0, 0, 1319, 0, 0, 1760, 0, 1976, 0, 1865, 1760, 0,
@@ -38,10 +43,16 @@ public class PiezoPlayer {
 
 					9, 9, 9, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, } };
 
+	/**
+	 * Plays a melody that was preconfigured onto the piezo element at
+	 * {@value PiezoPlayer#PIEZO_PIN}.
+	 * 
+	 * @param melody
+	 *            Track number of predefined melody, 0 for
+	 *            {@value PiezoPlayer#MARIO_THEME}.
+	 */
 	public void playTune(int melody) {
-		if (melody < 0) {
-			return;
-		}
+		/* Select melody first */
 		int[][] tune;
 		switch (melody) {
 		default:
@@ -49,26 +60,27 @@ public class PiezoPlayer {
 			tune = MARIO_THEME;
 			break;
 		}
+		/* Activate Pin */
 		SoftTone.softToneCreate(PIEZO_PIN);
 
+		/* Play melody */
 		for (int i = 0; i < tune[0].length; i++) {
-			System.out.println("Sounding now: " + tune[0][i]);
+			/* Write frequency from array to piezo pin */
 			SoftTone.softToneWrite(PIEZO_PIN, tune[0][i]);
 			try {
-				System.out.println("Waiting now: " + 1000 / tune[1][i]);
+				/* Play tune for */
 				Thread.sleep(1000 / tune[1][i]);
-				System.out.println("Sounding now: 0");
+				/* Write 0 and cancel any sound */
 				SoftTone.softToneWrite(PIEZO_PIN, 0);
-				System.out.println("Waiting now: " + (int) (1000 / tune[1][i] * 1.3));
+				/* Break for duration * 1.3 before playing next tune */
 				Thread.sleep((int) (1000 / tune[1][i] * 1.3));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		/* Stop any sounds and close pin again */
 		SoftTone.softToneWrite(PIEZO_PIN, 0);
 		SoftTone.softToneStop(PIEZO_PIN);
-		System.out.println("Finished now!");
-
 	}
 }

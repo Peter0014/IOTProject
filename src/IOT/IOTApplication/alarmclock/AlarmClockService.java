@@ -30,12 +30,19 @@ public class AlarmClockService implements IOTApplicationInterface {
 	/** Dates in milliseconds and set TimerTasks that count down to alarm. */
 	private Map<Long, TimerTask> alarms;
 
+	/** Connection to the client to send out notifications to subscriber */
 	private IOTClientInterface client;
 
+	/* TODO Generate an ID */
 	/** Service type of this application */
 	final private String servDesc = "ACS101";
 
-	final String[] compatDevice = { "ACS", "CM", "LBC" };
+	/**
+	 * Devices that are able to subscribe to this service, ACS stands for
+	 * AlarmClockService, CM for CoffeeMakerService, LBCS for
+	 * LightBulbControlService
+	 */
+	final String[] compatDevice = { "ACS", "CMS", "LBCS" };
 
 	/** Alarm was already created, i. e. if you want to add the same date. */
 	public static final int EC_ALARM_ALREADY_EXISTS = -1;
@@ -49,7 +56,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 	public static final int EC_ALARM_NOT_CANCELLED = -5;
 
 	/**
-	 * Constructor initializes the alarms Map
+	 * Constructor initializes the alarms Map and connects the client
 	 */
 	public AlarmClockService(IOTClientInterface newClient) {
 		client = newClient;
@@ -116,10 +123,10 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 				if (client != null) {
 					/* Send info to subscribers */
-					client.notifySubscribers(new IOTMessage("AlarmPlaying", servDesc + " - Alarm is playing."));
-
+					client.notifySubscribers(
+							new IOTMessage(servDesc, "AlarmPlaying", servDesc + " - Alarm is playing."));
 				}
-				
+
 				if (new DeviceDetection().isRasp()) {
 					/* Make the Piezo sound */
 					PiezoPlayer player = new PiezoPlayer();
@@ -194,12 +201,22 @@ public class AlarmClockService implements IOTApplicationInterface {
 		}
 		return 0;
 	}
-	
+
+	/**
+	 * Checks if an alarm is active.
+	 * 
+	 * @param date
+	 *            Date, that will be checked
+	 * @return true if alarm is turned on
+	 */
 	public boolean isActive(Calendar date) {
 		return alarms.get(date.getTimeInMillis()) != null;
 	}
 
 	@Override
+	/**
+	 * Returns a String representation of all created Alarms.
+	 */
 	public String toString() {
 		return "Set alarms: " + alarms.keySet().toString();
 
@@ -218,6 +235,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		return servDesc;
 	}
 
+	@Override
 	public boolean isInterested(String broadcast) {
 		for (String entry : compatDevice) {
 			if (broadcast.startsWith(entry)) {

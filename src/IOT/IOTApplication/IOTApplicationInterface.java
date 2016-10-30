@@ -6,7 +6,12 @@ package IOT.IOTApplication;
  *
  */
 public interface IOTApplicationInterface {
-	/** Handles a received package and starts an event if triggered. */
+	/**
+	 * Handles a received package and starts an event if triggered.
+	 * 
+	 * @param message
+	 *            Message type and ID of the application with optional text
+	 */
 	public void handleIncomingNotification(IOTMessage message);
 
 	/**
