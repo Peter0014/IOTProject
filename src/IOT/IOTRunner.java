@@ -24,7 +24,7 @@ public class IOTRunner implements ServletContextListener {
     private UDPListenerInterface udpListener = null;
     private UDPBroadcastService udpBroadcastService = null;
 
-    SubscriberList subscriberList = null;
+    private SubscriberList subscriberList = null;
 
     public static final int UDP_SERVICE_PORT = 29902;
 
