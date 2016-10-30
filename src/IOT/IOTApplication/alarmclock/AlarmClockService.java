@@ -57,6 +57,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	/**
 	 * Constructor initializes the alarms Map and connects the client
+	 * @param newClient connection to the client
 	 */
 	public AlarmClockService(IOTClientInterface newClient) {
 		client = newClient;
