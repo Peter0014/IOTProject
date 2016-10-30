@@ -1,0 +1,197 @@
+@startuml
+
+title Internet Of Things -- Class Diagram
+
+package IOT {
+
+package IOTServer as IOTServerPackage {
+interface IOTServerInterface {
+	+ public void receiveServiceOffering(InetAddress sourceAddress, String data)
+	+ public void subscribeRequestHandler(String destinationIP, int destinationPort)
+	+ public void incomingNotificationHandler(IOTMessage message)
+}
+
+class IOTServer {
+	- private SubscriberList subscribers
+	- private IOTClientInterface client
+	- private IOTApplicationInterface application
+	+ public IOTServer(SubscriberList pSubscribers, IOTClientInterface pClient, IOTApplicationInterface pApplication)
+	
+}
+
+class HTTPServerconnector {
+	- private IOTServerInterface server
+	- private UDPListenerInterface udpListener
+	+ public void init(ServletConfig config)
+	+ public void destroy()
+	# protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	# protected void doPost(HttpServletRequest request, HttpServletResponse response)
+}
+
+package UDPListener {
+interface UDPListenerInterface {
+	+ public void run()
+	+ public void terminate()
+}
+
+class UDPListener
+
+}
+
+}
+
+
+package IOTClient as IOTClientPackage {
+	
+package UDPBroadcastService {
+	interface UDPBroadcastServiceInterface {
+		+ public void run()
+		+ public void terminate()
+	}
+	class UDPBroadcastService {
+		- private Integer port
+		- private Boolean running
+		- private DatagramSocket socket
+		- private String message
+		+ public UDPBroadcastService (Integer port, String message)
+		+ public String toString()
+	}
+}
+	
+interface IOTClientInterface {
+	+ public void notifySubscribers(IOTMessage message)
+    + public void createSubscriptionRequest(String destinationIP, int destinationPort)
+}
+
+class IOTClient {
+	SubscriberList subscribers
+	+ public IOTClient (SubscriberList pSubscribers)
+	- private String createUrl(String ipAddress,  int port)
+	+ public void createNewPostRequest(String urlString)
+}
+}
+
+
+package IOTApplication as IOTApplicationPackage {
+class AlarmClockGUI {
+	+ public AlarmClockGUI()
+	# protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	# protected void doPost(HttpServletRequest request, HttpServletResponse response)
+}
+
+class AlarmClockRunner {
+	- private AlarmClockService alarmClock
+	+ public AlarmClockRunner()
+	+ public void contextDestroyed(ServletContextEvent arg0)
+	+ public void contextInitialized(ServletContextEvent arg0)
+}
+
+class AlarmClockService {
+	- private Timer timer
+	- private Map<Long, TimerTask> alarms
+	+ {static} public static final int EC_ALARM_ALREADY_EXISTS = -1
+	+ {static} public static final int EC_ALARM_DOESNT_EXIST = -2
+	+ {static} public static final int EC_ALARM_RUNNING = -3
+	+ {static} public static final int EC_ALARM_IN_PAST = -4
+	+ {static} public static final int EC_ALARM_NOT_CANCELLED = -5
+	+ public AlarmClockService()
+	+ public int setAlarm(Calendar date)
+	+ public ArrayList<Long> getAlarms() 
+	+ public int startAlarm(Calendar date)
+	+ public int cancelAlarm(Calendar date)
+	+ public int remAlarm(Calendar date)
+	+ public String toString()
+}
+
+class IOTApplicationInterface {
+	+ public void handleIncomingNotification(IOTMessage message)
+}
+
+class IOTMessage {
+	final String messageType
+	final String message
+	+ public IOTMessage(String newMessageType, String newMessage)
+	+ public String getMessageType()
+	+ public String getMessage()
+}
+}
+
+
+class DeviceDetection {
+	- private boolean isWin
+	- private boolean isMac
+	- private boolean isLin
+	- private boolean isRasp
+	+ public DeviceDetection()
+	+ public boolean isWin()
+	+ public boolean isMac()
+	+ public boolean isLin()
+	+ public boolean isRasp()
+}
+
+class IOTRunner {
+	- private IOTClient client
+	- private AlarmClockService alarmClock
+	- private IOTServer server
+	- private UDPListenerInterface udpListener
+	- private UDPBroadcastService udpBroadcastService
+	- private SubscriberList subscriberList
+	{static} + public static final int UDP_SERVICE_PORT = 29902
+	+ public IOTRunner
+	
+}
+
+class Subscriber {
+	- final private String ipAddress
+	- final private int port
+	+ public Subscriber(String pIpAddress, int pPort)
+	+ public String getIpAddress()
+	+ public int getPort()
+}
+
+class SubscriberList {
+	- private ArrayList<Subscriber> list
+	+ public void addSubscriber(Subscriber newSubscriber)
+	+ public ArrayList<Subscriber> getSubscribers()
+}
+
+}
+
+interface ServletContextListener {
+	public void contextInitialized(ServletContextEvent servletContextEvent)
+	public void contextDestroyed(ServletContextEvent servletContextEvent)
+}
+
+note left of IOTServerPackage : shared server library (same codebase across all devices)
+note left of IOTClientPackage : shared client library (same codebase across all devices)
+note left of IOTApplicationPackage : code dependent on underlying device
+
+IOTClientInterface <|.. IOTClient
+IOTServerInterface <|.. IOTServer
+HTTPServlet <|-- AlarmClockGUI
+HTTPServlet <|-- HTTPServerconnector
+IOTApplicationInterface <|.. AlarmClockService
+ServletContextListener <|-- AlarmClockRunner
+UDPListenerInterface <|.. UDPListener
+UDPBroadcastServiceInterface <|.. UDPBroadcastService
+ServletContextListener <|.. IOTRunner
+
+SubscriberList --> "*" Subscriber
+AlarmClockService "1" <-- AlarmClockRunner
+HTTPServerconnector --> "1" IOTServerInterface
+HTTPServerconnector --> "1" UDPListenerInterface
+IOTServer --> "1" SubscriberList
+IOTServer --> "1" IOTClientInterface
+IOTServer --> "1" IOTApplicationInterface
+IOTClientInterface --> IOTMessage : uses
+IOTClient --> "1" SubscriberList
+
+IOTRunner --> "1" IOTClient
+IOTRunner --> "1" AlarmClockService
+IOTRunner --> "1" IOTServer
+IOTRunner --> "1" UDPListenerInterface
+IOTRunner --> "1" UDPBroadcastService
+IOTRunner --> "1" SubscriberList
+
+
+@enduml
