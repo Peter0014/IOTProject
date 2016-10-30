@@ -33,10 +33,6 @@ public class IOTClient implements IOTClientInterface {
         this.serviceDescription = serviceDescription;
     }
 
-    public void broadcastServiceOffering(){
-        //make a UDP broadcast
-    }
-
     public void notifySubscribers(IOTMessage message){
         //Create a a new json string to send in the Post body
         Gson gson = new GsonBuilder().create();

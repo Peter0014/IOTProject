@@ -7,10 +7,6 @@ import IOT.IOTApplication.*;
  */
 public interface IOTClientInterface {
 
-    /**
-     * This method broadcasts UDP packages which describe the service
-     */
-    public void broadcastServiceOffering();
     public void notifySubscribers(IOTMessage message);
     public void createSubscriptionRequest(String destinationIP, int destinationPort);
 
