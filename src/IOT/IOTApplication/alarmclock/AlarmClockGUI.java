@@ -15,15 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AlarmClockConnector
+ * Servlet implementation of GUI for alarm clock application
  */
 @WebServlet("/AlarmClock")
 public class AlarmClockGUI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AlarmClockGUI() {
         super();
         // TODO Auto-generated constructor stub
@@ -65,7 +62,10 @@ public class AlarmClockGUI extends HttpServlet {
 			SimpleDateFormat ffmt = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 			try {
 				Calendar cal = Calendar.getInstance();				
-				cal.setTime(ffmt.parse(date + " " + time));
+				try { cal.setTime(ffmt.parse(date + " " + time)); }
+				catch (ParseException e) {					
+					cal.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date + " " + time));
+				}
 				acs.setAlarm(cal);
 				acs.startAlarm(cal);
 			} catch (ParseException e) {

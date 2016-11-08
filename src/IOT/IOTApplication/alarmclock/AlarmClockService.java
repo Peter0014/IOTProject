@@ -107,7 +107,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 *         started, -4 if passed date is in the past, else 0
 	 */
 	public int startAlarm(Calendar date) {
-		long dateInMs = date.getTimeInMillis();
+		final long dateInMs = date.getTimeInMillis();
 		/* Calc when the alarm should play (in milliseconds) */
 		long ms = dateInMs - System.currentTimeMillis();
 		if (!alarms.containsKey(dateInMs)) {
@@ -138,12 +138,12 @@ public class AlarmClockService implements IOTApplicationInterface {
 				}
 
 				/* Remove Task from alarms */
-				alarms.replace(dateInMs, null);
+				alarms.remove(dateInMs);
 			}
 		};
 
 		/* Add Task to alarms */
-		alarms.replace(dateInMs, alarmTask);
+		alarms.put(dateInMs, alarmTask);
 		/* Start task after 'ms' millis */
 		timer.schedule(alarmTask, ms);
 
@@ -170,7 +170,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 				return EC_ALARM_NOT_CANCELLED;
 			} else {
 				/* Remove task from alarms */
-				alarms.replace(dateInMs, null);
+				alarms.remove(dateInMs);
 			}
 		}
 
