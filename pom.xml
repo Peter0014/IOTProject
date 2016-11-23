@@ -54,6 +54,12 @@
 	    <artifactId>junit</artifactId>
 	    <version>4.12</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-core -->
+	<dependency>
+	    <groupId>org.apache.cxf</groupId>
+	    <artifactId>cxf-core</artifactId>
+	    <version>3.1.8</version>
+	</dependency>
 	<dependency>
 		<groupId>com.pi4j</groupId>
 		<artifactId>pi4j-core</artifactId>
