@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+
 import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.IOTMessage;
@@ -24,6 +28,7 @@ import IOT.IOTClient.IOTClientInterface;
  * @version Milestone1
  *
  */
+@XmlRootElement(name="AlarmService")
 public class AlarmClockService implements IOTApplicationInterface {
 
 	/** This is the timer that runs the alarms */
@@ -37,6 +42,8 @@ public class AlarmClockService implements IOTApplicationInterface {
 	/* TODO Generate an ID */
 	/** Service type of this application */
 	final private String servDesc = "ACS101";
+	
+	final private int PORT_ID = 9000;
 
 	/**
 	 * Devices that are able to subscribe to this service, ACS stands for
@@ -64,6 +71,13 @@ public class AlarmClockService implements IOTApplicationInterface {
 		client = newClient;
 		/* Synchronized because it can be changed by different Threads. */
 		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
+		
+		/* Start Alarm Clock REST service */
+		JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
+		ACRestService acRest = new ACRestService(this);
+		sf.setServiceBean(acRest);
+		sf.setAddress("http://localhost:" + PORT_ID + "/");
+		sf.create();
 	}
 
 	/**
