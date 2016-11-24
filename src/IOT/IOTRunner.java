@@ -1,5 +1,6 @@
 package IOT;
 
+import IOT.IOTApplication.alarmclock.ACRestService;
 import IOT.IOTApplication.alarmclock.AlarmClockService;
 import IOT.IOTClient.IOTClient;
 import IOT.IOTClient.UDPBroadcastService.UDPBroadcastService;
@@ -10,6 +11,8 @@ import IOT.IOTServer.UDPListener.UDPListenerInterface;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 
 /**
  * This class serves as dependency manager. It instantiates all local instances of client, server, application
@@ -50,6 +53,7 @@ public class IOTRunner implements ServletContextListener {
      * Trivia: This port was chosen due to its closeness to the Nintendo WiFi port. (The alarmclock theme is Super Mario. ^^ )
      */
     public static final int UDP_SERVICE_PORT = 29902;
+    public static final int REST_SERVICE_PORT = 9000;
 
     /**
      * Instantiates all references.
@@ -71,6 +75,13 @@ public class IOTRunner implements ServletContextListener {
         udpBroadcastService = new UDPBroadcastService(UDP_SERVICE_PORT,alarmClock.getServiceDescription());
         Thread broadcasterThread = new Thread(udpBroadcastService);
         broadcasterThread.start();
+        
+		/* Start Alarm Clock REST service */
+		JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
+		ACRestService acRest = new ACRestService(alarmClock);
+		sf.setServiceBean(acRest);
+		sf.setAddress("http://localhost:" + REST_SERVICE_PORT + "/");
+		sf.create();
     }
 
     /**
