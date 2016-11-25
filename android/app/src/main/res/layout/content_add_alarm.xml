@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_add_alarm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="g2016w_dse_0401.eichinger.univie.ac.at.g2016w_dse_0401.AddAlarmActivity"
+    tools:showIn="@layout/activity_add_alarm">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_above="@+id/editAlarmDate"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editText4"
+        android:text="@string/alarmdate" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_marginBottom="22dp"
+        android:id="@+id/editAlarmDate"
+        android:layout_above="@+id/editAlarmTime"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/editAlarmTime"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="192dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:text="@string/alarmtime"
+        android:layout_above="@+id/editAlarmTime"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/editText4" />
+
+    <Button
+        android:text="@string/add_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addalarm_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="65dp" />
+</RelativeLayout>
