@@ -26,7 +26,7 @@ import IOT.IOTClient.IOTClientInterface;
  * @version Milestone1
  *
  */
-@XmlRootElement(name="AlarmService")
+@XmlRootElement(name = "AlarmService")
 public class AlarmClockService implements IOTApplicationInterface {
 
 	/** This is the timer that runs the alarms */
@@ -61,7 +61,9 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	/**
 	 * Constructor initializes the alarms Map and connects the client
-	 * @param newClient connection to the client
+	 * 
+	 * @param newClient
+	 *            connection to the client
 	 */
 	public AlarmClockService(IOTClientInterface newClient) {
 		client = newClient;
@@ -74,7 +76,8 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 * 
 	 * @param date
 	 *            Date that will be added to the alarms.
-	 * @return -1 if alarm already exists, else 0.
+	 * @return -1 if alarm already exists, -4 if the date is in the past, else
+	 *         0.
 	 */
 	public int setAlarm(Calendar date) {
 		if (alarms.containsKey(date)) {
@@ -98,6 +101,18 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 */
 	public ArrayList<Long> getAlarms() {
 		return new ArrayList<Long>(alarms.keySet());
+	}
+
+	public HashMap<Long, String> getAlarm(Calendar date) {
+		if (alarms.containsKey(date)) {
+			return null;
+		}
+
+		long msDate = date.getTimeInMillis();
+		HashMap<Long, String> entry = new HashMap<Long, String>();
+		entry.put(msDate, alarms.get(msDate).toString());
+
+		return entry;
 	}
 
 	/**

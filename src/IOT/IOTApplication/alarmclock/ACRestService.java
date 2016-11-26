@@ -4,14 +4,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,6 +19,7 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+@Path("/acrestservice/")
 public class ACRestService {
 
 	AlarmClockService acs = null;
@@ -47,21 +47,57 @@ public class ACRestService {
 		}
 	}
 
+	@GET
+	@Path("/getalarm/{msdate}")
+	@Produces({ "application/json" })
+	@Consumes({ "application/json", "application/x-www-form-urlencoded" })
+	public Response getElement(@PathParam("msdate") String msDate) {
+		System.out.println("Received REST enquiry for alarm " + msDate);
+
+		long lDate;
+
+		try {
+			lDate = Long.parseLong(msDate);
+		} catch (NumberFormatException nfEx) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(lDate);
+
+		HashMap<Long, String> alarm = acs.getAlarm(cal);
+		if (alarm == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+
+		Gson gson = new GsonBuilder().create();
+		String alarmsJson = gson.toJson(alarm);
+		return Response.ok(alarmsJson).build();
+	}
+
 	@POST
 	@Path("/postalarm")
 	@Produces({ "application/json" })
 	@Consumes({ "application/json", "application/x-www-form-urlencoded" })
-	public Response postElement(@FormParam("date") String date, @FormParam("time") String time) {
-		System.out.println("Received REST enquiry POST: " + date + ", " + time);
+	public Response postElement(@FormParam("msdate") String msDate) {
+		System.out.println("Received REST enquiry POST: " + msDate);
 
-		String[] sDate = date.split("-");
-		String[] sTime = time.split(":");
+		long lDate;
+
+		try {
+			lDate = Long.parseLong(msDate);
+		} catch (NumberFormatException nfEx) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+
 		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(sDate[0]), Integer.parseInt(sDate[1]), Integer.parseInt(sDate[2]),
-				Integer.parseInt(sTime[0]), Integer.parseInt(sTime[1]));
+		cal.setTimeInMillis(lDate);
 
 		int errorSet = acs.setAlarm(cal);
 		int errorStart = acs.startAlarm(cal);
+
+		System.out.println(errorSet);
+		System.out.println(errorStart);
 
 		if (errorSet < 0) {
 			return Response.status(Response.Status.CONFLICT).build();
@@ -69,7 +105,7 @@ public class ACRestService {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		} else {
 			try {
-				return Response.created(new URI("")).build();
+				return Response.created(new URI("acrestservice/getalarm/" + lDate)).build();
 			} catch (URISyntaxException e) {
 				return Response.status(Response.Status.BAD_REQUEST).build();
 			}
@@ -80,14 +116,19 @@ public class ACRestService {
 	@Path("/delalarm")
 	@Produces({ "application/json" })
 	@Consumes({ "application/json", "application/x-www-form-urlencoded" })
-	public Response delElement(@FormParam("date") String date, @FormParam("time") String time) {
-		System.out.println("Received REST enquiry POST: " + date + ", " + time);
+	public Response delElement(@FormParam("msdate") String msDate) {
+		System.out.println("Received REST enquiry DELETE: " + msDate);
 
-		String[] sDate = date.split("-");
-		String[] sTime = time.split(":");
+		long lDate;
+
+		try {
+			lDate = Long.parseLong(msDate);
+		} catch (NumberFormatException nfEx) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+
 		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(sDate[0]), Integer.parseInt(sDate[1]), Integer.parseInt(sDate[2]),
-				Integer.parseInt(sTime[0]), Integer.parseInt(sTime[1]));
+		cal.setTimeInMillis(lDate);
 
 		int errorDel = acs.remAlarm(cal);
 
