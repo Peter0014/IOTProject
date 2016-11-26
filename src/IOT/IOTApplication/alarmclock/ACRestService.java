@@ -81,7 +81,7 @@ public class ACRestService {
 	@Produces({ "application/json" })
 	@Consumes({ "application/json", "application/x-www-form-urlencoded" })
 	public Response delElement(@FormParam("date") String date, @FormParam("time") String time) {
-		System.out.println("Received REST enquiry POST: " + date + ", " + time);
+		System.out.println("Received REST enquiry DELETE: " + date + ", " + time);
 
 		String[] sDate = date.split("-");
 		String[] sTime = time.split(":");
