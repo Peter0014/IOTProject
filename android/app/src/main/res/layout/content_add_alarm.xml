@@ -14,14 +14,15 @@
     tools:showIn="@layout/activity_add_alarm">
 
     <EditText
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:layout_above="@+id/editAlarmDate"
-        android:layout_alignParentStart="true"
         android:id="@+id/editText4"
-        android:text="@string/alarmdate" />
+        android:text="@string/alarmdate"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:editable="false"
+        android:clickable="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,13 +47,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editText3"
         android:text="@string/alarmtime"
         android:layout_above="@+id/editAlarmTime"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/editText4" />
+        android:editable="false"
+        android:layout_alignEnd="@+id/editText4"
+        android:clickable="false" />
 
     <Button
         android:text="@string/add_alarm"
@@ -62,4 +64,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="65dp" />
+
 </RelativeLayout>
