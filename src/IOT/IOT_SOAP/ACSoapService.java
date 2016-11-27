@@ -50,13 +50,25 @@ public class ACSoapService implements IACSoapService {
     @Override
     public int postAlarm(@WebParam(name="msDate") String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(Long.parseLong(msDate));
+
+        int errorSet = alarmClockService.setAlarm(cal);
+        int errorStart = alarmClockService.startAlarm(cal);
+
+        if (errorSet < 0 | errorStart < 0) return -1;
         return 0;
     }
 
     @Override
     public int delAlarm(@WebParam(name="msDate") String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
-        return 0;
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(Long.parseLong(msDate));
+
+        return alarmClockService.cancelAlarm(cal);
     }
 
     // test runner

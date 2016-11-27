@@ -33,7 +33,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>CXFServlet</servlet-name>
-		<url-pattern>/services/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
     
     <servlet>
