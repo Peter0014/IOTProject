@@ -1,6 +1,8 @@
 package IOT.IOT_SOAP;
 
 import IOT.IOTApplication.alarmclock.AlarmClockService;
+import IOT.IOTClient.IOTClient;
+import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -55,5 +57,15 @@ public class ACSoapService implements IACSoapService {
     public int delAlarm(@WebParam(name="msDate") String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
         return 0;
+    }
+
+    // test runner
+    public static void main(String[] args) {
+        System.out.println("Starting server...");
+        IACSoapService soapService = new ACSoapService(new AlarmClockService(new IOTClient(null,null)));
+        JaxWsServerFactoryBean svrFactory = new JaxWsServerFactoryBean();
+        svrFactory.setAddress("http://localhost:8080/ACSoapService");
+        svrFactory.setServiceBean(soapService);
+        svrFactory.create();
     }
 }
