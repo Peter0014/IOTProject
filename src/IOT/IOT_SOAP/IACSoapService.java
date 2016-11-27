@@ -5,7 +5,6 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
@@ -40,8 +39,8 @@ public interface IACSoapService {
     @RequestWrapper(className = "java.lang.String")
     @ResponseWrapper(className = "java.util.HashMap")
     @WebResult(name="alarm")
-    @XmlJavaTypeAdapter(LongStringHashmapAdapter.class)
-    public HashMap<Long, String> getAlarm(@WebParam(name="msDate", mode= WebParam.Mode.IN) String msDate);
+    @XmlJavaTypeAdapter(LongBooleanHashmapAdapter.class)
+    public HashMap<Long, Boolean> getAlarm(@WebParam(name="msDate", mode= WebParam.Mode.IN) String msDate);
 
     /**
      * Invokes the underlying AlarmClockService to add an alarm.

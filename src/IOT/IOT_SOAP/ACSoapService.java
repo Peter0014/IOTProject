@@ -47,7 +47,7 @@ public class ACSoapService implements IACSoapService {
      * {@inheritDoc}
      */
     @Override
-    public HashMap<Long, String> getAlarm(@WebParam(name="msDate")String msDate) {
+    public HashMap<Long, Boolean> getAlarm(@WebParam(name="msDate")String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(Long.parseLong(msDate));

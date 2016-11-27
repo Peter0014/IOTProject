@@ -4,15 +4,15 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
- * Wrapper class for HashMap<Long,String>.
+ * Wrapper class for HashMap<Long,Boolean>.
  * Code inspired by Apache CFX examples\java_first_jaxws.
  * @author Mai
  * @version M2
  */
-@XmlType(name="LongStringHashmap")
+@XmlType(name= "LongBooleanHashmap")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name="LongStringHashmap")
-public class LongStringHashmap {
+@XmlRootElement(name="LongBooleanHashmap")
+public class LongBooleanHashmap {
 
     @XmlElement(nillable = false, name = "entry")
     ArrayList<LongStringEntry> entries = new ArrayList<>();
@@ -27,7 +27,7 @@ public class LongStringHashmap {
         @XmlElement(required = true, nillable = false)
         Long msTime;
 
-        String msTimeString;
+        Boolean msTimeBool;
 
         public Long getMsTime() {
             return msTime;
@@ -37,12 +37,12 @@ public class LongStringHashmap {
             this.msTime = msTime;
         }
 
-        public String getMsTimeString() {
-            return msTimeString;
+        public Boolean getMsTimeBool() {
+            return msTimeBool;
         }
 
-        public void setMsTimeString(String msTimeString) {
-            this.msTimeString = msTimeString;
+        public void setMsTimeBool(Boolean msTimeBool) {
+            this.msTimeBool = msTimeBool;
         }
     }
 }
