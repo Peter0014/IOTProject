@@ -191,6 +191,22 @@ class SubscriberList {
 	+ public ArrayList<Subscriber> getSubscribers()
 }
 
+package IOT_SOAP {
+
+interface IACSoapService {
+    + public public ArrayList<Long> getAlarms()
+    + public HashMap<Long, String> getAlarm(String msDate)
+    + public int postAlarm(String msDate)
+    + public int delAlarm(String msDate)
+}
+
+class ACSoaService {
+   - private AlarmClockService alarmClockService
+
+}
+
+}
+
 }
 
 interface ServletContextListener {
