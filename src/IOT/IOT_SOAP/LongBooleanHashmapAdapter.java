@@ -8,7 +8,7 @@ import java.util.HashMap;
  * Wrapper class adapter for Hashmap<Long,String>.
  * Code inspired by Apache CFX examples\java_first_jaxws.
  */
-public class LongStringHashmapAdapter extends XmlAdapter<LongStringHashmap,HashMap<Long,String>> {
+public class LongBooleanHashmapAdapter extends XmlAdapter<LongBooleanHashmap,HashMap<Long,Boolean>> {
 
     /**
      * Convert a msTimeString type to a bound type.
@@ -18,10 +18,10 @@ public class LongStringHashmapAdapter extends XmlAdapter<LongStringHashmap,HashM
      *                   reporting the error to the user through {@link ValidationEventHandler}.
      */
     @Override
-    public HashMap<Long, String> unmarshal(LongStringHashmap v) throws Exception {
-        HashMap<Long,String> map = new HashMap<>();
-        for (LongStringHashmap.LongStringEntry e : v.getEntries()) {
-            map.put(e.getMsTime(), e.getMsTimeString());
+    public HashMap<Long, Boolean> unmarshal(LongBooleanHashmap v) throws Exception {
+        HashMap<Long,Boolean> map = new HashMap<>();
+        for (LongBooleanHashmap.LongStringEntry e : v.getEntries()) {
+            map.put(e.getMsTime(), e.getMsTimeBool());
         }
         return map;
     }
@@ -34,11 +34,11 @@ public class LongStringHashmapAdapter extends XmlAdapter<LongStringHashmap,HashM
      *                   reporting the error to the user through {@link ValidationEventHandler}.
      */
     @Override
-    public LongStringHashmap marshal(HashMap<Long, String> v) throws Exception {
-        LongStringHashmap map = new LongStringHashmap();
-        for (HashMap.Entry<Long, String> e : v.entrySet()) {
-            LongStringHashmap.LongStringEntry iue = new LongStringHashmap.LongStringEntry();
-            iue.setMsTimeString(e.getValue());
+    public LongBooleanHashmap marshal(HashMap<Long, Boolean> v) throws Exception {
+        LongBooleanHashmap map = new LongBooleanHashmap();
+        for (HashMap.Entry<Long, Boolean> e : v.entrySet()) {
+            LongBooleanHashmap.LongStringEntry iue = new LongBooleanHashmap.LongStringEntry();
+            iue.setMsTimeBool(e.getValue());
             iue.setMsTime(e.getKey());
             map.getEntries().add(iue);
         }
