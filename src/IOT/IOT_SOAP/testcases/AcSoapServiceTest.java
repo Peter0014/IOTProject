@@ -130,7 +130,7 @@ public class AcSoapServiceTest {
     public void getAlarm() {
         System.out.println("Testing getAlarm()...");
 
-        HashMap<Long,String> res = soapService.getAlarm(alarms.get(0).toString());
+        HashMap<Long,Boolean> res = soapService.getAlarm(alarms.get(0).toString());
         assertNotNull(res);
     }
 
