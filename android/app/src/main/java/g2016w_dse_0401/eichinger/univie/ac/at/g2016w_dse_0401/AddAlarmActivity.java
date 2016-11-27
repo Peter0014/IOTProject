@@ -20,7 +20,6 @@ import java.util.Calendar;
 
 public class AddAlarmActivity extends AppCompatActivity {
 
-    //private final String SERVER_URL = "http://10.0.2.2:9000/acrestservice/";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
