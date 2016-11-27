@@ -2,47 +2,27 @@ package g2016w_dse_0401.eichinger.univie.ac.at.g2016w_dse_0401;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
-import android.text.format.Formatter;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.fitness.data.Goal;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import g2016w_dse_0401.eichinger.univie.ac.at.g2016w_dse_0401.model.AlarmItem;
 
@@ -81,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
             btn_del_alarm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SimpleDateFormat fmtd = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat fmthh = new SimpleDateFormat("HH");
-                    SimpleDateFormat fmtdd = new SimpleDateFormat("mm");
 
                     //String msg = "date=" + fmtd.format(dd) + "&time=" + fmthh.format(dd) + "%3A" + fmtdd.format(dd);
                     String msg = "msdate=" + dd;
@@ -173,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void delAlarm(Date a) {
+    /*private void delAlarm(Date a) {
 
         AsyncRESTClient arc = new AsyncRESTClient(getResources().getString(R.string.url_base));
-    }
+    }*/
 
     private Date pollCurrentTime() {
         return new Date();

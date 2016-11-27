@@ -30,6 +30,7 @@
         app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
     <include layout="@layout/content_main"
-        android:layout_height="287dp" />
+        android:layout_height="287dp"
+ />
 
 </android.support.design.widget.CoordinatorLayout>
