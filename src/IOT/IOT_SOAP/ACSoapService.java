@@ -32,12 +32,18 @@ public class ACSoapService implements IACSoapService {
         this.alarmClockService = alarmClockService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArrayList<Long> getAlarms() {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
         return alarmClockService.getAlarms();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HashMap<Long, String> getAlarm(@WebParam(name="msDate")String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
@@ -47,6 +53,9 @@ public class ACSoapService implements IACSoapService {
         return alarmClockService.getAlarm(cal);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int postAlarm(@WebParam(name="msDate") String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");
@@ -61,6 +70,9 @@ public class ACSoapService implements IACSoapService {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int delAlarm(@WebParam(name="msDate") String msDate) {
         if (alarmClockService == null) throw new IllegalStateException("AlarmClockService not initialized!");

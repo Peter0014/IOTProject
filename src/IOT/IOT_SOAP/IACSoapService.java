@@ -21,13 +21,19 @@ import java.util.HashMap;
 public interface IACSoapService {
 
     /**
-     * Returns all currently saved alarms.
+     * Queries the underlying AlarmClockService for all alarms.
+     * @return A list containing all currently active alarms (in Milliseconds).
      */
     @WebMethod(operationName = "getAlarms", exclude = false)
     @ResponseWrapper(className= "java.util.ArrayList<Long>")
     @WebResult(name="alarms")
     public ArrayList<Long> getAlarms();
 
+    /**
+     * Queries the underlying AlarmClockService for a certain alarm.
+     * @param msDate The desired alarm in milliseconds.
+     * @return 0 on success, -1 else.
+     */
     @WebMethod(operationName = "getAlarm", exclude = false)
     @RequestWrapper(className = "java.lang.String")
     @ResponseWrapper(className = "java.util.HashMap")
@@ -35,11 +41,21 @@ public interface IACSoapService {
     @XmlJavaTypeAdapter(LongStringHashmapAdapter.class)
     public HashMap<Long, String> getAlarm(@WebParam(name="msDate", mode= WebParam.Mode.IN) String msDate);
 
+    /**
+     * Invokes the underlying AlarmClockService to add an alarm.
+     * @param msDate The alarm to be added (in milliseconds).
+     * @return 0 on success, -1 else.
+     */
     @WebMethod(operationName = "postAlarm", exclude = false)
     @RequestWrapper(className = "java.lang.String")
     @WebResult(name="alarmState")
     public int postAlarm(@WebParam(name="msDate", mode= WebParam.Mode.IN) String msDate);
 
+    /**
+     * Invokes the underlying AlarmClockService to remove an alarm.
+     * @param msDate The alarm to be deleted (in milliseconds).
+     * @return 0 on success, -1 else.
+     */
     @WebMethod(operationName = "delAlarm", exclude = false)
     @RequestWrapper(className = "java.lang.String")
     @WebResult(name="alarmState")
