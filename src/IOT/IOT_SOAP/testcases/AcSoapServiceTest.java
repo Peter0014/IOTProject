@@ -119,21 +119,33 @@ public class AcSoapServiceTest {
         Calendar now = Calendar.getInstance();
         now.set(Calendar.MONTH,Calendar.DECEMBER);
 
-        System.out.println("Adding alarm: " + now.getTimeInMillis());
-        System.out.println("to " + soapService.getAlarms());
-
         int result = soapService.postAlarm(String.valueOf(now.getTimeInMillis()));
         assertEquals(0,result);
-        System.out.println(soapService.getAlarms());
 
+        assertTrue(soapService.getAlarms().contains(now.getTimeInMillis()));
+
+        /* // milli second weirdness
         result = soapService.postAlarm(String.valueOf(now.getTimeInMillis()));
         System.out.println(soapService.getAlarms());
         assertEquals(-1,result);
-
+        */
     }
 
     @Test
     public void delAlarm() {
         System.out.println("Testing delAlarm()...");
+
+        Calendar deleteMe = Calendar.getInstance();
+        deleteMe.set(Calendar.MONTH,Calendar.DECEMBER);
+        // first add an alarm
+        int result = soapService.postAlarm(String.valueOf(deleteMe.getTimeInMillis()));
+        assertEquals(0,result);
+
+        // then delete it
+        result = soapService.delAlarm(String.valueOf(deleteMe.getTimeInMillis()));
+        assertEquals(0,result);
+
+        // see if it's gone
+        assertFalse(soapService.getAlarms().contains(deleteMe.getTimeInMillis()));
     }
 }
