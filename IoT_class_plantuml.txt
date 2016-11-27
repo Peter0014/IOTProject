@@ -122,6 +122,27 @@ class PiezoPlayer {
     - private final int[][] MARIO_THEME = {too long for display}
     + public void playTune(int melody)
 }
+
+class Alarm {
+    - {static} private static final long serialVersionUID = 4399487403808161276L
+    - private static AtomicInteger idCounter = new AtomicInteger()
+    - private int objectId
+    - private Long time
+    - private TimerTask task
+    + public Alarm()
+    + {static} public static int nextId()
+    + public void put(Long newTime, TimerTask newTask)
+}
+
+class ACRestService {
+    - private AlarmClockService acs
+    + public ACRestService(AlarmClockService newAcs)
+    + public Response getAllElements()
+    + public Response getElement(String msDate)
+    + public Response postElement(String msDate)
+    + public Response delElement(String msDate)
+}
+
 }
 
 package testcases {
@@ -150,6 +171,7 @@ class IOTMessage {
 	+ public String getMessageType()
 	+ public String getMessage()
 }
+
 }
 
 
