@@ -1,22 +1,12 @@
 package g2016w_dse_0401.eichinger.univie.ac.at.g2016w_dse_0401;
 
-import android.app.DialogFragment;
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonWriter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -24,26 +14,13 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Logger;
 
 public class AddAlarmActivity extends AppCompatActivity {
 
-    private final String SERVER_URL = "http://10.0.2.2:9000/acrestservice/";
+    //private final String SERVER_URL = "http://10.0.2.2:9000/acrestservice/";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -87,11 +64,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(AddAlarmActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG);
-                }
-
-                SimpleDateFormat fmtd = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat fmthh = new SimpleDateFormat("HH");
-                SimpleDateFormat fmtdd = new SimpleDateFormat("mm");*/
+                }*/
 
                 long dd = c1.getTimeInMillis();
                 String msg = "msdate=" + dd;
