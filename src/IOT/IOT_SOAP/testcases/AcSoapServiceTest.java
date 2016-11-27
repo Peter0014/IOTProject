@@ -35,8 +35,15 @@ public class AcSoapServiceTest {
      */
     private IACSoapService soapService = null;
 
+    /**
+     * True if server and client are initialized and running.
+     * False else.
+     */
     static private boolean endpointsReady = false;
 
+    /**
+     * A list of all currently added alarms.
+     */
     private ArrayList<Long> alarms = null;
 
     /**
@@ -101,6 +108,9 @@ public class AcSoapServiceTest {
         alarms.add(now.getTimeInMillis());
     }
 
+    /**
+     * Tests if the SOAP server returns all alarms.
+     */
     @Test
     public void getAlarms() {
         System.out.println("Testing getAlarms()...");
@@ -111,6 +121,9 @@ public class AcSoapServiceTest {
         assertTrue(res.contains(alarms.get(0)));
     }
 
+    /**
+     * Tests if a specific alarm can be retrieved from the SOAP server.
+     */
     @Test
     public void getAlarm() {
         System.out.println("Testing getAlarm()...");
@@ -119,6 +132,9 @@ public class AcSoapServiceTest {
         assertNotNull(res);
     }
 
+    /**
+     * Tests whether alarms can be added via the SOAP server.
+     */
     @Test
     public void postAlarm() {
         System.out.println("Testing postAlarm()...");
@@ -131,6 +147,9 @@ public class AcSoapServiceTest {
         assertTrue(soapService.getAlarms().contains(now.getTimeInMillis()));
     }
 
+    /**
+     * Tests whether alarms can be deleted via the SOAP server.
+     */
     @Test
     public void delAlarm() {
         System.out.println("Testing delAlarm()...");
