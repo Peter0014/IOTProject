@@ -79,7 +79,6 @@ public class AsyncRESTClient {
                         ow.write(msg);
                         ow.flush();
                         ow.close();
-
                         os.close();
                     }
 

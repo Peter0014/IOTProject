@@ -6,5 +6,5 @@
     <string name="add_alarm">Add alarm</string>
     <string name="alarmdate">Date:</string>
     <string name="alarmtime">Time:</string>
-    <string name="url_base">10.0.2.2:9000/</string>
+    <string name="url_base">10.0.2.2:9000/acrestservice/</string>
 </resources>

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             Button btn_del_alarm = (Button)row.findViewById(R.id.btn_del_alarm);
 
-            final Date dd = item.alarmtime;
+            final long dd = item.alarmtime.getTime();
 
             btn_del_alarm.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,13 +85,16 @@ public class MainActivity extends AppCompatActivity {
                     SimpleDateFormat fmthh = new SimpleDateFormat("HH");
                     SimpleDateFormat fmtdd = new SimpleDateFormat("mm");
 
-                    String msg = "date=" + fmtd.format(dd) + "&time=" + fmthh.format(dd) + "%3A" + fmtdd.format(dd);
+                    //String msg = "date=" + fmtd.format(dd) + "&time=" + fmthh.format(dd) + "%3A" + fmtdd.format(dd);
+                    String msg = "msdate=" + dd;
 
                     new AsyncRESTClient(getResources().getString(R.string.url_base))
                             .delete("delalarm", msg, new AsyncRESTClient.ResultHandler() {
                                 @Override
                                 public void onResult(String result, Integer statusCode) {
                                     if (statusCode > 210) Toast.makeText(MainActivity.this,"Http Status: "+statusCode,Toast.LENGTH_LONG).show();
+                                    else
+                                        pollAlarms();
                                 }
                             });
                 }
@@ -104,17 +107,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Connected to Alarm Device");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
         alarms = new ArrayList<>();
 
         TextView clocktime = (TextView) findViewById(R.id.clocktime);
@@ -174,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
 
     }
 

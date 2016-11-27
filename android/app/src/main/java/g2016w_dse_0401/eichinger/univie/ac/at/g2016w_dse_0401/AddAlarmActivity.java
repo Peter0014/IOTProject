@@ -43,7 +43,7 @@ import java.util.logging.Logger;
 
 public class AddAlarmActivity extends AppCompatActivity {
 
-    private final String SERVER_URL = "http://10.0.2.2:9000/";
+    private final String SERVER_URL = "http://10.0.2.2:9000/acrestservice/";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -56,15 +56,6 @@ public class AddAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_alarm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         Button btn = (Button) findViewById(R.id.addalarm_btn);
         final EditText date = (EditText) findViewById(R.id.editAlarmDate);
@@ -97,13 +88,13 @@ public class AddAlarmActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(AddAlarmActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG);
                 }
-                */
 
                 SimpleDateFormat fmtd = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat fmthh = new SimpleDateFormat("HH");
-                SimpleDateFormat fmtdd = new SimpleDateFormat("mm");
-                Date dd = c1.getTime();
-                String msg = "date=" + fmtd.format(dd) + "&time=" + fmthh.format(dd) + "%3A" + fmtdd.format(dd);
+                SimpleDateFormat fmtdd = new SimpleDateFormat("mm");*/
+
+                long dd = c1.getTimeInMillis();
+                String msg = "msdate=" + dd;
                 new AsyncRESTClient(getResources().getString(R.string.url_base))
                         .post("postalarm", msg, new AsyncRESTClient.ResultHandler() {
                             @Override
