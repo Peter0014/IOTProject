@@ -172,7 +172,10 @@ class IOTRunner {
 	- private UDPListenerInterface udpListener
 	- private UDPBroadcastService udpBroadcastService
 	- private SubscriberList subscriberList
+	- private IACSoapService acSoapService
 	+ {static} public static final int UDP_SERVICE_PORT = 29902
+	+ {static} public static final int REST_SERVICE_PORT = 9000
+	+ {static} public static final int SOAP_SERVICE_PORT = 8080
 	+ public IOTRunner ()
 	
 }
@@ -202,6 +205,45 @@ interface IACSoapService {
 
 class ACSoaService {
    - private AlarmClockService alarmClockService
+   +  public ACSoapService ()
+   +  public void setAlarmClockService(AlarmClockService alarmClockService)
+   + {static} public static void main(String[] args)
+}
+
+class LongBooleanHashmap {
+   # ArrayList<LongStringEntry> entries
+   public ArrayList<LongStringEntry> getEntries()
+   {static} static class LongStringEntry
+}
+
+class LongStringEntry {
+    # Long msTime
+    # Boolean msTimeBool
+    + public Long getMsTime()
+    + public void setMsTime(Long msTime)
+    + public Boolean getMsTimeBool()
+    + public void setMsTimeBool(Boolean msTimeBool)
+}
+
+class LongBooleanHashmapAdapter {
+    + public HashMap<Long, Boolean> unmarshal(LongBooleanHashmap v)
+    + public LongBooleanHashmap marshal(HashMap<Long, Boolean> v)
+}
+
+package testcases {
+
+class AcSoapServiceTest {
+    - {static} static private AlarmClockService alarmClockService
+    - {static} long alarmDelay = 5000
+    - {static} long timeInMs
+    - {static} static public String serviceUrl =  "http://localhost:8080/ACSoapService"
+    -  private IACSoapService soapService
+    - {static} static private boolean endpointsReady = false
+    - private ArrayList<Long> alarms
+    + public AcSoapServiceTest()
+    + public void startClient()
+    + public void startServer()
+}
 
 }
 
@@ -227,6 +269,8 @@ UDPListenerInterface <|.. UDPListener
 UDPBroadcastServiceInterface <|.. UDPBroadcastService
 ServletContextListener <|.. IOTRunner
 
+IACSoapService <|.. ACSoapService
+
 SubscriberList --> "*" Subscriber
 HTTPServerConnector --> "1" IOTServerInterface
 IOTServer --> "1" SubscriberList
@@ -241,12 +285,17 @@ AlarmClockService --> "1" IOTClientInterface
 AlarmTest --> AlarmClockService : tests
 IOTApplicationInterface --> IOTMessage : uses
 
+AcSoapServiceTest --> IACSoapService : tests
+LongBooleanHashmapAdapter --> LongBooleanHashmap : uses
+IACSoapService --> LongBooleanHashmapAdapter : requires
+
 IOTRunner --> "1" IOTClient
 IOTRunner --> "1" AlarmClockService
 IOTRunner --> "1" IOTServer
 IOTRunner --> "1" UDPListenerInterface
 IOTRunner --> "1" UDPBroadcastService
 IOTRunner --> "1" SubscriberList
-
+IOTRunner --> "1" ACRestService
+IOTRunner --> "1" IACSoapService
 
 @enduml
