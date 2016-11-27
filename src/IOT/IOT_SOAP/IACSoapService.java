@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 /**
  * Server and Client-shared simple Java SEI for AlarmClockService SOAP services.
+ * @author Mai
+ * @version M2
  */
 @WebService(name="SoapAlarmClockService",
         targetNamespace = "http://localhost:8080/SoapAlarmClockService")

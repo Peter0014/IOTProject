@@ -6,6 +6,8 @@ import java.util.ArrayList;
 /**
  * Wrapper class for HashMap<Long,String>.
  * Code inspired by Apache CFX examples\java_first_jaxws.
+ * @author Mai
+ * @version M2
  */
 @XmlType(name="LongStringHashmap")
 @XmlAccessorType(XmlAccessType.FIELD)

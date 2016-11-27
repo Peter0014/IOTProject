@@ -15,7 +15,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 /**
- * Created by Emily on 11/27/2016.
+ * JUnit test class for all four operation of the AlarmClock Soap Service.
+ * @author Mai
+ * @version M2
  */
 public class AcSoapServiceTest {
     /** Alarm clock service to create and play alarms. */

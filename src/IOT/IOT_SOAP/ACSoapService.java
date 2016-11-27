@@ -13,7 +13,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 /**
- * Created by Emily on 11/27/2016.
+ * Implementation of the Soap Service Java SEI.
+ * @author Mai
+ * @version M2
  */
 @WebService(endpointInterface = "IOT.IOT_SOAP.IACSoapService",
         targetNamespace = "http://localhost:8080/SoapAlarmClockService",
