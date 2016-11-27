@@ -23,7 +23,7 @@ import IOT.IOTClient.IOTClientInterface;
  * the past. An error code will be returned if that happens.
  * 
  * @author Peter Klosowski (a1403029)
- * @version Milestone1
+ * @version Milestone2
  *
  */
 @XmlRootElement(name = "AlarmService")
@@ -103,14 +103,22 @@ public class AlarmClockService implements IOTApplicationInterface {
 		return new ArrayList<Long>(alarms.keySet());
 	}
 
-	public HashMap<Long, String> getAlarm(Calendar date) {
+	/**
+	 * Getter for a specific alarm.
+	 * 
+	 * @param date
+	 *            Calendar date that will be searched if added
+	 * @return Map of one date with date in miliseconds and if it has been
+	 *         started
+	 */
+	public HashMap<Long, Boolean> getAlarm(Calendar date) {
 		if (alarms.containsKey(date)) {
 			return null;
 		}
 
 		long msDate = date.getTimeInMillis();
-		HashMap<Long, String> entry = new HashMap<Long, String>();
-		entry.put(msDate, alarms.get(msDate).toString());
+		HashMap<Long, Boolean> entry = new HashMap<Long, Boolean>();
+		entry.put(msDate, alarms.get(msDate) == null);
 
 		return entry;
 	}
