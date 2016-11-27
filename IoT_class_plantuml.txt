@@ -225,7 +225,7 @@ interface IACSoapService {
     + public int delAlarm(String msDate)
 }
 
-class ACSoaService {
+class ACSoapService {
    - private AlarmClockService alarmClockService
    +  public ACSoapService ()
    +  public void setAlarmClockService(AlarmClockService alarmClockService)
@@ -252,7 +252,7 @@ class LongBooleanHashmapAdapter {
     + public LongBooleanHashmap marshal(HashMap<Long, Boolean> v)
 }
 
-package testcases {
+package testcases as TestCasesPackage {
 
 class AcSoapServiceTest {
     - {static} static private AlarmClockService alarmClockService
