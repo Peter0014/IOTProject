@@ -35,6 +35,8 @@ public class AcSoapServiceTest {
      */
     private IACSoapService soapService = null;
 
+    static private boolean endpointsReady = false;
+
     private ArrayList<Long> alarms = null;
 
     /**
@@ -45,11 +47,15 @@ public class AcSoapServiceTest {
         System.out.println("Setting alarm clock service...");
         soapService = new ACSoapService(alarmClockService);
 
-        System.out.println("Starting server...");
-        startServer();
+        if (!endpointsReady) {
+            System.out.println("Starting server...");
+            startServer();
 
-        System.out.println("Starting client...");
-        startClient();
+            System.out.println("Starting client...");
+            startClient();
+
+            endpointsReady = true;
+        }
 
         alarms = new ArrayList<>();
         fillServiceWithAlarms();
@@ -123,12 +129,6 @@ public class AcSoapServiceTest {
         assertEquals(0,result);
 
         assertTrue(soapService.getAlarms().contains(now.getTimeInMillis()));
-
-        /* // milli second weirdness
-        result = soapService.postAlarm(String.valueOf(now.getTimeInMillis()));
-        System.out.println(soapService.getAlarms());
-        assertEquals(-1,result);
-        */
     }
 
     @Test
