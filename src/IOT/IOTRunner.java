@@ -12,7 +12,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import IOT.IOT_SOAP.ACSoapService;
+import IOT.IOT_SOAP.IACSoapService;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 
 /**
  * This class serves as dependency manager. It instantiates all local instances
@@ -50,14 +53,18 @@ public class IOTRunner implements ServletContextListener {
 	 */
 	private SubscriberList subscriberList = null;
 
-	/**
-	 * The port on which UDP broadcasts are sent and received. Trivia: This port
-	 * was chosen due to its closeness to the Nintendo WiFi port. (The
-	 * alarmclock theme is Super Mario. ^^ )
-	 */
-	public static final int UDP_SERVICE_PORT = 29902;
-	/** Port where REST-Service API will listen on requests. */
-	public static final int REST_SERVICE_PORT = 9000;
+    /**
+     * A reference to the SOAP service interface implementation.
+     */
+    private IACSoapService acSoapService = null;
+
+    /**
+     * The port on which UDP broadcasts are sent and received.
+     * Trivia: This port was chosen due to its closeness to the Nintendo WiFi port. (The alarmclock theme is Super Mario. ^^ )
+     */
+    public static final int UDP_SERVICE_PORT = 29902;
+    public static final int REST_SERVICE_PORT = 9000;
+    public static final int SOAP_SERVICE_PORT = 8080;
 
 	/**
 	 * Instantiates all references.
@@ -87,7 +94,14 @@ public class IOTRunner implements ServletContextListener {
 		sf.setServiceBean(acRest);
 		sf.setAddress("http://localhost:" + REST_SERVICE_PORT + "/");
 		sf.create();
-	}
+
+        /* Start SOAP Alarm service */
+        acSoapService = new ACSoapService(alarmClock);
+        JaxWsServerFactoryBean svrFactory = new JaxWsServerFactoryBean();
+        svrFactory.setAddress("http://localhost:" + SOAP_SERVICE_PORT + "/ACSoapService");
+        svrFactory.setServiceBean(acSoapService);
+        svrFactory.create();
+    }
 
 	/**
 	 * Sets the context attributes for client, server and application.
