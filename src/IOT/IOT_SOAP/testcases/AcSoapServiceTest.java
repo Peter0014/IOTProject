@@ -116,6 +116,20 @@ public class AcSoapServiceTest {
     @Test
     public void postAlarm() {
         System.out.println("Testing postAlarm()...");
+        Calendar now = Calendar.getInstance();
+        now.set(Calendar.MONTH,Calendar.DECEMBER);
+
+        System.out.println("Adding alarm: " + now.getTimeInMillis());
+        System.out.println("to " + soapService.getAlarms());
+
+        int result = soapService.postAlarm(String.valueOf(now.getTimeInMillis()));
+        assertEquals(0,result);
+        System.out.println(soapService.getAlarms());
+
+        result = soapService.postAlarm(String.valueOf(now.getTimeInMillis()));
+        System.out.println(soapService.getAlarms());
+        assertEquals(-1,result);
+
     }
 
     @Test

@@ -57,7 +57,7 @@ public class ACSoapService implements IACSoapService {
         int errorSet = alarmClockService.setAlarm(cal);
         int errorStart = alarmClockService.startAlarm(cal);
 
-        if (errorSet < 0 | errorStart < 0) return -1;
+        if ( (errorSet < 0) || (errorStart < 0)) return -1;
         return 0;
     }
 
