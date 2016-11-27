@@ -5,7 +5,8 @@ Source: http://blog.beautheme.com/top-10-internet-of-things-iot-programming-lang
 
 ###### Important Files and Ressources 
 - [DSE_0401_M2_doc.pdf][Documentation] - extra documentation for our software for MS2
-- [IoT M1 ClassDiagram.svg][ClassDiagramSVG] | [IoT M1 ClassDiagram.png][ClassDiagramPNG] - UML class diagram from MS1
+- [IoT M1 ClassDiagram.svg][ClassDiagramSVGM1] | [IoT M1 ClassDiagram.png][ClassDiagramPNGM1] - UML class diagram from MS1
+- [IoT M2 ClassDiagram.svg][ClassDiagramSVGM2] | [IoT M2 ClassDiagram.png][ClassDiagramPNGM2] - UML class diagram from MS2
 - [DSE_deploy_M1.png][DeploymentDiag] - our deployment diagram from MS1
 
 
@@ -31,8 +32,10 @@ Our software was tested and runs on this hardware:
 
 Install the dependencies and start the server.
 
-[ClassDiagramSVG]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/IoT%20M1%20ClassDiagram.svg
-[ClassDiagramPNG]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/ad17e12e50d1023ff6f086c4af3a56b28cb28665/IoT%20M1%20ClassDiagram.png
+[ClassDiagramSVGM1]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/IoT%20M1%20ClassDiagram.svg
+[ClassDiagramPNGM1]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/ad17e12e50d1023ff6f086c4af3a56b28cb28665/IoT%20M1%20ClassDiagram.png
+[ClassDiagramSVGM2]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/fd27d0a74fa5273a00ac989e601add62a3794f89/IoT%20M2%20ClassDiagram.svg
+[ClassDiagramPNGM2]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/fd27d0a74fa5273a00ac989e601add62a3794f89/IoT%20M2%20ClassDiagram.png
 [Documentation]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/4317e26974aba55d462ca340db5e9a587b9769fe/DSE_0401_M2_doc.pdf
 [DeploymentDiag]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/DSE_deploy_M1.png
 [IOTPic]: http://blog.beautheme.com/wp-content/uploads/2015/12/IoT-Graphic.png
