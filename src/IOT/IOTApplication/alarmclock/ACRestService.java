@@ -49,7 +49,7 @@ public class ACRestService {
 	/**
 	 * For GET there are two APIs supported - /getalarms returns an HTTP
 	 * response with a JSON string that includes an array filled with created
-	 * alarms as dates in miliseconds through a GET request.
+	 * alarms as dates in milliseconds through a GET request.
 	 * 
 	 * @return HTTP Response - 404 if ACS wasn't started yet, else JSON
 	 *         rendition of available alarms.
@@ -78,10 +78,10 @@ public class ACRestService {
 	/**
 	 * For GET there are two APIs supported - /getalarm/{msdate} returns an HTTP
 	 * response with a JSON string that includes an array filled with this alarm
-	 * as date in miliseconds and if it has been started through a GET request.
+	 * as date in milliseconds and if it has been started through a GET request.
 	 * 
 	 * @param msDate
-	 *            Date in miliseconds
+	 *            Date in milliseconds
 	 * @return HTTP Response - 400 if passed date isn't a number, 404 if alarm
 	 *         wasn't found, else 200 with JSON rendition of available alarms.
 	 */
@@ -92,7 +92,7 @@ public class ACRestService {
 	public Response getElement(@PathParam("msdate") String msDate) {
 		System.out.println("Received REST enquiry for alarm " + msDate);
 
-		/* Date in miliseconds as long */
+		/* Date in milliseconds as long */
 		long lDate;
 
 		/* Return 400 if it's NaN */
@@ -120,10 +120,10 @@ public class ACRestService {
 	/**
 	 * POST method available at /postalarm to create and start a new alarm. The
 	 * parameter 'msdate' needs to be passed in a form and represents a
-	 * milisecond rendition of the date that will be added.
+	 * millisecond rendition of the date that will be added.
 	 * 
 	 * @param msDate
-	 *            Date in miliseconds
+	 *            Date in milliseconds
 	 * @return 400 if alarm was already added, in the past or couldnt be
 	 *         started, else 201 with alarm location in header.
 	 */
@@ -134,7 +134,7 @@ public class ACRestService {
 	public Response postElement(@FormParam("msdate") String msDate) {
 		System.out.println("Received REST enquiry POST: " + msDate);
 
-		/* Date in miliseconds as long */
+		/* Date in milliseconds as long */
 		long lDate;
 
 		/* Return 400 if it's NaN */
@@ -165,11 +165,11 @@ public class ACRestService {
 
 	/**
 	 * DELETE method to remove a previously added alarm. The parameter 'msdate'
-	 * needs to be passed in a form and represents a milisecond rendition of the
+	 * needs to be passed in a form and represents a millisecond rendition of the
 	 * date that will be removed.
 	 * 
 	 * @param msDate
-	 *            Date in miliseconds
+	 *            Date in milliseconds
 	 * @return HTTP Response - 400 if passed date isn't a number, 404 if alarm
 	 *         wasn't found, else 200.
 	 */
@@ -180,7 +180,7 @@ public class ACRestService {
 	public Response delElement(@FormParam("msdate") String msDate) {
 		System.out.println("Received REST enquiry DELETE: " + msDate);
 
-		/* Date in miliseconds as long */
+		/* Date in milliseconds as long */
 		long lDate;
 
 		/* Return 400 if it's NaN */
