@@ -252,7 +252,7 @@ class LongBooleanHashmapAdapter {
     + public LongBooleanHashmap marshal(HashMap<Long, Boolean> v)
 }
 
-package testcases as TestCasesPackage {
+package testcases as TestCasesPackagex {
 
 class AcSoapServiceTest {
     - {static} static private AlarmClockService alarmClockService
