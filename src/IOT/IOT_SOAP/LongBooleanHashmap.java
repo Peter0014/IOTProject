@@ -21,6 +21,9 @@ public class LongBooleanHashmap {
         return entries;
     }
 
+    /**
+     * Hashmap wrapper helper class. Is annoted as XmlRootElement and has the XmlAccressType FIELD.
+     */
     @XmlRootElement
     @XmlAccessorType(XmlAccessType.FIELD)
     static class LongBooleanEntry {
