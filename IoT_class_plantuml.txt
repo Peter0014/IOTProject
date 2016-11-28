@@ -308,7 +308,7 @@ AlarmTest --> AlarmClockService : tests
 IOTApplicationInterface --> IOTMessage : uses
 
 AcSoapServiceTest --> IACSoapService : tests
-LongBooleanHashmap --> LongBooleanHashmapEntry : contains
+LongBooleanHashmap --> LongBooleanEntry : contains
 LongBooleanHashmapAdapter --> LongBooleanHashmap : uses
 IACSoapService --> LongBooleanHashmapAdapter : requires
 
