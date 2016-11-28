@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class LongBooleanHashmap {
 
     @XmlElement(nillable = false, name = "entry")
-    ArrayList<LongStringEntry> entries = new ArrayList<>();
+    ArrayList<LongBooleanEntry> entries = new ArrayList<>();
 
-    public ArrayList<LongStringEntry> getEntries() {
+    public ArrayList<LongBooleanEntry> getEntries() {
         return entries;
     }
 
     @XmlRootElement
     @XmlAccessorType(XmlAccessType.FIELD)
-    static class LongStringEntry {
+    static class LongBooleanEntry {
         @XmlElement(required = true, nillable = false)
         Long msTime;
 

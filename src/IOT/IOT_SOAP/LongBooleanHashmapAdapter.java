@@ -20,7 +20,7 @@ public class LongBooleanHashmapAdapter extends XmlAdapter<LongBooleanHashmap,Has
     @Override
     public HashMap<Long, Boolean> unmarshal(LongBooleanHashmap v) throws Exception {
         HashMap<Long,Boolean> map = new HashMap<>();
-        for (LongBooleanHashmap.LongStringEntry e : v.getEntries()) {
+        for (LongBooleanHashmap.LongBooleanEntry e : v.getEntries()) {
             map.put(e.getMsTime(), e.getMsTimeBool());
         }
         return map;
@@ -37,7 +37,7 @@ public class LongBooleanHashmapAdapter extends XmlAdapter<LongBooleanHashmap,Has
     public LongBooleanHashmap marshal(HashMap<Long, Boolean> v) throws Exception {
         LongBooleanHashmap map = new LongBooleanHashmap();
         for (HashMap.Entry<Long, Boolean> e : v.entrySet()) {
-            LongBooleanHashmap.LongStringEntry iue = new LongBooleanHashmap.LongStringEntry();
+            LongBooleanHashmap.LongBooleanEntry iue = new LongBooleanHashmap.LongBooleanEntry();
             iue.setMsTimeBool(e.getValue());
             iue.setMsTime(e.getKey());
             map.getEntries().add(iue);
