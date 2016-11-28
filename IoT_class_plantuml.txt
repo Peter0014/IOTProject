@@ -233,12 +233,12 @@ class ACSoapService {
 }
 
 class LongBooleanHashmap {
-   # ArrayList<LongStringEntry> entries
-   public ArrayList<LongStringEntry> getEntries()
-   {static} static class LongStringEntry
+   # ArrayList<LongBooleanEntry> entries
+   public ArrayList<LongBooleanEntry> getEntries()
+   {static} static class LongBooleanEntry
 }
 
-class LongStringEntry {
+class LongBooleanEntry {
     # Long msTime
     # Boolean msTimeBool
     + public Long getMsTime()
@@ -308,8 +308,13 @@ AlarmTest --> AlarmClockService : tests
 IOTApplicationInterface --> IOTMessage : uses
 
 AcSoapServiceTest --> IACSoapService : tests
+LongBooleanHashmap --> LongBooleanHashmapEntry : contains
 LongBooleanHashmapAdapter --> LongBooleanHashmap : uses
 IACSoapService --> LongBooleanHashmapAdapter : requires
+
+ACSoapService --> "1" AlarmClockService : depends on functionality
+AcSoapServiceTest --> "1" AlarmClockService : tests
+ACRestService --> "1" AlarmClockService : depends on functionality
 
 IOTRunner --> "1" IOTClient
 IOTRunner --> "1" AlarmClockService
