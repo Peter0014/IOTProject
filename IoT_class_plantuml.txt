@@ -122,6 +122,27 @@ class PiezoPlayer {
     - private final int[][] MARIO_THEME = {too long for display}
     + public void playTune(int melody)
 }
+
+class Alarm {
+    - {static} private static final long serialVersionUID = 4399487403808161276L
+    - private static AtomicInteger idCounter = new AtomicInteger()
+    - private int objectId
+    - private Long time
+    - private TimerTask task
+    + public Alarm()
+    + {static} public static int nextId()
+    + public void put(Long newTime, TimerTask newTask)
+}
+
+class ACRestService {
+    - private AlarmClockService acs
+    + public ACRestService(AlarmClockService newAcs)
+    + public Response getAllElements()
+    + public Response getElement(String msDate)
+    + public Response postElement(String msDate)
+    + public Response delElement(String msDate)
+}
+
 }
 
 package testcases {
@@ -150,6 +171,7 @@ class IOTMessage {
 	+ public String getMessageType()
 	+ public String getMessage()
 }
+
 }
 
 
@@ -172,7 +194,10 @@ class IOTRunner {
 	- private UDPListenerInterface udpListener
 	- private UDPBroadcastService udpBroadcastService
 	- private SubscriberList subscriberList
+	- private IACSoapService acSoapService
 	+ {static} public static final int UDP_SERVICE_PORT = 29902
+	+ {static} public static final int REST_SERVICE_PORT = 9000
+	+ {static} public static final int SOAP_SERVICE_PORT = 8080
 	+ public IOTRunner ()
 	
 }
@@ -200,8 +225,47 @@ interface IACSoapService {
     + public int delAlarm(String msDate)
 }
 
-class ACSoaService {
+class ACSoapService {
    - private AlarmClockService alarmClockService
+   +  public ACSoapService ()
+   +  public void setAlarmClockService(AlarmClockService alarmClockService)
+   + {static} public static void main(String[] args)
+}
+
+class LongBooleanHashmap {
+   # ArrayList<LongBooleanEntry> entries
+   public ArrayList<LongBooleanEntry> getEntries()
+   {static} static class LongBooleanEntry
+}
+
+class LongBooleanEntry {
+    # Long msTime
+    # Boolean msTimeBool
+    + public Long getMsTime()
+    + public void setMsTime(Long msTime)
+    + public Boolean getMsTimeBool()
+    + public void setMsTimeBool(Boolean msTimeBool)
+}
+
+class LongBooleanHashmapAdapter {
+    + public HashMap<Long, Boolean> unmarshal(LongBooleanHashmap v)
+    + public LongBooleanHashmap marshal(HashMap<Long, Boolean> v)
+}
+
+package testcases as TestCasesPackagex {
+
+class AcSoapServiceTest {
+    - {static} static private AlarmClockService alarmClockService
+    - {static} long alarmDelay = 5000
+    - {static} long timeInMs
+    - {static} static public String serviceUrl =  "http://localhost:8080/ACSoapService"
+    -  private IACSoapService soapService
+    - {static} static private boolean endpointsReady = false
+    - private ArrayList<Long> alarms
+    + public AcSoapServiceTest()
+    + public void startClient()
+    + public void startServer()
+}
 
 }
 
@@ -227,6 +291,8 @@ UDPListenerInterface <|.. UDPListener
 UDPBroadcastServiceInterface <|.. UDPBroadcastService
 ServletContextListener <|.. IOTRunner
 
+IACSoapService <|.. ACSoapService
+
 SubscriberList --> "*" Subscriber
 HTTPServerConnector --> "1" IOTServerInterface
 IOTServer --> "1" SubscriberList
@@ -241,12 +307,22 @@ AlarmClockService --> "1" IOTClientInterface
 AlarmTest --> AlarmClockService : tests
 IOTApplicationInterface --> IOTMessage : uses
 
+AcSoapServiceTest --> IACSoapService : tests
+LongBooleanHashmap --> LongBooleanEntry : contains
+LongBooleanHashmapAdapter --> LongBooleanHashmap : uses
+IACSoapService --> LongBooleanHashmapAdapter : requires
+
+ACSoapService --> "1" AlarmClockService : depends on functionality
+AcSoapServiceTest --> "1" AlarmClockService : tests
+ACRestService --> "1" AlarmClockService : depends on functionality
+
 IOTRunner --> "1" IOTClient
 IOTRunner --> "1" AlarmClockService
 IOTRunner --> "1" IOTServer
 IOTRunner --> "1" UDPListenerInterface
 IOTRunner --> "1" UDPBroadcastService
 IOTRunner --> "1" SubscriberList
-
+IOTRunner --> "1" ACRestService
+IOTRunner --> "1" IACSoapService
 
 @enduml

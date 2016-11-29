@@ -6,3 +6,5 @@ IOT.IOTClient
 IOT.IOTClient.UDPBroadcastService
 IOT.IOTServer
 IOT.IOTServer.UDPListener
+IOT.IOT_SOAP
+IOT.IOT_SOAP.testcases

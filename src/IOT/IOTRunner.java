@@ -64,7 +64,7 @@ public class IOTRunner implements ServletContextListener {
      */
     public static final int UDP_SERVICE_PORT = 29902;
     public static final int REST_SERVICE_PORT = 9000;
-    public static final int SOAP_SERVICE_PORT = 8080;
+    public static final int SOAP_SERVICE_PORT = 9090;
 
 	/**
 	 * Instantiates all references.
