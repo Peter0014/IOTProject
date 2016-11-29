@@ -17,7 +17,7 @@ import java.util.HashMap;
  * @version M2
  */
 @WebService(name="ACSoapService",
-        targetNamespace = "http://localhost:8080/ACSoapService")
+        targetNamespace = "http://localhost:9090/ACSoapService")
 @SOAPBinding(style= SOAPBinding.Style.RPC, use= SOAPBinding.Use.LITERAL)
 public interface IACSoapService {
 
