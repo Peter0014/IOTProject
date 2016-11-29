@@ -18,7 +18,7 @@ import java.util.HashMap;
  * @version M2
  */
 @WebService(endpointInterface = "IOT.IOT_SOAP.IACSoapService",
-        targetNamespace = "http://localhost:8080/SoapAlarmClockService",
+        targetNamespace = "http://localhost:8080/ACSoapService",
         serviceName = "SoapAlarmClockService")
 public class ACSoapService implements IACSoapService {
 
