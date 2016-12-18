@@ -13,56 +13,53 @@
     tools:context="g2016w_dse_0401.eichinger.univie.ac.at.g2016w_dse_0401.AddAlarmActivity"
     tools:showIn="@layout/activity_add_alarm">
 
-    <EditText
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_above="@+id/editAlarmDate"
-        android:id="@+id/editText4"
-        android:text="@string/alarmdate"
-        android:layout_alignParentStart="true"
-        android:layout_width="wrap_content"
-        android:editable="false"
-        android:clickable="false" />
+    <TabHost
+        android:layout_width="200dip"
+        android:layout_height="300dip">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_marginBottom="22dp"
-        android:id="@+id/editAlarmDate"
-        android:layout_above="@+id/editAlarmTime"
-        android:layout_alignParentEnd="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editAlarmTime"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="192dp" />
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:text="@string/alarmtime"
-        android:layout_above="@+id/editAlarmTime"
-        android:layout_alignParentStart="true"
-        android:editable="false"
-        android:layout_alignEnd="@+id/editText4"
-        android:clickable="false" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
     <Button
-        android:text="@string/add_alarm"
-        android:layout_width="match_parent"
+        android:text="Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/addalarm_btn"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="65dp" />
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="69dp"
+        android:id="@+id/button3" />
 
 </RelativeLayout>
