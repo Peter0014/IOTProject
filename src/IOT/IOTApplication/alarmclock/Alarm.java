@@ -1,28 +1,45 @@
 package IOT.IOTApplication.alarmclock;
 
-import java.io.Serializable;
 import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class Alarm implements Serializable{
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
+
+@Entity
+public class Alarm {
+	@Id private Long id;
+	@Index private Long time;
+	@Ignore private TimerTask task;
 	
-	private static final long serialVersionUID = 4399487403808161276L;
-	
-	private static AtomicInteger idCounter = new AtomicInteger();
-	private int objectId;
-	private Long time;
-	private TimerTask task;
-	
-	public Alarm() {
-		objectId = nextId();
-	}
-	
-	public static int nextId() {
-		return idCounter.incrementAndGet();
-	}
-	
-	public void put(Long newTime, TimerTask newTask) {
+	public Alarm(Long newTime, TimerTask newTask) {
 		time = newTime;
 		task = newTask;
 	}
+
+	public Long getTime() {
+		return time;
+	}
+
+	public TimerTask getTask() {
+		return task;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public void setTask(TimerTask task) {
+		this.task = task;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

@@ -92,7 +92,7 @@ public class IOTRunner implements ServletContextListener {
 		JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
 		ACRestService acRest = new ACRestService(alarmClock);
 		sf.setServiceBean(acRest);
-		sf.setAddress("http://localhost:" + REST_SERVICE_PORT + "/");
+		sf.setAddress("http://0.0.0.0:" + REST_SERVICE_PORT + "/");
 		sf.create();
 
         /* Start SOAP Alarm service */

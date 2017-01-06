@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.IOTMessage;
+import IOT.IOTApplication.dao.AlarmClockDaoImpl;
 import IOT.IOTClient.IOTClientInterface;
 
 /**
@@ -31,6 +32,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	/** This is the timer that runs the alarms */
 	private Timer timer = new Timer();
+	private AlarmClockDaoImpl acDao;
 	/** Dates in milliseconds and set TimerTasks that count down to alarm. */
 	private Map<Long, TimerTask> alarms;
 
@@ -69,6 +71,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		client = newClient;
 		/* Synchronized because it can be changed by different Threads. */
 		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
+		acDao = new AlarmClockDaoImpl();
 	}
 
 	/**
@@ -91,6 +94,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		}
 
 		alarms.put(date.getTimeInMillis(), null);
+		acDao.toString();
 		return 0;
 	}
 
