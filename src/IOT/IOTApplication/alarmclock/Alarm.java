@@ -1,5 +1,6 @@
 package IOT.IOTApplication.alarmclock;
 
+import java.io.Serializable;
 import java.util.TimerTask;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -8,7 +9,8 @@ import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class Alarm {
+public class Alarm implements Serializable {
+	private static final long serialVersionUID = -4202909320493134616L;
 	@Id private Long id;
 	@Index private Long time;
 	@Ignore private TimerTask task;

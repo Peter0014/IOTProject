@@ -1,10 +1,11 @@
 package IOT.IOTApplication.alarmclock;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,8 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
+import IOT.IOTApplication.IOTFilePersistenceManager;
 import IOT.IOTApplication.IOTMessage;
-import IOT.IOTApplication.dao.AlarmClockDaoImpl;
 import IOT.IOTClient.IOTClientInterface;
 
 /**
@@ -32,9 +33,9 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 	/** This is the timer that runs the alarms */
 	private Timer timer = new Timer();
-	private AlarmClockDaoImpl acDao;
 	/** Dates in milliseconds and set TimerTasks that count down to alarm. */
-	private Map<Long, TimerTask> alarms;
+	// private Map<Long, TimerTask> alarms;
+	private List<Alarm> alarms;
 
 	/** Connection to the client to send out notifications to subscriber */
 	private IOTClientInterface client;
@@ -42,6 +43,10 @@ public class AlarmClockService implements IOTApplicationInterface {
 	/* TODO Generate an ID */
 	/** Service type of this application */
 	final private String servDesc = "ACS101";
+	/** Filename for persistent file storage */
+	final private String persFileName = servDesc + ".txt";
+	/** Persistence File Manager to save Alarms */
+	private IOTFilePersistenceManager<Alarm> fileManager;
 
 	/**
 	 * Devices that are able to subscribe to this service, ACS stands for
@@ -69,9 +74,16 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 */
 	public AlarmClockService(IOTClientInterface newClient) {
 		client = newClient;
+		fileManager = new IOTFilePersistenceManager<Alarm>(persFileName);
+		try {
+			fileManager.open();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(fileManager.findAll().toString());
 		/* Synchronized because it can be changed by different Threads. */
-		alarms = Collections.synchronizedMap(new HashMap<Long, TimerTask>());
-		acDao = new AlarmClockDaoImpl();
+		alarms = Collections.synchronizedList(fileManager.findAll());
 	}
 
 	/**
@@ -83,19 +95,31 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 *         0.
 	 */
 	public int setAlarm(Calendar date) {
-		if (alarms.containsKey(date)) {
-			return EC_ALARM_ALREADY_EXISTS;
+		for (Alarm entry : alarms) {
+			if (entry.getTime() == date.getTimeInMillis()) {
+				return EC_ALARM_ALREADY_EXISTS;
+			}
 		}
 		/* Check if alarm is in the past */
-		long dateInMs = date.getTimeInMillis();
-		long ms = dateInMs - System.currentTimeMillis();
+		long msDate = date.getTimeInMillis();
+		long ms = msDate - System.currentTimeMillis();
 		if (ms < 0) {
 			return EC_ALARM_IN_PAST;
 		}
 
-		alarms.put(date.getTimeInMillis(), null);
-		acDao.toString();
+		Alarm alarm = new Alarm(msDate, null);
+		alarms.add(alarm);
+		fileManager.flush();
 		return 0;
+	}
+
+	private int containsKey(long msDate) {
+		for (int i = 0; i < alarms.size(); i++) {
+			if (alarms.get(i).getTime() == msDate) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	/**
@@ -104,7 +128,11 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 * @return List of alarms in milliseconds.
 	 */
 	public ArrayList<Long> getAlarms() {
-		return new ArrayList<Long>(alarms.keySet());
+		ArrayList<Long> allAlarmsInMs = new ArrayList<Long>();
+		for (Alarm entry : alarms) {
+			allAlarmsInMs.add(entry.getTime());
+		}
+		return allAlarmsInMs;
 	}
 
 	/**
@@ -116,15 +144,14 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 *         started
 	 */
 	public HashMap<Long, Boolean> getAlarm(Calendar date) {
-		if (alarms.containsKey(date)) {
-			return null;
-		}
-
 		long msDate = date.getTimeInMillis();
-		HashMap<Long, Boolean> entry = new HashMap<Long, Boolean>();
-		entry.put(msDate, alarms.get(msDate) == null);
-
-		return entry;
+		int alarmIndex = containsKey(msDate);
+		if (alarmIndex >= 0) {
+			HashMap<Long, Boolean> singleAlarm = new HashMap<Long, Boolean>();
+			singleAlarm.put(msDate, alarms.get(alarmIndex).getTask() == null);
+			return singleAlarm;
+		}
+		return null;
 	}
 
 	/**
@@ -137,14 +164,16 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 *         started, -4 if passed date is in the past, else 0
 	 */
 	public int startAlarm(Calendar date) {
-		final long dateInMs = date.getTimeInMillis();
+		final long msDate = date.getTimeInMillis();
 		/* Calc when the alarm should play (in milliseconds) */
-		long ms = dateInMs - System.currentTimeMillis();
-		if (!alarms.containsKey(dateInMs)) {
-			/* setAlarm(date); */
+		long ms = msDate - System.currentTimeMillis();
+		int alarmIndex = containsKey(msDate);
+		if (alarmIndex < 0) {
+			setAlarm(date);
+			if ((alarmIndex = containsKey(msDate)) < 0);
 			return EC_ALARM_DOESNT_EXIST;
 		}
-		if (alarms.get(dateInMs) != null) {
+		if (alarms.get(alarmIndex).getTask() != null) {
 			return EC_ALARM_RUNNING;
 		}
 
@@ -168,12 +197,18 @@ public class AlarmClockService implements IOTApplicationInterface {
 				}
 
 				/* Remove Task from alarms */
-				alarms.remove(dateInMs);
+				int alarmIndex = containsKey(msDate);
+				alarms.remove(alarmIndex);
+				fileManager.flush();
 			}
 		};
 
-		/* Add Task to alarms */
-		alarms.put(dateInMs, alarmTask);
+		/* Remove old Alarm and add new one with Task */
+		alarms.remove(alarmIndex);
+		Alarm alarm = new Alarm(date.getTimeInMillis(), alarmTask);
+		alarms.add(alarm);
+		fileManager.flush();
+		
 		/* Start task after 'ms' millis */
 		timer.schedule(alarmTask, ms);
 
@@ -189,18 +224,20 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 *         else 0
 	 */
 	public int cancelAlarm(Calendar date) {
-		long dateInMs = date.getTimeInMillis();
+		long msDate = date.getTimeInMillis();
+		int alarmIndex = containsKey(msDate);
 
-		if (!alarms.containsKey(dateInMs)) {
+		if (alarmIndex < 0) {
 			return EC_ALARM_DOESNT_EXIST;
 		}
-		if (alarms.get(dateInMs) != null) {
-			if (!alarms.get(dateInMs).cancel()) {
+		if (alarms.get(alarmIndex).getTask() != null) {
+			if (!alarms.get(alarmIndex).getTask().cancel()) {
 				/* Error occured while cancelling the alarm task */
 				return EC_ALARM_NOT_CANCELLED;
 			} else {
-				/* Remove task from alarms */
-				alarms.remove(dateInMs);
+				/* Remove entry from alarms */
+				alarms.remove(alarmIndex);
+				fileManager.flush();
 			}
 		}
 
@@ -216,18 +253,21 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 *         else 0
 	 */
 	public int remAlarm(Calendar date) {
-		long dateInMs = date.getTimeInMillis();
+		long msDate = date.getTimeInMillis();
+		int alarmIndex = containsKey(msDate);
 
-		if (!alarms.containsKey(dateInMs)) {
+		if (alarmIndex < 0) {
 			return EC_ALARM_DOESNT_EXIST;
 		}
 
 		boolean cancelled = false;
-		if (alarms.get(dateInMs) != null) {
-			cancelled = alarms.get(dateInMs).cancel();
+		if (alarms.get(alarmIndex).getTask() != null) {
+			cancelled = alarms.get(alarmIndex).getTask().cancel();
 		}
 		if (cancelled) {
-			alarms.remove(dateInMs);
+			/* Remove entry from alarms */
+			alarms.remove(alarmIndex);
+			fileManager.flush();
 		} else {
 			return EC_ALARM_NOT_CANCELLED;
 		}
@@ -242,16 +282,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 * @return true if alarm is turned on
 	 */
 	public boolean isActive(Calendar date) {
-		return alarms.get(date.getTimeInMillis()) != null;
-	}
-
-	@Override
-	/**
-	 * Returns a String representation of all created Alarms.
-	 */
-	public String toString() {
-		return "Set alarms: " + alarms.keySet().toString();
-
+		return alarms.get(containsKey(date.getTimeInMillis())).getTask() != null;
 	}
 
 	@Override
