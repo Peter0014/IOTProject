@@ -78,18 +78,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
         TimerTask coffeeTask = new TimerTask() {
             @Override
             public void run() {
-                // if client exists, send notification to subscribers
-                if (client != null) {
-                    client.notifySubscribers(
-                            new IOTMessage(servDesc, "MakingCoffee", servDesc + " - Started making coffee."));
-                }
-
-                if (new DeviceDetection().isRasp()) {
-                    // TODO talk to pi to switch relay on
-                } else {
-                    System.out.println("Error " + ERROR_CMS_DEVICE_UNAVAILABLE + ": No coffee machine available to make coffee :(");
-                }
-
+                makeCoffee();
                 coffeeTimes.remove(time);
             }
         };
@@ -100,15 +89,41 @@ public class CoffeeMachineService implements IOTApplicationInterface {
     }
 
     /**
+     * Triggers the coffee machine to make coffee and notifies subscribers of this event.
+     * @return ERROR_CMS_DEVICE_UNAVAILABLE if there is no coffee machine, 0 else
+     */
+    public synchronized int makeCoffee() {
+        // if client exists, send notification to subscribers
+        if (client != null) {
+            client.notifySubscribers(
+                    new IOTMessage(servDesc, "MakingCoffee", servDesc + " - Started making coffee."));
+        }
+
+        if (new DeviceDetection().isRasp()) {
+            // TODO talk to pi to switch relay on
+            return 0;
+        } else {
+            System.err.println("Error " + ERROR_CMS_DEVICE_UNAVAILABLE + ": No coffee machine available to make coffee :(");
+            return ERROR_CMS_DEVICE_UNAVAILABLE;
+        }
+
+    }
+
+    /**
      * Handles a received package and starts an event if triggered.
      *
      * @param message Message type and ID of the application with optional text
      */
     @Override
     public void handleIncomingNotification(IOTMessage message) {
-        // ToDo implement this properly!
-        System.out.println("Got a message of type " + message.getMessageType() + ":");
-        System.out.println(message.getMessage());
+        // react to alarmclock
+        if (message.getServDesc().startsWith("ACS") && message.getMessageType().equals("AlarmPlaying")) {
+            makeCoffee();
+        }
+        else {
+            System.out.println("Got a message of type " + message.getMessageType() + ":");
+            System.out.println(message.getMessage());
+        }
     }
 
     /**
