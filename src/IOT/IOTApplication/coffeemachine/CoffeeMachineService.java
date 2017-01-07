@@ -56,7 +56,6 @@ public class CoffeeMachineService implements IOTApplicationInterface {
      */
     public CoffeeMachineService(IOTClientInterface client) {
         this.client = client;
-
         // if we need persistence, it'd go here!
         // ToDo find out if we need persistence
         coffeeTimes = new ArrayList<>(); // or read from file
@@ -103,7 +102,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
             // TODO talk to pi to switch relay on
             return 0;
         } else {
-            System.err.println("Error " + ERROR_CMS_DEVICE_UNAVAILABLE + ": No coffee machine available to make coffee :(");
+            System.out.println("Error " + ERROR_CMS_DEVICE_UNAVAILABLE + ": No coffee machine available to make coffee :(");
             return ERROR_CMS_DEVICE_UNAVAILABLE;
         }
 

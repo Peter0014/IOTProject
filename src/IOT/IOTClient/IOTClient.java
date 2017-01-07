@@ -103,13 +103,12 @@ public class IOTClient implements IOTClientInterface {
      */
     public void createSubscriptionRequest(String destinationIP, int destinationPort) {
         //Send HTTP GET Request to the passed IP and Port
-
         HttpURLConnection newConnection;
         try {
-            URL url = new URL("http://" + destinationIP + ":" + destinationPort + "/"); //Set the custom URL
+            URL url = new URL("http://" + destinationIP + ":" + destinationPort + "/iot"); //Set the custom URL
             newConnection = (HttpURLConnection)url.openConnection(); //Open the connection
             newConnection.setRequestMethod("GET"); //Set the request type
-
+            System.out.println(this.serviceDescription + " is sending a sub request to " + url.toString() + "!");
         }
         catch (IOException e) {
             e.printStackTrace();

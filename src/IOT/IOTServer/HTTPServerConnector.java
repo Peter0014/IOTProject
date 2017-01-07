@@ -1,6 +1,8 @@
 package IOT.IOTServer;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,16 +20,23 @@ import com.google.gson.GsonBuilder;
  * @version Milestone1
  * @see IOTServer
  */
+@WebServlet("/iot")
 public class HTTPServerConnector extends HttpServlet {
 
     /**
      * A reference to the server-instance on this device.
      */
-    private IOTServerInterface server;
+    private static IOTServerInterface server;
 
-    public HTTPServerConnector(IOTServerInterface pServer) {
-        server = pServer;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        System.out.println("Initializing IoT adapter... ");
+        server = (IOTServerInterface)config.getServletContext().getAttribute("server");
+        assert(server != null);
     }
+
+    public HTTPServerConnector() {}
 
     /**
      * {@inheritDoc}
@@ -77,6 +86,8 @@ public class HTTPServerConnector extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        System.out.println("new subscription!");
 
         String ipAddress;
         int port;
