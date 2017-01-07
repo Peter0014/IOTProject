@@ -266,7 +266,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		if (alarms.get(alarmIndex).getTask() != null) {
 			cancelled = alarms.get(alarmIndex).getTask().cancel();
 		}
-		if (cancelled) {
+		if (cancelled || alarms.get(alarmIndex).getTask() == null) {
 			/* Remove entry from alarms */
 			alarms.remove(alarmIndex);
 			fileManager.flush();
