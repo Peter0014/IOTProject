@@ -1,9 +1,15 @@
 package IOT.IOTApplication.coffeemachine;
 
+import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.IOTFilePersistenceManager;
 import IOT.IOTApplication.IOTMessage;
 import IOT.IOTClient.IOTClientInterface;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The CoffeeMachine is reponsible for TODO javadoc
@@ -11,6 +17,11 @@ import IOT.IOTClient.IOTClientInterface;
  * @version Milestone3
  */
 public class CoffeeMachineService implements IOTApplicationInterface {
+
+    /** Scheduler controlling the coffee times. */
+    private Timer timer = new Timer();
+    /** List of all times at which to turn the coffee machine on and make coffee. */
+    private ArrayList<Long> coffeeTimes;
 
     /** Connection to the client to send out notifications to subscriber */
     private IOTClientInterface client;
@@ -31,6 +42,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
 
     // TODO don't now if/when this be necessary, but here goes! (As error placeholder, so I don't forget.)
     public static final int ERROR_CMS_DEVICE_UNAVAILABLE = -1;
+    public static final int ERROR_CMS_INVALID_TIME = -2;
 
     /**
      * Sets up the coffee machine service.
@@ -41,10 +53,45 @@ public class CoffeeMachineService implements IOTApplicationInterface {
 
         // if we need persistence, it'd go here!
         // ToDo find out if we need persistence
+        coffeeTimes = new ArrayList<>(); // or read from file
     }
 
     // ToDo Coffee Machine business logic method -- makeCoffee? storeAlarm? whatever we need.
-    // ...
+
+    /**
+     *
+     * @return ERROR_CMS_INVALID_TIME if the alarm is illegal (in the past, double, etc), 0 else.
+     */
+    public int addCoffeeTime(long time) {
+        // first check if alarm is valid
+        if (coffeeTimes.contains(time)) return ERROR_CMS_INVALID_TIME; // already exists
+        if ((time - System.currentTimeMillis()) < 0) return ERROR_CMS_INVALID_TIME; // in past
+
+        coffeeTimes.add(time);
+
+        TimerTask coffeeTask = new TimerTask() {
+            @Override
+            public void run() {
+                // if client exists, send notification to subscribers
+                if (client != null) {
+                    client.notifySubscribers(
+                            new IOTMessage(servDesc, "MakingCoffee", servDesc + " - Started making coffee."));
+                }
+
+                if (new DeviceDetection().isRasp()) {
+                    // TODO talk to pi to switch relay on
+                } else {
+                    System.out.println("Error " + ERROR_CMS_DEVICE_UNAVAILABLE + ": No coffee machine available to make coffee :(");
+                }
+
+                coffeeTimes.remove(time);
+            }
+        };
+
+        timer.schedule(coffeeTask, new Date(time));
+
+        return 0;
+    }
 
     /**
      * Handles a received package and starts an event if triggered.
