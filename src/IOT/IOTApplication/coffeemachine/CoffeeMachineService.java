@@ -12,7 +12,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * The CoffeeMachine is reponsible for TODO javadoc
+ * The CoffeeMachine class is mainly responsible for managing the
+ * executions times on which to switch the relay for the coffee machine on.
  * @author Mai
  * @version Milestone3
  */
@@ -40,8 +41,13 @@ public class CoffeeMachineService implements IOTApplicationInterface {
      */
     private final String[] compatDevice = {"ACS", "CMS"};
 
-    // TODO don't now if/when this be necessary, but here goes! (As error placeholder, so I don't forget.)
+    /**
+     * In case the coffee machine is not available.
+     */
     public static final int ERROR_CMS_DEVICE_UNAVAILABLE = -1;
+    /**
+     * In case of an illegal time having been passed (eg. a duplicate time, or a time in the past).
+     */
     public static final int ERROR_CMS_INVALID_TIME = -2;
 
     /**
@@ -59,7 +65,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
     // ToDo Coffee Machine business logic method -- makeCoffee? storeAlarm? whatever we need.
 
     /**
-     *
+     * Adds a new time (in long == epoch) on which to make coffe to the internal list and schedules it for execution.
      * @return ERROR_CMS_INVALID_TIME if the alarm is illegal (in the past, double, etc), 0 else.
      */
     public int addCoffeeTime(long time) {

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 /**
  * Created by Emily on 1/7/2017.
+ * Tests the  basic functionality of the class CoffeeMachineService.
  */
 public class CoffeeTest {
     /** The class to be tested. */
