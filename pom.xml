@@ -139,22 +139,22 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\src</sourceDirectory>
-    <scriptSourceDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\src\test\java</testSourceDirectory>
-    <outputDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target\classes</outputDirectory>
-    <testOutputDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target\test-classes</testOutputDirectory>
+    <sourceDirectory>${basedir}\src</sourceDirectory>
+    <scriptSourceDirectory>${basedir}\src\main\scripts</scriptSourceDirectory>
+    <testSourceDirectory>${basedir}\src\test\java</testSourceDirectory>
+    <outputDirectory>${basedir}\target\classes</outputDirectory>
+    <testOutputDirectory>${basedir}\target\test-classes</testOutputDirectory>
     <resources>
       <resource>
-        <directory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\src\main\resources</directory>
+        <directory>${basedir}\src\main\resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\src\test\resources</directory>
+        <directory>${basedir}\src\test\resources</directory>
       </testResource>
     </testResources>
-    <directory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target</directory>
+    <directory>${basedir}\target</directory>
     <finalName>g2016w_dse_0401-0.0.1-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -311,7 +311,7 @@
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target\site</outputDirectory>
+              <outputDirectory>${basedir}\target\site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -327,7 +327,7 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target\site</outputDirectory>
+              <outputDirectory>${basedir}\target\site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -338,7 +338,7 @@
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target\site</outputDirectory>
+          <outputDirectory>${basedir}\target\site</outputDirectory>
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -350,6 +350,6 @@
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>C:\Users\peter\OneDrive\Dokumente\GitHub\g2016w_dse_0401\target\site</outputDirectory>
+    <outputDirectory>${basedir}\target\site</outputDirectory>
   </reporting>
 </project>

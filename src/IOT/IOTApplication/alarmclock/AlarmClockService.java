@@ -45,7 +45,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 	/** Service type of this application */
 	final private String servDesc = "ACS101";
 	/** Filename for persistent file storage */
-	final private String persFileName = servDesc + ".txt";
+	final private String persFileName = servDesc;
 	/** Persistence File Manager to save Alarms */
 	private IOTFilePersistenceManager<Alarm> fileManager;
 
