@@ -37,8 +37,10 @@ public class AlarmTimePickerFragment extends DialogFragment {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             Calendar cal = mainActivity.addAlarmCalendar;
-            cal.set(Calendar.HOUR,hourOfDay);
+            cal.set(Calendar.HOUR_OF_DAY,hourOfDay);
             cal.set(Calendar.MINUTE,minute);
+            cal.set(Calendar.SECOND,0);
+            cal.set(Calendar.MILLISECOND,0);
 
             new AlarmDatePickerFragment().show(getActivity().getFragmentManager(),"pickDate");
         }
