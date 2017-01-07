@@ -31,6 +31,12 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/beans.xml</param-value>
 	</context-param>
+
+    <!-- the default application to launch for this device. override via $CATALINA_BASE/conf/context.xml -->
+    <context-param>
+        <param-name>application</param-name>
+        <param-value>alarmClock</param-value>
+    </context-param>
 	
 	<servlet>
 		<servlet-name>CXFServlet</servlet-name>

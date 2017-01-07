@@ -1,7 +1,9 @@
 package IOT;
 
+import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.alarmclock.ACRestService;
 import IOT.IOTApplication.alarmclock.AlarmClockService;
+import IOT.IOTApplication.coffeemachine.CoffeeMachineService;
 import IOT.IOTClient.IOTClient;
 import IOT.IOTClient.UDPBroadcastService.UDPBroadcastService;
 import IOT.IOTServer.IOTServer;
@@ -32,10 +34,9 @@ public class IOTRunner implements ServletContextListener {
 	 */
 	private IOTClient client = null;
 	/**
-	 * A reference to the local instance of the specific application
-	 * (alarmclock).
+	 * A reference to the local instance of the specific application.
 	 */
-	private AlarmClockService alarmClock = null;
+	private IOTApplicationInterface application = null;
 	/**
 	 * A reference to the local instance of server.
 	 */
@@ -72,35 +73,6 @@ public class IOTRunner implements ServletContextListener {
 	public IOTRunner() {
 		System.out.println("IOTRunner: constructor");
 		subscriberList = new SubscriberList();
-		client = new IOTClient(subscriberList, null);
-		alarmClock = new AlarmClockService(client);
-		client.setServiceDescription(alarmClock.getServiceDescription());
-		server = new IOTServer(subscriberList, client, alarmClock);
-
-		// start udp listener
-		udpListener = new UDPListener(UDP_SERVICE_PORT, server);
-
-		Thread listenerThread = new Thread(udpListener);
-		listenerThread.start();
-
-		// start up
-		udpBroadcastService = new UDPBroadcastService(UDP_SERVICE_PORT, alarmClock.getServiceDescription());
-		Thread broadcasterThread = new Thread(udpBroadcastService);
-		broadcasterThread.start();
-
-		/* Start Alarm Clock REST service at localhost:9000 */
-		JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
-		ACRestService acRest = new ACRestService(alarmClock);
-		sf.setServiceBean(acRest);
-		sf.setAddress("http://0.0.0.0:" + REST_SERVICE_PORT + "/");
-		sf.create();
-
-        /* Start SOAP Alarm service */
-        acSoapService = new ACSoapService(alarmClock);
-        JaxWsServerFactoryBean svrFactory = new JaxWsServerFactoryBean();
-        svrFactory.setAddress("http://localhost:" + SOAP_SERVICE_PORT + "/ACSoapService");
-        svrFactory.setServiceBean(acSoapService);
-        svrFactory.create();
     }
 
 	/**
@@ -112,9 +84,48 @@ public class IOTRunner implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		System.out.println("IOTRunner: context initialized");
+
+		client = new IOTClient(subscriberList, null);
+
+		// what application are we running? only tomcat can tell...
+		switch (servletContextEvent.getServletContext().getInitParameter("application").toLowerCase()) {
+			case "alarmclock": application = new AlarmClockService(client); break;
+			case "coffeemachine": application = new CoffeeMachineService(client); break;
+			default: throw new IllegalStateException("UNKNOWN APPLICATION");
+		}
+
+		client.setServiceDescription(application.getServiceDescription());
+		server = new IOTServer(subscriberList,client,application);
+
+		// start udp listener
+		udpListener = new UDPListener(UDP_SERVICE_PORT, server);
+		Thread listenerThread = new Thread(udpListener);
+		listenerThread.start();
+		// start udp broadcast
+		udpBroadcastService = new UDPBroadcastService(UDP_SERVICE_PORT, application.getServiceDescription());
+		Thread broadcasterThread = new Thread(udpBroadcastService);
+		broadcasterThread.start();
+
+		// dirty check if we need rest and soap - only alarmclock does that
+		if (application instanceof AlarmClockService) {
+			/* Start Alarm Clock REST service at localhost:9000 */
+			JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
+			ACRestService acRest = new ACRestService((AlarmClockService)application);
+			sf.setServiceBean(acRest);
+			sf.setAddress("http://0.0.0.0:" + REST_SERVICE_PORT + "/");
+			sf.create();
+
+        /* Start SOAP Alarm service */
+			acSoapService = new ACSoapService((AlarmClockService)application);
+			JaxWsServerFactoryBean svrFactory = new JaxWsServerFactoryBean();
+			svrFactory.setAddress("http://localhost:" + SOAP_SERVICE_PORT + "/ACSoapService");
+			svrFactory.setServiceBean(acSoapService);
+			svrFactory.create();
+		}
+
 		servletContextEvent.getServletContext().setAttribute("client", client);
 		servletContextEvent.getServletContext().setAttribute("server", server);
-		servletContextEvent.getServletContext().setAttribute("application", alarmClock);
+		servletContextEvent.getServletContext().setAttribute("application", application);
 	}
 
 	/**
