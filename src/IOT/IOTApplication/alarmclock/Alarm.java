@@ -13,7 +13,7 @@ public class Alarm implements Serializable {
 	private static final long serialVersionUID = -4202909320493134616L;
 	@Id private Long id;
 	@Index private Long time;
-	@Ignore private TimerTask task;
+	@Ignore private transient TimerTask task;
 	
 	public Alarm(Long newTime, TimerTask newTask) {
 		time = newTime;

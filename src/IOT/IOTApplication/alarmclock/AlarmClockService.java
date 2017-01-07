@@ -1,5 +1,6 @@
 package IOT.IOTApplication.alarmclock;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,11 +78,11 @@ public class AlarmClockService implements IOTApplicationInterface {
 		fileManager = new IOTFilePersistenceManager<Alarm>(persFileName);
 		try {
 			fileManager.open();
+		} catch (FileNotFoundException e) {
+			fileManager.createNewDatastore();
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(fileManager.findAll().toString());
 		/* Synchronized because it can be changed by different Threads. */
 		alarms = Collections.synchronizedList(fileManager.findAll());
 	}
@@ -170,7 +171,8 @@ public class AlarmClockService implements IOTApplicationInterface {
 		int alarmIndex = containsKey(msDate);
 		if (alarmIndex < 0) {
 			setAlarm(date);
-			if ((alarmIndex = containsKey(msDate)) < 0);
+			if ((alarmIndex = containsKey(msDate)) < 0)
+				;
 			return EC_ALARM_DOESNT_EXIST;
 		}
 		if (alarms.get(alarmIndex).getTask() != null) {
@@ -208,7 +210,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		Alarm alarm = new Alarm(date.getTimeInMillis(), alarmTask);
 		alarms.add(alarm);
 		fileManager.flush();
-		
+
 		/* Start task after 'ms' millis */
 		timer.schedule(alarmTask, ms);
 
