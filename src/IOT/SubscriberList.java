@@ -2,6 +2,8 @@ package IOT;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class manages the subscribers, checks for duplicate subscribing requests and keeps the subscribers list up to date.
@@ -13,7 +15,7 @@ public class SubscriberList {
     /**
      * A list of all subscriber-objects interested in the service this node offers.
      */
-    private ArrayList<Subscriber> list = new ArrayList<>();
+    private List<Subscriber> list = Collections.synchronizedList(new ArrayList<Subscriber>());
 
 
     /**
@@ -34,7 +36,7 @@ public class SubscriberList {
     }
 
     public ArrayList<Subscriber> getSubscribers(){
-        return list;
+        return new ArrayList<Subscriber>(list);
     }
 
 }
