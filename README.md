@@ -3,8 +3,8 @@
 ![IOTPic][IOTPic]
 Source: http://blog.beautheme.com/top-10-internet-of-things-iot-programming-languages/ on the 30.10.2016
 
-###### Important Files and Ressources 
-- [DSE_0401_M3_doc.pdf][Documentation] - extra documentation for our software for MS2
+###### Important Files and Resources 
+- [DSE_0401_M3_doc.pdf][Documentation] - extra documentation for our software for MS3
 - [IoT M1 ClassDiagram.svg][ClassDiagramSVGM1] | [IoT M1 ClassDiagram.png][ClassDiagramPNGM1] - UML class diagram from MS1
 - [IoT M2 ClassDiagram.svg][ClassDiagramSVGM2] | [IoT M2 ClassDiagram.png][ClassDiagramPNGM2] - UML class diagram from MS2
 - [IoT M3 ClassDiagram.png][ClassDiagramPNGM3] - UML class diagram from MS3
