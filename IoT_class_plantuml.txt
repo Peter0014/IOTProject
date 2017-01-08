@@ -21,7 +21,7 @@ class IOTServer {
 
 class HTTPServerConnector {
 	- private IOTServerInterface server
-	+ public HTTPServerConnector(IOTServerInterface pServer)
+	+ public HTTPServerConnector()
 	# protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	# protected void doPost(HttpServletRequest request, HttpServletResponse response)
 }
@@ -58,7 +58,7 @@ package UDPBroadcastService {
 	}
 
 	class UDPBroadcastService {
-	    + {static} public static final int BROADCAST_MESSAGE_INTERVAL = 1000
+	    + {static} public static final int BROADCAST_MESSAGE_INTERVAL = 10000
 		- private Integer port
 		- private Boolean running
 		- private DatagramSocket socket
@@ -97,9 +97,11 @@ class AlarmClockGUI {
 
 class AlarmClockService {
 	- private Timer timer
-	- private Map<Long, TimerTask> alarms
+	- private List<Alarm> alarms
 	- private IOTClientInterface client
 	- final private String servDesc = "ACS101"
+	- final private String persFileName = servDesc
+	- private IOTFilePersistenceManager<Alarm> fileManager
 	- private final String[] compatDevice = { "ACS", "CMS", "LBCS" }
 	+ {static} public static final int EC_ALARM_ALREADY_EXISTS = -1
 	+ {static} public static final int EC_ALARM_DOESNT_EXIST = -2
@@ -108,12 +110,13 @@ class AlarmClockService {
 	+ {static} public static final int EC_ALARM_NOT_CANCELLED = -5
 	+ public AlarmClockService(IOTClientInterface newClient)
 	+ public int setAlarm(Calendar date)
-	+ public ArrayList<Long> getAlarms() 
+	- private int containsKey(long msDate)
+	+ public ArrayList<Long> getAlarms()
+	+ public HashMap<Long, Boolean> getAlarm(Calendar date)
 	+ public int startAlarm(Calendar date)
 	+ public int cancelAlarm(Calendar date)
 	+ public int remAlarm(Calendar date)
 	+ public boolean isActive(Calendar date)
-	+ public String toString()
 }
 
 class PiezoPlayer {
@@ -125,13 +128,16 @@ class PiezoPlayer {
 
 class Alarm {
     - {static} private static final long serialVersionUID = 4399487403808161276L
-    - private static AtomicInteger idCounter = new AtomicInteger()
-    - private int objectId
+    - private Long id
     - private Long time
-    - private TimerTask task
-    + public Alarm()
-    + {static} public static int nextId()
-    + public void put(Long newTime, TimerTask newTask)
+    - private transient TimerTask task
+    + public Alarm(Long newTime, TimerTask newTask)
+    + public Long getTime()
+    + public TimerTask getTask()
+    + public void setTime(Long time)
+    + public void setTask(TimerTask task)
+    + public Long getId()
+    + public void setId(Long id)
 }
 
 class ACRestService {
@@ -145,7 +151,33 @@ class ACRestService {
 
 }
 
-package testcases {
+package coffeemachine as coffeemachinepackage {
+class CoffeeMachineService {
+    - private Timer timer = new Timer()
+    - private ArrayList<Long> coffeeTimes
+    - private IOTClientInterface client
+    - final private String servDesc = "CMS"
+    - final private String persFilename = servDesc + ".txt"
+    - private IOTFilePersistenceManager<Long> fileManager
+    - private final String[] compatDevice = {"ACS", "CMS"}
+    + {static} public static final int ERROR_CMS_DEVICE_UNAVAILABLE = -1
+    + {static} public static final int ERROR_CMS_INVALID_TIME = -2
+    + public CoffeeMachineService(IOTClientInterface client)
+    + public int addCoffeeTime(long time)
+    + public synchronized int makeCoffee()
+}
+class CoffeeMaker {
+    - private final int COFFEE_PIN = 0
+    - private final long ONE_MIN_MS = 60000
+    - private final long FIVE_MIN_MS = 300000
+    - private final long FIFTEEN_MIN_MS = 900000
+    # {static} com.pi4j.wiringpi.Gpio.wiringPiSetup()
+    + public void turnOn()
+}
+}
+
+
+package testcases as testcasesPackage {
     class AlarmTest {
         - {static} static private AlarmClockService service
         - {static} static private long alarmDelay = 5000
@@ -154,6 +186,18 @@ package testcases {
         + public void testStartAlarm()
         + public void testCancelAlarm()
         + public void testRemoveAlarm()
+    }
+
+    class CoffeeTest {
+        - private CoffeeMachineService coffeeMachineService = new CoffeeMachineService(null)
+        - {static} static private final int COFFEE_DELAY = 5000
+        + public void testAddCoffeetime()
+        + public void testDuplicateCoffetime()
+        + public void testPastCoffeetime()
+    }
+
+    class IOTFilePersistenceTest {
+        + public void test() throws Exception
     }
 }
 
@@ -170,6 +214,14 @@ class IOTMessage {
 	+ public IOTMessage(String newMessageType, String newMessage)
 	+ public String getMessageType()
 	+ public String getMessage()
+}
+
+class IOTPersistenceManager {
+
+}
+
+class IOTFilePersistenceManager {
+
 }
 
 }
@@ -193,11 +245,13 @@ class IOTRunner {
 	- private IOTServer server
 	- private UDPListenerInterface udpListener
 	- private UDPBroadcastService udpBroadcastService
+	- private Thread listenerThread
+	- private Thread broadcasterThread
 	- private SubscriberList subscriberList
 	- private IACSoapService acSoapService
 	+ {static} public static final int UDP_SERVICE_PORT = 29902
 	+ {static} public static final int REST_SERVICE_PORT = 9000
-	+ {static} public static final int SOAP_SERVICE_PORT = 8080
+	+ {static} public static final int SOAP_SERVICE_PORT = 9090
 	+ public IOTRunner ()
 	
 }
@@ -287,6 +341,9 @@ HTTPServlet <|-- HTTPServerConnector
 IOTClientInterface <|.. IOTClient
 IOTServerInterface <|.. IOTServer
 IOTApplicationInterface <|.. AlarmClockService
+IOTApplicationInterface <|.. CoffeeMachineService
+Runnable <|-- UDPListenerInterface
+Runnable <|-- UDPBroadcastServiceInterface
 UDPListenerInterface <|.. UDPListener
 UDPBroadcastServiceInterface <|.. UDPBroadcastService
 ServletContextListener <|.. IOTRunner
@@ -301,28 +358,36 @@ IOTServer --> "1" IOTApplicationInterface
 IOTClientInterface --> IOTMessage : uses
 IOTClient --> "1" SubscriberList
 UDPListener --> "1" IOTServerInterface
+
+AlarmClockService --> "1" IOTClientInterface
 AlarmClockService --> DeviceDetection : uses
 AlarmClockService --> IOTMessage : uses
-AlarmClockService --> "1" IOTClientInterface
+AlarmClockService --> "1" IOTFilePersistenceManager
+CoffeeMachineService --> "1" IOTClientInterface
+CoffeeMachineService --> DeviceDetection : uses
+CoffeeMachineService --> IOTMessage: uses
+CoffeeMachineService --> "1" IOTFilePersistenceManager
+
 AlarmTest --> AlarmClockService : tests
-IOTApplicationInterface --> IOTMessage : uses
+CoffeeTest --> CoffeeMachineService : tests
+IOTFilePersistenceTest --> IOTFilePersistenceManager : tests
 
 AcSoapServiceTest --> IACSoapService : tests
 LongBooleanHashmap --> LongBooleanEntry : contains
 LongBooleanHashmapAdapter --> LongBooleanHashmap : uses
 IACSoapService --> LongBooleanHashmapAdapter : requires
-
 ACSoapService --> "1" AlarmClockService : depends on functionality
 AcSoapServiceTest --> "1" AlarmClockService : tests
 ACRestService --> "1" AlarmClockService : depends on functionality
 
 IOTRunner --> "1" IOTClient
-IOTRunner --> "1" AlarmClockService
+IOTRunner --> "1" IOTApplicationInterface
 IOTRunner --> "1" IOTServer
 IOTRunner --> "1" UDPListenerInterface
 IOTRunner --> "1" UDPBroadcastService
 IOTRunner --> "1" SubscriberList
 IOTRunner --> "1" ACRestService
 IOTRunner --> "1" IACSoapService
+
 
 @enduml
