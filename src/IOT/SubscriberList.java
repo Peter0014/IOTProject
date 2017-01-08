@@ -13,7 +13,7 @@ public class SubscriberList {
     /**
      * A list of all subscriber-objects interested in the service this node offers.
      */
-    private ArrayList<Subscriber> list;
+    private ArrayList<Subscriber> list = new ArrayList<>();
 
 
     /**
