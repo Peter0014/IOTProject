@@ -99,7 +99,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
         }
 
         if (new DeviceDetection().isRasp()) {
-            // TODO talk to pi to switch relay on
+            new CoffeeMaker().turnOn();
             return 0;
         } else {
             System.out.println("Error " + ERROR_CMS_DEVICE_UNAVAILABLE + ": No coffee machine available to make coffee :(");
