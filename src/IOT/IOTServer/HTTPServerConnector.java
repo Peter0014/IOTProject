@@ -48,9 +48,7 @@ public class HTTPServerConnector extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        IOTMessage message = null;
-
+        
         try {
             // Read from request
             StringBuilder buffer = new StringBuilder();
@@ -61,7 +59,7 @@ public class HTTPServerConnector extends HttpServlet {
             }
 
             Gson gson = new GsonBuilder().create();
-            message = gson.fromJson(buffer.toString(), IOTMessage.class);
+            IOTMessage message = gson.fromJson(buffer.toString(), IOTMessage.class);
             server.incomingNotificationHandler(message);
 
             response.setStatus(HttpServletResponse.SC_OK); 
@@ -69,8 +67,6 @@ public class HTTPServerConnector extends HttpServlet {
         } catch (Exception e) {
             System.err.println("Caught something while parsing: " + e.getMessage());
         }
-
-        server.incomingNotificationHandler(message);
     }
 
     /**
@@ -83,9 +79,8 @@ public class HTTPServerConnector extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("HTTPServerConnector: new subscription!");
-        System.out.println("Server port: " + request.getServerPort());
-        server.subscribeRequestHandler(request.getLocalAddr(),8080); // send it via servlet /iot (8080 is tomcat port)
+        System.out.println("HTTPServerConnector: new subscription request from " + request.getLocalAddr() + "!");
+        server.subscribeRequestHandler(request.getLocalAddr(),request.getServerPort()); // send it via servlet /iot (8080 is tomcat port)
         response.setStatus(HttpServletResponse.SC_OK);
         // opt: redirect to landing
     }

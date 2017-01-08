@@ -27,6 +27,10 @@ public class IOTServer implements IOTServerInterface {
      */
     private IOTApplicationInterface application;
 
+    public IOTServer() {
+        System.out.println("Oh fuck why this server.");
+    }
+
     /**
      * Creates a new instance of server. This constructor is only called once in a servlet's lifetime.
      * @param pSubscribers An (at first empty) list of subscribers for this node.
