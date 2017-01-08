@@ -216,12 +216,24 @@ class IOTMessage {
 	+ public String getMessage()
 }
 
-class IOTPersistenceManager {
-
+interface IOTPersistenceManager {
+    + public abstract class Predicate<T>
+    + List<T> findAll()
+   	+ List<T> find(Predicate<T> predicate)
+   	+ List<T> find(T element)
+   	+ T findFirst(Predicate<T> predicate)
+   	+ T findFirst(T element)
+   	+ void add(T element)
+   	+ void delete(T element)
+    + void delete(Predicate<T> predicate)
 }
 
 class IOTFilePersistenceManager {
-
+    - private String filename
+    - private ArrayList<T> data
+    + public void open()
+    + public void createNewDatastore(String filename)
+    + public void createNewDatastore()
 }
 
 }
