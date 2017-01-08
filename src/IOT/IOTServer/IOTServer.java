@@ -49,21 +49,22 @@ public class IOTServer implements IOTServerInterface {
      * @param data The data contained within the service offering.
      */
     public void receiveServiceOffering(InetAddress sourceAddress, String data) {
-        //System.out.println("Received data from " + sourceAddress);
+        // System.out.println("Received data from " + sourceAddress);
         // check if application is interested
         if (application.isInterested(data)) client.createSubscriptionRequest(sourceAddress.getHostAddress().toString(),8080);
     }
 
     /**
      * This method creates a new subscriber and sets its ip and port attributes, and hands it over to the Subscriber list for storing.
-     * @param destinationIP The IP of the node instered in the service.
+     * @param destinationIP The IP of the node interested in the service.
      * @param destinationPort The port of the node interested in the service.
      */
     public void subscribeRequestHandler(String destinationIP, int destinationPort){
-
-        //Create a new subscriber
+        // create and store a new subscriber
         Subscriber newSubscriber = new Subscriber(destinationIP, destinationPort);
         subscribers.addSubscriber(newSubscriber);
+        System.out.println("My subscribers: " + subscribers.getSubscribers().size());
+        System.out.println(subscribers.getSubscribers().get(0).getIpAddress() + " at port " + subscribers.getSubscribers().get(0).getPort());
     }
 
     /**

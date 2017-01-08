@@ -188,7 +188,8 @@ public class AlarmClockService implements IOTApplicationInterface {
 					/* Send info to subscribers */
 					client.notifySubscribers(
 							new IOTMessage(servDesc, "AlarmPlaying", servDesc + " - Alarm is playing."));
-				}
+				} else
+					System.out.println("CLIENT IS NULL!");
 
 				if (new DeviceDetection().isRasp()) {
 					/* Make the Piezo sound */

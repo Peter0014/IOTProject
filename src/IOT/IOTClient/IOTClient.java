@@ -56,8 +56,9 @@ public class IOTClient implements IOTClientInterface {
         if (list != null) {
         	//Send HTTP Post Request with message body to each subscriber in the list
 			for (Subscriber subscriber : list) {
-				String url = createUrl(subscriber.getIpAddress(), subscriber.getPort());
-				createNewPostRequest(url, jsonMessage);
+				String url = createUrl(subscriber.getIpAddress(), subscriber.getPort()) + "iot";
+                System.out.println("Sending post to URL: " + url) ;
+                createNewPostRequest(url, jsonMessage);
 			}
 		}
     }
@@ -88,6 +89,8 @@ public class IOTClient implements IOTClientInterface {
             writer.writeBytes(jsonMessage); //write the json string
             writer.flush();
             writer.close();
+            System.out.println();
+            System.out.println("STATUS POST NOTIFY: " + newConnection.getResponseCode());
 
         } catch (MalformedURLException exception) {
 
@@ -108,7 +111,11 @@ public class IOTClient implements IOTClientInterface {
             URL url = new URL("http://" + destinationIP + ":" + destinationPort + "/iot"); //Set the custom URL
             newConnection = (HttpURLConnection)url.openConnection(); //Open the connection
             newConnection.setRequestMethod("GET"); //Set the request type
+            int response = newConnection.getResponseCode(); // without this no send apparently
             System.out.println(this.serviceDescription + " is sending a sub request to " + url.toString() + "!");
+            if (response == 200) {
+                // TODO add to list of known IPs to avoid spam?
+            }
         }
         catch (IOException e) {
             e.printStackTrace();

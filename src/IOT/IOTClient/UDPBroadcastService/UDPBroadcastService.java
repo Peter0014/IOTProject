@@ -17,7 +17,7 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
     /**
      * The interval between UDP broadcasts (in milliseconds).
      */
-    public static final int BROADCAST_MESSAGE_INTERVAL = 1000;
+    public static final int BROADCAST_MESSAGE_INTERVAL = 10000;
 
     /**
      * The port on which to broadcast.
