@@ -67,7 +67,6 @@ public class UDPListener implements UDPListenerInterface {
                 socket.receive(datagram);
                 //parse the service offering -- UDP, so it's a string
                 String data = new String(datagram.getData());
-
                 //System.out.println("Received offering from " + datagram.getAddress());
                 //System.out.println(data);
 
@@ -77,11 +76,9 @@ public class UDPListener implements UDPListenerInterface {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
+            System.err.println("Exception caught while closing UDP listener: " + e.getMessage());
         } finally {
-            if (socket != null && !(socket.isClosed())) socket.close();
-            this.running = false;
+            terminate();
         }
     }
 
@@ -90,6 +87,7 @@ public class UDPListener implements UDPListenerInterface {
      */
     @Override
     public void terminate() {
+        System.out.println("closing udp listener");
         this.running = false;
         if (socket != null && !(socket.isClosed())) socket.close();
     }

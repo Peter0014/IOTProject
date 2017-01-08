@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>IOT</OriginalElement>
+  <nodes>
+    <node x="-1231.6640284513103" y="2204.653095070062">IOT.IOTApplication.alarmclock.ACRestService</node>
+    <node x="-946.2513131237577" y="526.4285714285708">IOT.IOTClient.UDPBroadcastService.UDPBroadcastServiceInterface</node>
+    <node x="-579.7933400430184" y="728.2373762515087">IOT.IOTServer.UDPListener.UDPListenerInterface</node>
+    <node x="103.85121241095612" y="2595.8616692575233">IOT.IOTApplication.IOTFilePersistenceManager</node>
+    <node x="247.19684917276436" y="3204.714071743198">IOT.IOTApplication.testcases.IOTFilePersistenceTest</node>
+    <node x="-493.4816383186685" y="3402.0067988642923">IOT.IOTApplication.testcases.AlarmTest</node>
+    <node x="-1.8386057464026635" y="711.394924456345">IOT.IOTServer.IOTServerInterface</node>
+    <node x="734.6981850748462" y="2213.547098719677">IOT.IOTClient.IOTClientInterface</node>
+    <node x="642.6159491147992" y="2775.7595706660504">IOT.IOTApplication.IOTPersistenceManager</node>
+    <node x="38.92688268461052" y="499.08704092677385">IOT.IOTServer.HTTPServerConnector</node>
+    <node x="-1692.3269046246699" y="2935.0437588126615">IOT.IOTApplication.dao.AlarmClockDaoImpl</node>
+    <node x="-1295.0000000000014" y="3481.4689074724347">IOT.IOTApplication.alarmclock.AlarmClockGUI</node>
+    <node x="-2178.5714285714294" y="3014.363152685909">IOT.IOTApplication.dao.AlarmClockDaoInterface</node>
+    <node x="-1447.8089922782706" y="1777.6852280466915">IOT.IOT_SOAP.testcases.AcSoapServiceTest</node>
+    <node x="800.3682074997068" y="1855.2869291863667">IOT.IOTClient.IOTClient</node>
+    <node x="1242.4795087716138" y="2621.6405831970114">IOT.IOTApplication.coffeemachine.CoffeeMaker</node>
+    <node x="-1299.261737748448" y="1420.841578042582">IOT.IOT_SOAP.ACSoapService</node>
+    <node x="796.8238203347937" y="1388.9677340300464">IOT.Subscriber</node>
+    <node x="-897.0053032067881" y="3407.3555269961403">IOT.IOTApplication.alarmclock.PiezoPlayer</node>
+    <node x="336.2585089521117" y="809.3838125161321">IOT.IOTServer.IOTServer</node>
+    <node x="-365.3511974284229" y="608.8416706424755">IOT.IOTServer.UDPListener.UDPListener</node>
+    <node x="-451.1825559992549" y="2820.226905743889">IOT.IOTApplication.IOTMessage</node>
+    <node x="-1070.1622716352977" y="687.6330116496733">IOT.IOTClient.UDPBroadcastService.UDPBroadcastService</node>
+    <node x="-1577.9910019429135" y="2651.90034045704">IOT.IOTApplication.alarmclock.Alarm</node>
+    <node x="588.7289073656907" y="1119.117352914779">IOT.IOTApplication.IOTApplicationInterface</node>
+    <node x="1980.9478051595552" y="780.6082583031921">IOT.IOT_SOAP.LongBooleanHashmap.LongBooleanEntry</node>
+    <node x="-143.52256073127728" y="2805.4052691035713">IOT.DeviceDetection</node>
+    <node x="1194.495834362132" y="2458.185585734244">IOT.IOTApplication.testcases.CoffeeTest</node>
+    <node x="1455.1038822074515" y="1370.9492239327947">IOT.IOT_SOAP.LongBooleanHashmapAdapter</node>
+    <node x="-1978.6274765416347" y="3397.18319318672">IOT.IOTApplication.testcases.DaoTest</node>
+    <node x="-273.95269712993877" y="1562.1025903910509">IOT.IOTRunner</node>
+    <node x="1369.495834362132" y="629.9999999999992">IOT.IOT_SOAP.LongBooleanHashmap</node>
+    <node x="-1191.8253961718801" y="1151.3797105694462">IOT.IOT_SOAP.IACSoapService</node>
+    <node x="-1081.9526971299388" y="2448.9173392741995">IOT.IOTApplication.alarmclock.AlarmClockService</node>
+    <node x="599.7454558501263" y="2358.361662361357">IOT.IOTApplication.coffeemachine.CoffeeMachineService</node>
+    <node x="706.6903884667609" y="3201.6226335154515">IOT.IOTApplication.IOTPersistenceManager.Predicate</node>
+    <node x="856.2052082145597" y="1616.6118577456539">IOT.SubscriberList</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="IOT.IOTApplication.testcases.CoffeeTest" target="IOT.IOTApplication.coffeemachine.CoffeeMachineService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOT_SOAP.ACSoapService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOT_SOAP.IACSoapService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.LongBooleanHashmap" target="IOT.IOT_SOAP.LongBooleanHashmap.LongBooleanEntry">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.IOTApplication.alarmclock.Alarm">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.coffeemachine.CoffeeMachineService" target="IOT.IOTClient.IOTClientInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.coffeemachine.CoffeeMachineService" target="IOT.DeviceDetection">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.coffeemachine.CoffeeMachineService" target="IOT.IOTApplication.IOTApplicationInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTClient.UDPBroadcastService.UDPBroadcastService" target="IOT.IOTClient.UDPBroadcastService.UDPBroadcastServiceInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.UDPListener.UDPListener" target="IOT.IOTServer.UDPListener.UDPListenerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.IOTApplication.IOTMessage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTApplication.coffeemachine.CoffeeMachineService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.testcases.AcSoapServiceTest" target="IOT.IOTApplication.alarmclock.AlarmClockService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.IOTFilePersistenceManager" target="IOT.IOTApplication.IOTPersistenceManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.IOTPersistenceManager.Predicate" target="IOT.IOTApplication.IOTPersistenceManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.ACRestService" target="IOT.IOTApplication.alarmclock.AlarmClockService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.testcases.DaoTest" target="IOT.IOTApplication.dao.AlarmClockDaoImpl">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.LongBooleanHashmap.LongBooleanEntry" target="IOT.IOT_SOAP.LongBooleanHashmap">
+      <point x="-1.3876095059054023" y="4.803596554574597" />
+      <point x="-1.3876095059054023" y="4.803596554574597" />
+    </edge>
+    <edge source="IOT.IOTApplication.testcases.AlarmTest" target="IOT.IOTApplication.alarmclock.AlarmClockService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.LongBooleanHashmapAdapter" target="IOT.IOT_SOAP.LongBooleanHashmap">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.ACSoapService" target="IOT.IOTApplication.alarmclock.AlarmClockService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTApplication.IOTApplicationInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTServer.IOTServer">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.coffeemachine.CoffeeMachineService" target="IOT.IOTApplication.IOTMessage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.UDPListener.UDPListener" target="IOT.IOTServer.IOTServerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.IOTClient.IOTClientInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTServer.UDPListener.UDPListener">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.IOTServer" target="IOT.SubscriberList">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.coffeemachine.CoffeeMachineService" target="IOT.IOTApplication.IOTFilePersistenceManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTClient.IOTClient" target="IOT.IOTClient.IOTClientInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTClient.IOTClient">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTApplication.alarmclock.AlarmClockService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.IOTServer" target="IOT.IOTApplication.IOTApplicationInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTClient.IOTClient" target="IOT.SubscriberList">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.DeviceDetection">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.IOTApplication.IOTApplicationInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.testcases.IOTFilePersistenceTest" target="IOT.IOTApplication.IOTPersistenceManager.Predicate">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.IOTServer" target="IOT.Subscriber">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.testcases.IOTFilePersistenceTest" target="IOT.IOTApplication.IOTFilePersistenceManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTApplication.alarmclock.ACRestService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.dao.AlarmClockDaoImpl" target="IOT.IOTApplication.dao.AlarmClockDaoInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.SubscriberList" target="IOT.Subscriber">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTClient.UDPBroadcastService.UDPBroadcastService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.IOTServer.UDPListener.UDPListenerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.coffeemachine.CoffeeMachineService" target="IOT.IOTApplication.coffeemachine.CoffeeMaker">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.testcases.AcSoapServiceTest" target="IOT.IOT_SOAP.ACSoapService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.ACSoapService" target="IOT.IOT_SOAP.IACSoapService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.IOTApplication.alarmclock.PiezoPlayer">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.testcases.AcSoapServiceTest" target="IOT.IOT_SOAP.IACSoapService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.ACSoapService" target="IOT.IOTClient.IOTClient">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTRunner" target="IOT.SubscriberList">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.dao.AlarmClockDaoImpl" target="IOT.IOTApplication.alarmclock.Alarm">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.IOTServer" target="IOT.IOTServer.IOTServerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOT_SOAP.LongBooleanHashmapAdapter" target="IOT.IOT_SOAP.LongBooleanHashmap.LongBooleanEntry">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.HTTPServerConnector" target="IOT.IOTServer.IOTServerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.alarmclock.AlarmClockService" target="IOT.IOTApplication.IOTFilePersistenceManager">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTApplication.testcases.DaoTest" target="IOT.IOTApplication.dao.AlarmClockDaoInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="IOT.IOTServer.IOTServer" target="IOT.IOTClient.IOTClientInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="-756.0000000000001" y="693.1428571428571" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

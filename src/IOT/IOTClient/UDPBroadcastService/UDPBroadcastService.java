@@ -17,7 +17,7 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
     /**
      * The interval between UDP broadcasts (in milliseconds).
      */
-    public static final int BROADCAST_MESSAGE_INTERVAL = 1000;
+    public static final int BROADCAST_MESSAGE_INTERVAL = 10000;
 
     /**
      * The port on which to broadcast.
@@ -71,13 +71,10 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
                 socket.send(broadcastDatagram);
                 Thread.sleep(BROADCAST_MESSAGE_INTERVAL);
             }
-
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            System.exit(-1);
+            System.err.println("Exception caught during UDP broadcast: " + e.getMessage());
         } finally {
-            if (socket != null && !(socket.isClosed())) socket.close();
-            this.running = false;
+            terminate();
         }
     }
 
@@ -86,8 +83,9 @@ public class UDPBroadcastService implements UDPBroadcastServiceInterface {
      */
     @Override
     public void terminate() {
-        if (socket != null && !(socket.isClosed())) socket.close();
+        System.out.println("closing udp broadcaster");
         this.running = false;
+        if (socket != null && !(socket.isClosed())) socket.close();
     }
 
     /**
