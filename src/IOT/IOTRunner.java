@@ -49,6 +49,10 @@ public class IOTRunner implements ServletContextListener {
 	 * A reference to the local instance of UDPBroadcastService.
 	 */
 	private UDPBroadcastService udpBroadcastService = null;
+
+	private Thread listenerThread = null;
+	private Thread broadcasterThread = null;
+
 	/**
 	 * A reference to all subscribers interested in the services of this node.
 	 */
@@ -97,14 +101,20 @@ public class IOTRunner implements ServletContextListener {
 		client.setServiceDescription(application.getServiceDescription());
 		server = new IOTServer(subscriberList,client,application);
 
-		// start udp listener
-		udpListener = new UDPListener(UDP_SERVICE_PORT, server);
-		Thread listenerThread = new Thread(udpListener);
-		listenerThread.start();
-		// start udp broadcast
-		udpBroadcastService = new UDPBroadcastService(UDP_SERVICE_PORT, application.getServiceDescription());
-		Thread broadcasterThread = new Thread(udpBroadcastService);
-		broadcasterThread.start();
+		try {
+			// start udp listener
+			udpListener = new UDPListener(UDP_SERVICE_PORT, server);
+			this.listenerThread = new Thread(udpListener);
+			listenerThread.start();
+			// start udp broadcast
+			udpBroadcastService = new UDPBroadcastService(UDP_SERVICE_PORT, application.getServiceDescription());
+			this.broadcasterThread = new Thread(udpBroadcastService);
+			broadcasterThread.start();
+		} catch(Exception e) {
+			System.err.println("OOPS! UDP Service failed to start.");
+			e.printStackTrace();
+			System.exit(-1);
+		}
 
 		// dirty check if we need rest and soap - only alarmclock does that
 		if (application instanceof AlarmClockService) {
@@ -136,8 +146,20 @@ public class IOTRunner implements ServletContextListener {
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
+		try {
+			udpBroadcastService.terminate();
+			udpListener.terminate();
+
+			broadcasterThread.join();
+			listenerThread.join();
+
+		} catch (Exception e) {
+			System.err.println("OOPS! UDP Service failed to stop.");
+			e.printStackTrace();
+			System.exit(-1);
+		}
+
 		System.out.println("IOTRunner: context destroyed");
-		udpListener.terminate();
-		udpBroadcastService.terminate();
+		System.exit(0);
 	}
 }
