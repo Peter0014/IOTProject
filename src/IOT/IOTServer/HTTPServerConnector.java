@@ -39,7 +39,8 @@ public class HTTPServerConnector extends HttpServlet {
     public HTTPServerConnector() {}
 
     /**
-     * {@inheritDoc}
+     * This method handles all the POST-requests sent to the server.
+     * Post-requests are interpreted as IOTMessages from this node's subscriptions.
      * @param request Servlet-intern request object.
      * @param response Servlet-intern response object.
      * @throws ServletException In case of internal servlet failure.
@@ -48,7 +49,7 @@ public class HTTPServerConnector extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //TODO
+        IOTMessage message = null;
 
         try {
             // Read from request
@@ -60,20 +61,16 @@ public class HTTPServerConnector extends HttpServlet {
             }
 
             Gson gson = new GsonBuilder().create();
-            IOTMessage message = gson.fromJson(buffer.toString(), IOTMessage.class);
+            message = gson.fromJson(buffer.toString(), IOTMessage.class);
             server.incomingNotificationHandler(message);
 
             response.setStatus(HttpServletResponse.SC_OK); 
 
         } catch (Exception e) {
-            //
+            System.err.println("Caught something while parsing: " + e.getMessage());
         }
 
-        //get post request body
-        //decode a json object -> hashmap
-        //turn it into a message object
-
-        //pass this object to the application
+        server.incomingNotificationHandler(message);
     }
 
     /**
@@ -86,17 +83,10 @@ public class HTTPServerConnector extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        System.out.println("new subscription!");
-
-        String ipAddress;
-        int port;
-        ipAddress = request.getLocalAddr(); //get IP of request
-        port = request.getLocalPort(); //get port of request
-
-        server.subscribeRequestHandler(ipAddress,port);
-
+        System.out.println("HTTPServerConnector: new subscription!");
+        System.out.println("Server port: " + request.getServerPort());
+        server.subscribeRequestHandler(request.getLocalAddr(),8080); // send it via servlet /iot (8080 is tomcat port)
         response.setStatus(HttpServletResponse.SC_OK);
-
+        // opt: redirect to landing
     }
 }

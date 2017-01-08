@@ -31,8 +31,6 @@ public class SubscriberList {
 
         //Add the new subscriber to the list
         list.add(newSubscriber);
-
-
     }
 
     public ArrayList<Subscriber> getSubscribers(){

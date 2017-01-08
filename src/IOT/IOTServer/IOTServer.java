@@ -68,6 +68,5 @@ public class IOTServer implements IOTServerInterface {
      */
     public void incomingNotificationHandler(IOTMessage message){
         application.handleIncomingNotification(message);
-
     }
 }
