@@ -1,12 +1,15 @@
 package IOT.IOTApplication;
 
 import java.util.List;	
-
+/**
+ * This interface defines methods to add, find and delete objects in its datastore
+ * @author René Eichinger
+ *
+ * @param <T>
+ */
 public interface IOTPersistenceManager<T extends Object> {
 	
-	/** returns true if element is to be selected from Datastore
-	 *  
-	 * @author penderiko
+	/** returns true if element is to be selected from datastore
 	 *
 	 * @param <T> element
 	 */

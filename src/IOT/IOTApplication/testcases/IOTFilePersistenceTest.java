@@ -24,7 +24,7 @@ public class IOTFilePersistenceTest {
 			pm.add("hi");
 			pm.add("y'all");
 			
-			pm.flush();
+			//pm.flush();
 			pm = new IOTFilePersistenceManager<>("test");
 			pm.open();
 			
