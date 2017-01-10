@@ -16,17 +16,11 @@ public class IOTFilePersistenceTest {
 	public void test() throws Exception {
 		
 			IOTFilePersistenceManager<String> pm = new IOTFilePersistenceManager<>("test");
-			try {
-				pm.open(); 
-			} catch (FileNotFoundException e) {
-				pm.createNewDatastore();
-			}
 			pm.add("hi");
 			pm.add("y'all");
 			
 			//pm.flush();
 			pm = new IOTFilePersistenceManager<>("test");
-			pm.open();
 			
 			
 			List<String> res = pm.find(new IOTPersistenceManagerInterface.Predicate<String>() {

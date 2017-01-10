@@ -30,10 +30,19 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 	public IOTFilePersistenceManager(String filename) {
 		this.filename = filename;
 		this.data = new ArrayList<T>();
+		try {
+			open();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void open() throws ClassNotFoundException, IOException {
+	private void open() throws ClassNotFoundException, IOException {
 		ObjectInputStream stream;
 			try {
 				File f = new File(filename);
@@ -145,12 +154,6 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 			throw new RuntimeException(e);
 		}
 		
-	}
-	
-	@Override
-	protected void finalize() throws Throwable {
-		flush();
-		super.finalize();
 	}
 
 }
