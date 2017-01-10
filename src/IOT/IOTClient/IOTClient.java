@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The IOTClient is mainly responisble for creating and sending messages over the network.
@@ -50,8 +51,7 @@ public class IOTClient implements IOTClientInterface {
         Gson gson = new GsonBuilder().create();
         String jsonMessage = gson.toJson(message);
 
-        ArrayList<Subscriber> list;
-        list = subscribers.getSubscribers();
+        List<Subscriber> list = subscribers.getSubscribers();
 
         if (list != null) {
         	//Send HTTP Post Request with message body to each subscriber in the list

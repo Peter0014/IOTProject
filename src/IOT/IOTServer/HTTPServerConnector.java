@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.BufferedReader;
 
+import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.IOTMessage;
+import IOT.IOTClient.IOTClient;
+import IOT.SubscriberList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,17 +29,22 @@ public class HTTPServerConnector extends HttpServlet {
     /**
      * A reference to the server-instance on this device.
      */
-    private static IOTServerInterface server;
+    private IOTServerInterface server;
+
+    private IOTApplicationInterface application;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         System.out.println("Initializing IoT adapter... ");
-        server = (IOTServerInterface)config.getServletContext().getAttribute("server");
-        assert(server != null);
+        this.application = (IOTApplicationInterface)config.getServletContext().getAttribute("application");
     }
 
-    public HTTPServerConnector() {}
+    public HTTPServerConnector() {
+        SubscriberList subscribers = new SubscriberList();
+        IOTClient client = new IOTClient(subscribers,application.getServiceDescription());
+        this.server = new IOTServer(subscribers, client, application);
+    }
 
     /**
      * This method handles all the POST-requests sent to the server.

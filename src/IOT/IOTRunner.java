@@ -7,6 +7,7 @@ import IOT.IOTApplication.coffeemachine.CoffeeMachineService;
 import IOT.IOTClient.IOTClient;
 import IOT.IOTClient.UDPBroadcastService.UDPBroadcastService;
 import IOT.IOTServer.IOTServer;
+import IOT.IOTServer.IOTServerInterface;
 import IOT.IOTServer.UDPListener.UDPListener;
 import IOT.IOTServer.UDPListener.UDPListenerInterface;
 
@@ -29,18 +30,12 @@ import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 @WebListener
 public class IOTRunner implements ServletContextListener {
 
-	/**
-	 * A reference to the local instance of client.
-	 */
-	private IOTClient client = null;
+
 	/**
 	 * A reference to the local instance of the specific application.
 	 */
 	private IOTApplicationInterface application = null;
-	/**
-	 * A reference to the local instance of server.
-	 */
-	private IOTServer server = null;
+
 	/**
 	 * A reference to the local instance of UDPListener.
 	 */
@@ -52,11 +47,6 @@ public class IOTRunner implements ServletContextListener {
 
 	private Thread listenerThread = null;
 	private Thread broadcasterThread = null;
-
-	/**
-	 * A reference to all subscribers interested in the services of this node.
-	 */
-	private SubscriberList subscriberList = null;
 
     /**
      * A reference to the SOAP service interface implementation.
@@ -76,7 +66,6 @@ public class IOTRunner implements ServletContextListener {
 	 */
 	public IOTRunner() {
 		System.out.println("IOTRunner: constructor");
-		subscriberList = new SubscriberList();
     }
 
 	/**
@@ -89,7 +78,8 @@ public class IOTRunner implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		System.out.println("IOTRunner: context initialized");
 
-		client = new IOTClient(subscriberList, null);
+		SubscriberList subscriberList = new SubscriberList();
+		IOTClient client = new IOTClient(subscriberList, null);
 
 		// what application are we running? only tomcat can tell...
 		switch (servletContextEvent.getServletContext().getInitParameter("application").toLowerCase()) {
@@ -99,7 +89,7 @@ public class IOTRunner implements ServletContextListener {
 		}
 
 		client.setServiceDescription(application.getServiceDescription());
-		server = new IOTServer(subscriberList,client,application);
+		IOTServerInterface server = new IOTServer(subscriberList,client,application);
 
 		try {
 			// start udp listener
@@ -133,8 +123,6 @@ public class IOTRunner implements ServletContextListener {
 			svrFactory.create();
 		}
 
-		servletContextEvent.getServletContext().setAttribute("client", client);
-		servletContextEvent.getServletContext().setAttribute("server", server);
 		servletContextEvent.getServletContext().setAttribute("application", application);
 	}
 

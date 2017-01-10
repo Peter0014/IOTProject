@@ -63,8 +63,6 @@ public class IOTServer implements IOTServerInterface {
         // create and store a new subscriber
         Subscriber newSubscriber = new Subscriber(destinationIP, destinationPort);
         subscribers.addSubscriber(newSubscriber);
-        System.out.println("My subscribers: " + subscribers.getSubscribers().size());
-        System.out.println(subscribers.getSubscribers().get(0).getIpAddress() + " at port " + subscribers.getSubscribers().get(0).getPort());
     }
 
     /**

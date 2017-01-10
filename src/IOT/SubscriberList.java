@@ -1,8 +1,9 @@
 package IOT;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
+import IOT.IOTApplication.IOTFilePersistenceManager;
+import IOT.IOTApplication.IOTPersistenceManager;
+
 import java.util.List;
 
 /**
@@ -12,31 +13,22 @@ import java.util.List;
  */
 public class SubscriberList {
 
-    /**
-     * A list of all subscriber-objects interested in the service this node offers.
-     */
-    private List<Subscriber> list = Collections.synchronizedList(new ArrayList<Subscriber>());
+    private IOTPersistenceManager<Subscriber> persistenceManager = null;
 
+    public SubscriberList() {
+        this.persistenceManager = new IOTFilePersistenceManager<>("subscribers");
+    }
 
     /**
      * Adds a new subscriber to the stored list of subscribers and checks for duplicates, which are overwritten in case the port number changed.
      * @param newSubscriber A subscriber object representing a node interested in the local service.
      */
     public void addSubscriber(Subscriber newSubscriber){
-
-        //Check if this Subscriber is already in the storage, if yes, delete the original entry
-        for (Subscriber subscriber : list){
-            if (subscriber.getIpAddress().equals(newSubscriber.getIpAddress())){
-                list.remove(subscriber);
-            }
-        }
-
-        //Add the new subscriber to the list
-        list.add(newSubscriber);
+        this.persistenceManager.add(newSubscriber);
     }
 
-    public ArrayList<Subscriber> getSubscribers(){
-        return new ArrayList<Subscriber>(list);
+    public List<Subscriber> getSubscribers(){
+        return this.persistenceManager.findAll();
     }
 
 }
