@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -25,11 +26,11 @@ import com.google.appengine.repackaged.com.google.io.protocol.proto.RPC_ServiceD
 public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterface<T> {
 
 	private String filename;
-	private ArrayList<T> data;		
+	private List<T> data;		
 	
 	public IOTFilePersistenceManager(String filename) {
 		this.filename = filename;
-		this.data = new ArrayList<T>();
+		this.data = Collections.synchronizedList(new ArrayList<T>());
 		try {
 			open();
 		} catch (ClassNotFoundException e) {
