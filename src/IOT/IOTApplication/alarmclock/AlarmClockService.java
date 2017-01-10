@@ -78,8 +78,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 		fileManager = new IOTFilePersistenceManager<Alarm>(persFileName);
 		try {
 			fileManager.open();
-		} catch (FileNotFoundException e) {
-			fileManager.createNewDatastore();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +108,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 		Alarm alarm = new Alarm(msDate, null);
 		alarms.add(alarm);
-		fileManager.flush();
 		return 0;
 	}
 
@@ -202,7 +199,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 				/* Remove Task from alarms */
 				int alarmIndex = containsKey(msDate);
 				alarms.remove(alarmIndex);
-				fileManager.flush();
 			}
 		};
 
@@ -210,7 +206,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 		alarms.remove(alarmIndex);
 		Alarm alarm = new Alarm(date.getTimeInMillis(), alarmTask);
 		alarms.add(alarm);
-		fileManager.flush();
 
 		/* Start task after 'ms' millis */
 		timer.schedule(alarmTask, ms);
@@ -240,7 +235,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 			} else {
 				/* Remove entry from alarms */
 				alarms.remove(alarmIndex);
-				fileManager.flush();
 			}
 		}
 
@@ -270,7 +264,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 		if (cancelled || alarms.get(alarmIndex).getTask() == null) {
 			/* Remove entry from alarms */
 			alarms.remove(alarmIndex);
-			fileManager.flush();
 		} else {
 			return EC_ALARM_NOT_CANCELLED;
 		}
