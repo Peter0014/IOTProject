@@ -37,7 +37,7 @@
     <!-- the default application to launch for this device. override via $CATALINA_BASE/conf/context.xml -->
     <context-param>
         <param-name>application</param-name>
-        <param-value>coffeeMachine</param-value>
+        <param-value>alarmClock</param-value>
     </context-param>
 	
 	<servlet>

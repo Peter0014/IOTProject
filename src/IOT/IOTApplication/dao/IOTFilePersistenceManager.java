@@ -139,8 +139,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 	/**
 	 * use flush() to write data store to its file location
 	 */
-	private
-	void flush() {
+	private synchronized void flush() {
 		File f = new File(filename);
 		try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(f))) {
 			for (T element : data)
