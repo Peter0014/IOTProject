@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import IOT.IOTApplication.IOTFilePersistenceManager;
-import IOT.IOTApplication.IOTPersistenceManager;
+import IOT.IOTApplication.dao.IOTFilePersistenceManager;
+import IOT.IOTApplication.dao.IOTPersistenceManagerInterface;
 
 public class IOTFilePersistenceTest {
 
@@ -29,7 +29,7 @@ public class IOTFilePersistenceTest {
 			pm.open();
 			
 			
-			List<String> res = pm.find(new IOTPersistenceManager.Predicate<String>() {
+			List<String> res = pm.find(new IOTPersistenceManagerInterface.Predicate<String>() {
 				@Override
 				public boolean where(String element) {
 					return element.equals("hi");

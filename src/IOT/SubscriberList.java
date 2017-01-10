@@ -1,8 +1,8 @@
 package IOT;
 
 
-import IOT.IOTApplication.IOTFilePersistenceManager;
-import IOT.IOTApplication.IOTPersistenceManager;
+import IOT.IOTApplication.dao.IOTFilePersistenceManager;
+import IOT.IOTApplication.dao.IOTPersistenceManagerInterface;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class SubscriberList {
 
-    private IOTPersistenceManager<Subscriber> persistenceManager = null;
+    private IOTPersistenceManagerInterface<Subscriber> persistenceManager = null;
 
     public SubscriberList() {
         this.persistenceManager = new IOTFilePersistenceManager<>("subscribers");

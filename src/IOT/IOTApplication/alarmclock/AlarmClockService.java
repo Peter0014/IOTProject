@@ -14,8 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
-import IOT.IOTApplication.IOTFilePersistenceManager;
 import IOT.IOTApplication.IOTMessage;
+import IOT.IOTApplication.dao.IOTFilePersistenceManager;
 import IOT.IOTClient.IOTClientInterface;
 
 /**

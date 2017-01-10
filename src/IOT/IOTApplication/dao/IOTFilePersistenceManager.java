@@ -1,4 +1,4 @@
-package IOT.IOTApplication;
+package IOT.IOTApplication.dao;
 
 import java.io.EOFException;
 import java.io.File;
@@ -11,6 +11,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import IOT.IOTApplication.dao.IOTPersistenceManagerInterface.Predicate;
+
 import com.google.appengine.repackaged.com.google.io.protocol.proto.RPC_ServiceDescriptor.Stream;
 /**
  * The IOTFilePersistenceManager is responsible for creation of datastore,
@@ -19,7 +21,7 @@ import com.google.appengine.repackaged.com.google.io.protocol.proto.RPC_ServiceD
  *
  * @param <T>
  */
-public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
+public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterface<T> {
 
 	private String filename;
 	private ArrayList<T> data;		
@@ -62,7 +64,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 
 	@Override
 	public List<T> find(
-			IOT.IOTApplication.IOTPersistenceManager.Predicate<T> predicate) {
+			IOT.IOTApplication.dao.IOTPersistenceManagerInterface.Predicate<T> predicate) {
 		ArrayList<T> result = new ArrayList<>();
 		for (T element : data)
 			if (predicate.where(element))
@@ -82,7 +84,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 
 	@Override
 	public T findFirst(
-			IOT.IOTApplication.IOTPersistenceManager.Predicate<T> predicate) {
+			IOT.IOTApplication.dao.IOTPersistenceManagerInterface.Predicate<T> predicate) {
 		for (T element : data)
 			if (predicate.where(element)) {
 				return element;
@@ -114,7 +116,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 	
 	@Override
 	public void delete(
-			IOT.IOTApplication.IOTPersistenceManager.Predicate<T> predicate) {
+			IOT.IOTApplication.dao.IOTPersistenceManagerInterface.Predicate<T> predicate) {
 		for (T cursor : data)
 			if (predicate.where(cursor))
 				data.remove(cursor);

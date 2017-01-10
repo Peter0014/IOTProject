@@ -2,8 +2,8 @@ package IOT.IOTApplication.coffeemachine;
 
 import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
-import IOT.IOTApplication.IOTFilePersistenceManager;
 import IOT.IOTApplication.IOTMessage;
+import IOT.IOTApplication.dao.IOTFilePersistenceManager;
 import IOT.IOTClient.IOTClientInterface;
 
 import java.util.ArrayList;

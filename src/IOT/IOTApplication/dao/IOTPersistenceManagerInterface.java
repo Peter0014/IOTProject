@@ -1,4 +1,4 @@
-package IOT.IOTApplication;
+package IOT.IOTApplication.dao;
 
 import java.util.List;	
 /**
@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface IOTPersistenceManager<T extends Object> {
+public interface IOTPersistenceManagerInterface<T extends Object> {
 	
 	/** returns true if element is to be selected from datastore
 	 *
