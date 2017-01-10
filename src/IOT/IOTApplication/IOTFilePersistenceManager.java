@@ -11,6 +11,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.repackaged.com.google.io.protocol.proto.RPC_ServiceDescriptor.Stream;
+/**
+ * The IOTFilePersistenceManager is responsible for creation of datastore,
+ * handles adding, finding and deleting and finally persistence of data (flush)
+ * @author René Eichinger
+ *
+ * @param <T>
+ */
 public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 
 	private String filename;
@@ -22,17 +30,19 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void open() throws ClassNotFoundException, FileNotFoundException, IOException {
-		File f = new File(filename);
-		try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(f))) {
+	public void open() throws ClassNotFoundException, IOException {
+		ObjectInputStream stream;
 			try {
+				File f = new File(filename);
+				stream = new ObjectInputStream(new FileInputStream(f));
 				while(true) {
 					data.add((T)stream.readObject());
 				}
 			} catch(EOFException e) {
-				// EOF
+				
+			} catch (FileNotFoundException e) {
+				createNewDatastore();
 			}
-		}		
 	}
 	
 	public void createNewDatastore(String filename) {
@@ -93,11 +103,13 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 	@Override
 	public void add(T element) {
 		data.add(element);
+		flush();
 	}
 
 	@Override
 	public void delete(T element) {
-		data.remove(element);		
+		data.remove(element);
+		flush();
 	}
 	
 	@Override
@@ -106,9 +118,14 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManager<T> {
 		for (T cursor : data)
 			if (predicate.where(cursor))
 				data.remove(cursor);
+		flush();
 	}
-	
-	public void flush() {
+
+	/**
+	 * use flush() to write data store to its file location
+	 */
+	private
+	void flush() {
 		File f = new File(filename);
 		try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(f))) {
 			for (T element : data)
