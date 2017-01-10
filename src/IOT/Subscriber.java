@@ -1,11 +1,13 @@
 package IOT;
 
+import java.io.Serializable;
+
 /**
  * A generic class mainly serving as container for subscriber-information.
  * @author Melanie
  * @version Milestone1
  */
-public class Subscriber {
+public class Subscriber implements Serializable {
 
     /**
      * The IP-Address of the node the interested application lies at.
