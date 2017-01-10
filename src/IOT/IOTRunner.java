@@ -22,7 +22,7 @@ import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 
 /**
  * This class serves as dependency manager. It instantiates all local instances
- * of client, server, application and UDP listener/broadcaster.
+ * of application and UDP listener/broadcaster.
  * 
  * @author Mai
  * @version Milestone2

@@ -38,12 +38,13 @@ public class HTTPServerConnector extends HttpServlet {
         super.init(config);
         System.out.println("Initializing IoT adapter... ");
         this.application = (IOTApplicationInterface)config.getServletContext().getAttribute("application");
-    }
 
-    public HTTPServerConnector() {
         SubscriberList subscribers = new SubscriberList();
         IOTClient client = new IOTClient(subscribers,application.getServiceDescription());
         this.server = new IOTServer(subscribers, client, application);
+    }
+
+    public HTTPServerConnector() {
     }
 
     /**
