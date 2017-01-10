@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import IOT.IOTApplication.dao.IOTPersistenceManagerInterface.Predicate;
 
@@ -36,6 +37,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 		ObjectInputStream stream;
 			try {
 				File f = new File(filename);
+				System.out.println(f.getAbsolutePath());
 				stream = new ObjectInputStream(new FileInputStream(f));
 				while(true) {
 					data.add((T)stream.readObject());
@@ -55,6 +57,8 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 	
 	public void createNewDatastore() {
 		createNewDatastore(filename);
+		File f = new File(filename);
+		System.out.println(f.getAbsolutePath());
 	}
 	
 	@Override
