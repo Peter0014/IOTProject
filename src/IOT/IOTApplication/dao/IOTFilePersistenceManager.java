@@ -8,14 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
-
-import IOT.IOTApplication.dao.IOTPersistenceManagerInterface.Predicate;
-
-import com.google.appengine.repackaged.com.google.io.protocol.proto.RPC_ServiceDescriptor.Stream;
 /**
  * The IOTFilePersistenceManager is responsible for creation of datastore,
  * handles adding, finding and deleting and finally persistence of data (flush)
@@ -29,7 +26,9 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 	private List<T> data;		
 	
 	public IOTFilePersistenceManager(String filename) {
-		this.filename = filename;
+		
+		Path currentRelativePath = Paths.get("");
+		this.filename = currentRelativePath.toAbsolutePath().toString() + filename;
 		this.data = Collections.synchronizedList(new ArrayList<T>());
 		try {
 			open();
