@@ -1,7 +1,5 @@
 package IOT.IOTApplication.alarmclock;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,6 +14,7 @@ import IOT.DeviceDetection;
 import IOT.IOTApplication.IOTApplicationInterface;
 import IOT.IOTApplication.IOTMessage;
 import IOT.IOTApplication.dao.IOTFilePersistenceManager;
+import IOT.IOTApplication.dao.IOTPersistenceManagerInterface;
 import IOT.IOTClient.IOTClientInterface;
 
 /**
@@ -47,7 +46,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 	/** Filename for persistent file storage */
 	final private String persFileName = servDesc;
 	/** Persistence File Manager to save Alarms */
-	private IOTFilePersistenceManager<Alarm> fileManager;
+	private IOTPersistenceManagerInterface<Alarm> fileManager;
 
 	/**
 	 * Devices that are able to subscribe to this service, ACS stands for
@@ -76,11 +75,6 @@ public class AlarmClockService implements IOTApplicationInterface {
 	public AlarmClockService(IOTClientInterface newClient) {
 		client = newClient;
 		fileManager = new IOTFilePersistenceManager<Alarm>(persFileName);
-		try {
-			fileManager.open();
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
 		/* Synchronized because it can be changed by different Threads. */
 		alarms = Collections.synchronizedList(fileManager.findAll());
 	}
