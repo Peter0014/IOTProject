@@ -102,6 +102,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 		Alarm alarm = new Alarm(msDate, null);
 		alarms.add(alarm);
+		fileManager.add(alarm);
 		return 0;
 	}
 
@@ -192,14 +193,17 @@ public class AlarmClockService implements IOTApplicationInterface {
 
 				/* Remove Task from alarms */
 				int alarmIndex = containsKey(msDate);
+				fileManager.delete(alarms.get(alarmIndex));
 				alarms.remove(alarmIndex);
 			}
 		};
 
 		/* Remove old Alarm and add new one with Task */
+		fileManager.delete(alarms.get(alarmIndex));
 		alarms.remove(alarmIndex);
 		Alarm alarm = new Alarm(date.getTimeInMillis(), alarmTask);
 		alarms.add(alarm);
+		fileManager.add(alarm);
 
 		/* Start task after 'ms' millis */
 		timer.schedule(alarmTask, ms);
@@ -228,6 +232,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 				return EC_ALARM_NOT_CANCELLED;
 			} else {
 				/* Remove entry from alarms */
+				fileManager.delete(alarms.get(alarmIndex));
 				alarms.remove(alarmIndex);
 			}
 		}
@@ -257,6 +262,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 		}
 		if (cancelled || alarms.get(alarmIndex).getTask() == null) {
 			/* Remove entry from alarms */
+			fileManager.delete(alarms.get(alarmIndex));
 			alarms.remove(alarmIndex);
 		} else {
 			return EC_ALARM_NOT_CANCELLED;
