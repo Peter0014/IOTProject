@@ -25,10 +25,13 @@ public class CoffeeMaker {
 	/** 15 minutes in miliseconds */
 	private final long FIFTEEN_MIN_MS = 900000;
 	
+	
 	/** Setup the wiring just on the first run to allow writing to pins. */
+	/*
 	static {
 		com.pi4j.wiringpi.Gpio.wiringPiSetup();
 	}
+	*/
 	
 	public void turnOn() {
 		// create gpio controller instance

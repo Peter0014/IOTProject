@@ -87,6 +87,8 @@ public class IOTRunner implements ServletContextListener {
 			case "coffeemachine": application = new CoffeeMachineService(client); break;
 			default: throw new IllegalStateException("UNKNOWN APPLICATION");
 		}
+		/* Setup the wiring just on the first run to allow writing to pins. */
+		com.pi4j.wiringpi.Gpio.wiringPiSetup();
 
 		client.setServiceDescription(application.getServiceDescription());
 		IOTServerInterface server = new IOTServer(subscriberList,client,application);
