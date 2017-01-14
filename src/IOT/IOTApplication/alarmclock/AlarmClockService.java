@@ -53,7 +53,7 @@ public class AlarmClockService implements IOTApplicationInterface {
 	 * AlarmClockService, CM for CoffeeMakerService, LBCS for
 	 * LightBulbControlService
 	 */
-	private final String[] compatDevice = { "ACS", "CMS", "LBCS" };
+	private final String[] compatDevice = { "CMS", "LBCS" };
 
 	/** Alarm was already created, i. e. if you want to add the same date. */
 	public static final int EC_ALARM_ALREADY_EXISTS = -1;

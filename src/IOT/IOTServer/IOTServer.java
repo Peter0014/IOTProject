@@ -49,7 +49,7 @@ public class IOTServer implements IOTServerInterface {
      * @param data The data contained within the service offering.
      */
     public void receiveServiceOffering(InetAddress sourceAddress, String data) {
-        // System.out.println("Received data from " + sourceAddress);
+        //System.out.println("Received data from " + sourceAddress);
         // check if application is interested
         if (application.isInterested(data)) client.createSubscriptionRequest(sourceAddress.getHostAddress().toString(),8080);
     }
