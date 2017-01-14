@@ -157,4 +157,13 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 		
 	}
 
+	@Override
+	public boolean exists(T element) {
+		for (T cursor : data)
+			if (element.equals(cursor)) {
+				return true;
+			}
+		return false;
+	}
+
 }

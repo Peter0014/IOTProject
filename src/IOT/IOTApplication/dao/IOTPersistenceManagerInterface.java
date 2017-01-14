@@ -22,6 +22,7 @@ public interface IOTPersistenceManagerInterface<T extends Object> {
 	List<T> find(T element);
 	T findFirst(Predicate<T> predicate);
 	T findFirst(T element);
+	boolean exists(T element);
 	void add(T element);
 	void delete(T element);
 	void delete(Predicate<T> predicate);
