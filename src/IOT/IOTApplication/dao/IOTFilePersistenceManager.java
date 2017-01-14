@@ -30,7 +30,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 		Path currentRelativePath = Paths.get("");
 		//this.filename = currentRelativePath.toAbsolutePath().toString() + '/' + filename;
 		
-		this.filename = "/var/lib/IOT/" + filename;
+		this.filename = "/Users/Penderiko/" + filename;
 				
 		this.data = Collections.synchronizedList(new ArrayList<T>());
 		try {
@@ -46,19 +46,10 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 	
 	@SuppressWarnings("unchecked")
 	private void open() throws ClassNotFoundException, IOException {
-		ObjectInputStream stream;
-			try {
-				File f = new File(filename);
+		
+			File f = new File(filename);
+			try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(f))) {
 				
-				if (!f.exists()) {
-					try {
-						f.createNewFile();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				System.out.println(f.getAbsolutePath());
-				stream = new ObjectInputStream(new FileInputStream(f));
 				while(true) {
 					data.add((T)stream.readObject());
 				}
