@@ -5,6 +5,7 @@ import IOT.IOTServer.IOTServerInterface;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.*;
+import java.util.Enumeration;
 
 /**
  * The UDP Listener is responsible for receiving service offerings which are regularly sent out by the
@@ -69,8 +70,7 @@ public class UDPListener implements UDPListenerInterface {
                 String data = new String(datagram.getData());
                 //System.out.println("Received offering from " + datagram.getAddress());
                 //System.out.println(data);
-
-                if (datagram.getAddress().equals(InetAddress.getLocalHost())) continue;
+                if (datagram.getAddress().equals(InetAddress.getLocalHost().getHostAddress())) continue;
 
                 receiverServer.receiveServiceOffering(datagram.getAddress(), data);
             }

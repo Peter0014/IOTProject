@@ -39,7 +39,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
     /**
      * A list of service descriptions the coffee machine is interested in.
      */
-    private final String[] compatDevice = {"ACS", "CMS"};
+    private final String[] compatDevice = {"ACS"};
 
     /**
      * In case the coffee machine is not available.
@@ -93,6 +93,7 @@ public class CoffeeMachineService implements IOTApplicationInterface {
      */
     public synchronized int makeCoffee() {
         // if client exists, send notification to subscribers
+    	System.out.println("Making a Coffee now!");
         if (client != null) {
             client.notifySubscribers(
                     new IOTMessage(servDesc, "MakingCoffee", servDesc + " - Started making coffee."));
