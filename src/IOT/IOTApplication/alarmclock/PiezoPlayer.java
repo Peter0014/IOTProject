@@ -19,9 +19,11 @@ public class PiezoPlayer {
 	private final int PIEZO_PIN = 0;
 
 	/** Setup the wiring just on the first run to allow writing to pins. */
+	/*
 	static {
 		com.pi4j.wiringpi.Gpio.wiringPiSetup();
 	}
+	*/
 
 	/** Frequences[0][x] that are written onto the Piezo and duration[1][x]. */
 	private final int[][] MARIO_THEME = { { 2637, 2637, 0, 2637, 0, 2093, 2637, 0, 3136, 0, 0, 0, 1568, 0, 0, 0,
