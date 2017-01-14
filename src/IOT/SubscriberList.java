@@ -24,6 +24,9 @@ public class SubscriberList {
      * @param newSubscriber A subscriber object representing a node interested in the local service.
      */
     public void addSubscriber(Subscriber newSubscriber){
+        if (this.persistenceManager.exists(newSubscriber)){
+            return;
+        }
         this.persistenceManager.add(newSubscriber);
     }
 
