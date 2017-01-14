@@ -19,12 +19,12 @@ public class IOTFilePersistenceTest {
 			Path currentRelativePath = Paths.get("");
 			System.out.println(currentRelativePath.toAbsolutePath().toString()); 
 			
-			IOTFilePersistenceManager<String> pm = new IOTFilePersistenceManager<>("test69");
+			IOTFilePersistenceManager<String> pm = new IOTFilePersistenceManager<>("test70");
 			pm.add("hi");
 			pm.add("y'all");
 			
 			//pm.flush();
-			pm = new IOTFilePersistenceManager<>("test69");
+			pm = new IOTFilePersistenceManager<>("test70");
 			
 			
 			List<String> res = pm.find(new IOTPersistenceManagerInterface.Predicate<String>() {
