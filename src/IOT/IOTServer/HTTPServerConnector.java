@@ -90,7 +90,7 @@ public class HTTPServerConnector extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("HTTPServerConnector: new subscription request from " + request.getLocalAddr() + "!");
+        System.out.println("HTTPServerConnector: new subscription request from " + request.getLocalAddr() + ":" + request.getServerPort() + "!");
         server.subscribeRequestHandler(request.getLocalAddr(),request.getServerPort()); // send it via servlet /iot (8080 is tomcat port)
         response.setStatus(HttpServletResponse.SC_OK);
         // opt: redirect to landing
