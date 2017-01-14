@@ -24,9 +24,14 @@ public class SubscriberList {
      * @param newSubscriber A subscriber object representing a node interested in the local service.
      */
     public void addSubscriber(Subscriber newSubscriber){
-        if (this.persistenceManager.exists(newSubscriber)){
-            return;
+        List<Subscriber> allSubscribers = this.persistenceManager.findAll();
+
+        for (Subscriber sub : allSubscribers){
+            if (newSubscriber.getIpAddress().equals(sub.getIpAddress())){
+                return;
+            }
         }
+        
         this.persistenceManager.add(newSubscriber);
     }
 
