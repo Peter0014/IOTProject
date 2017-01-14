@@ -28,7 +28,7 @@ public class IOTFilePersistenceManager<T> implements IOTPersistenceManagerInterf
 	public IOTFilePersistenceManager(String filename) {
 		
 		Path currentRelativePath = Paths.get("");
-		this.filename = currentRelativePath.toAbsolutePath().toString() + filename;
+		this.filename = currentRelativePath.toAbsolutePath().toString() + '/' + filename;
 		this.data = Collections.synchronizedList(new ArrayList<T>());
 		try {
 			open();

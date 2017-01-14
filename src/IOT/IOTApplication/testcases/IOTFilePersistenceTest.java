@@ -2,7 +2,8 @@ package IOT.IOTApplication.testcases;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,12 +16,15 @@ public class IOTFilePersistenceTest {
 	@Test
 	public void test() throws Exception {
 		
-			IOTFilePersistenceManager<String> pm = new IOTFilePersistenceManager<>("test");
+			Path currentRelativePath = Paths.get("");
+			System.out.println(currentRelativePath.toAbsolutePath().toString()); 
+			
+			IOTFilePersistenceManager<String> pm = new IOTFilePersistenceManager<>("test69");
 			pm.add("hi");
 			pm.add("y'all");
 			
 			//pm.flush();
-			pm = new IOTFilePersistenceManager<>("test");
+			pm = new IOTFilePersistenceManager<>("test69");
 			
 			
 			List<String> res = pm.find(new IOTPersistenceManagerInterface.Predicate<String>() {
