@@ -4,9 +4,11 @@
 Source: http://blog.beautheme.com/top-10-internet-of-things-iot-programming-languages/ on the 30.10.2016
 
 ###### Important Files and Resources 
-- [DSE_0401_M3_doc.pdf][Documentation] - extra documentation for our software for MS3
+- [DSE_0401_M1_doc.pdf][DocumentationM1] - extra documentation for our software for MS1
 - [IoT M1 ClassDiagram.svg][ClassDiagramSVGM1] | [IoT M1 ClassDiagram.png][ClassDiagramPNGM1] - UML class diagram from MS1
+- [DSE_0401_M2_doc.pdf][DocumentationM2] - extra documentation for our software for MS2
 - [IoT M2 ClassDiagram.svg][ClassDiagramSVGM2] | [IoT M2 ClassDiagram.png][ClassDiagramPNGM2] - UML class diagram from MS2
+- [DSE_0401_M3_doc.pdf][DocumentationM3] - extra documentation for our software for MS3
 - [IoT M3 ClassDiagram.png][ClassDiagramPNGM3] - UML class diagram from MS3
 - [DSE_deploy_M1.png][DeploymentDiag] - our deployment diagram from MS1
 
@@ -33,11 +35,13 @@ Our software was tested and runs on this hardware:
 
 Install the dependencies and start the server.
 
-[ClassDiagramSVGM1]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/IoT%20M1%20ClassDiagram.svg
-[ClassDiagramPNGM1]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/ad17e12e50d1023ff6f086c4af3a56b28cb28665/IoT%20M1%20ClassDiagram.png
-[ClassDiagramSVGM2]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/fd27d0a74fa5273a00ac989e601add62a3794f89/IoT%20M2%20ClassDiagram.svg
-[ClassDiagramPNGM2]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/fd27d0a74fa5273a00ac989e601add62a3794f89/IoT%20M2%20ClassDiagram.png
-[ClassDiagramPNGM3]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/259044212bafe45d2d1ec3e38e0736d81206e305/IoT%20M3%20ClassDiagram.png
-[Documentation]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/56e7b726bf953f3e723e8c48bbacc46896ce61b2/DSE_0401_M3_doc.pdf
-[DeploymentDiag]: https://gitlab.swa.univie.ac.at/submission/g2016w_dse_0401/blob/29d94fd1060094ffa9f1eded24ad6c0466863b1d/DSE_deploy_M1.png
+[ClassDiagramSVGM1]: https://github.com/Peter0014/IOTProject/blob/developer/IoT%20M1%20ClassDiagram.svg
+[ClassDiagramPNGM1]: https://github.com/Peter0014/IOTProject/blob/developer/IoT%20M1%20ClassDiagram.png
+[ClassDiagramSVGM2]: https://github.com/Peter0014/IOTProject/blob/developer/IoT%20M2%20ClassDiagram.svg
+[ClassDiagramPNGM2]: https://github.com/Peter0014/IOTProject/blob/developer/IoT%20M2%20ClassDiagram.png
+[ClassDiagramPNGM3]: https://github.com/Peter0014/IOTProject/blob/developer/IoT%20M3%20ClassDiagram.png
+[DocumentationM1]: https://github.com/Peter0014/IOTProject/blob/developer/DSE_0401_M1_doc.pdf
+[DocumentationM2]: https://github.com/Peter0014/IOTProject/blob/developer/DSE_0401_M2_doc.pdf
+[DocumentationM3]: https://github.com/Peter0014/IOTProject/blob/developer/DSE_0401_M3_doc.pdf
+[DeploymentDiag]: https://github.com/Peter0014/IOTProject/blob/developer/DSE_deploy_M1.png
 [IOTPic]: http://blog.beautheme.com/wp-content/uploads/2015/12/IoT-Graphic.png
